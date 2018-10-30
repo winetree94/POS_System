@@ -109,3 +109,5 @@ target/
 # Intellij
 .idea/
 /goorm.manifest
+
+desktop.ini
