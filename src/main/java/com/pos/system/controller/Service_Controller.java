@@ -4,9 +4,9 @@ import com.pos.system.dao.Service_Account_DAO;
 import com.pos.system.dto.Service_Account_DTO;
 import com.pos.system.mapper.Service_Account_Mapper;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.servlet.ModelAndView;
 
 import java.util.List;
 
@@ -22,17 +22,19 @@ public class Service_Controller {
 	}
 
 	@RequestMapping(value = "/", method = {RequestMethod.POST, RequestMethod.GET})
-	public String home(Model model) {
+	public ModelAndView home() {
 		System.out.println("Controller");
+		
+		ModelAndView mav = new ModelAndView("index");
 
 		List<Service_Account_DTO> lists;
 		lists = service_Account_Dao.selectAll();
 		lists = mapper.selectAll();
 		System.out.println(lists);
 
-		model.addAttribute("lists", lists);
+		mav.addObject("lists", lists);
 
-		return "index";
+		return mav;
 	}
 
 }

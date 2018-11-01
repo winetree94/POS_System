@@ -12,4 +12,6 @@ public interface Service_Account_Mapper {
 	@Select(" SELECT SERVICE_ID FROM SERVICE_ACCOUNT ")
 	List<Service_Account_DTO> selectAll();
 
+	
+	
 }

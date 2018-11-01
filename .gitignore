@@ -105,6 +105,8 @@ target/
 .classpath
 .project
 .settings/
+classes/
+bin/
 
 # Intellij
 .idea/
