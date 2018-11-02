@@ -1,0 +1,107 @@
+CREATE TABLE `SERVICE_STORE` (
+	`STORE_SEQ`	INTEGER AUTO_INCREMENT PRIMARY KEY NOT NULL,
+	`SERVICE_ID` VARCHAR(20) NOT NULL,
+	`STORE_NAME` VARCHAR(50) NOT NULL,
+	`STORE_DETAIL` VARCHAR(4000) NOT NULL,
+	`STORE_TYPE`	VARCHAR(30)	NOT NULL,
+	`STORE_ADDRESS`	VARCHAR(200) NOT NULL,
+	`STORE_TEL`	VARCHAR(20)	NOT NULL,
+	`STORE_HOUR` VARCHAR(50) NOT NULL,
+	`DELFLAG`	CHAR(2) NOT NULL DEFAULT 'N',
+	CONSTRAINT SERVICE_STORE_FK FOREIGN KEY (SERVICE_ID) REFERENCES  SERVICE_ACCOUNT (SERVICE_ID) ON DELETE RESTRICT
+);
+
+--- 전체 매장 목록 조회 기능
+
+SELECT STORE_SEQ, SERVICE_ID, STORE_NAME, STORE_DETAIL, STORE_TYPE, STORE_ADDRESS, STORE_TEL, STORE_HOUR, DELFLAG FROM SERVICE_STORE;
+
+-- 특정 세부 매장 조회 기능
+
+SELECT STORE_SEQ, SERVICE_ID, STORE_NAME, STORE_DETAIL, STORE_TYPE, STORE_ADDRESS, STORE_TEL, STORE_HOUR, DELFLAG FROM SERVICE_STORE WHERE STORE_SEQ = #{store_seq};
+
+-- 신규 매장 추가 기능
+
+INSERT INTO SERVICE_STORE(SERVICE_ID, STORE_NAME, STORE_DETAIL, STORE_TYPE, STORE_ADDRESS, STORE_TEL, STORE_HOUR) VALUES (
+  #{service_id}, #{store_name}, #{store_detail}, {store_type}, #{store_address}, #{store_tel}, #{store_hour});
+
+-- 매장 수정 기능
+
+UPDATE SERVICE_STORE SET STORE_NAME = #{store_name}, STORE_DETAIL = #{store_detail}, STORE_TYPE = #{store_type}, STORE_ADDRESS = #{store_address}, STORE_TEL = #{store_tel}, STORE_HOUR = #{store_hour} WHERE STORE_SEQ = #{store_seq};
+
+
+-- 매장 삭제 기능
+
+UPDATE SERVICE_STORE SET DELFLAG = 'Y' WHERE STORE_SEQ = #{store_seq};
+
+-- 매장 전체 삭제 기능
+
+UPDATE SERVICE_STORE SET DELFLAG = 'Y';
+
+
+--
+
+--- 게시물 작성 쿼리
+INSERT INTO SERVICE_BOARD(SERVICE_ID, TITLE, CONTENT, READCOUNT, REGDATE, REF, STEP, DEPTH, TYPE, DELFLAG)
+VALUES ('winetree', '제목', '내용', 0, NOW(), (SELECT IFNULL(MAX(REF), 0) + 1 FROM SERVICE_BOARD b), 0, 0, 'U', 'N');
+
+INSERT INTO STORE_TABLE(STORE
+_SEQ, TABLE_NAME, RESERVATION, MIN_PEOPLE, MAX_PEOPLE, DELFLAG) VALUES
+(1, '1번 테이블', 'Y', 2, 8, 'N');
+
+---------------------------------------테이블관리
+
+-- 테이블의 목록을 조회하는 기능
+
+SELECT TABLE_SEQ, STORE_SEQ, TABLE_NAME, RESERVATION, MIN_PEOPLE, MAX_PEOPLE, DELFLAG FROM STORE_TABLE WHERE STORE_SEQ = 1;
+
+-- 테이블을 생성하는 기능
+INSERT INTO STORE_TABLE(STORE_SEQ, TABLE_NAME, RESERVATION, MIN_PEOPLE, MAX_PEOPLE, DELFLAG) VALUES
+(1, '3번', 'Y', 2, 8, 'N');
+
+-- 테이블을 삭제하는 기능
+UPDATE STORE_TABLE SET DELFLAG = 'Y' WHERE STORE_SEQ = 1 AND TABLE_SEQ = 2;
+
+-- 테이블을 수정하는 기능
+UPDATE STORE_TABLE SET TABLE_NAME = '바꿈', RESERVATION = 'N', MIN_PEOPLE = 4, MAX_PEOPLE = 8 WHERE STORE_SEQ = 1 AND TABLE_SEQ = 2;
+
+--------------------------------------카테고리
+
+-- 메뉴 목록을 조회하는 기능
+SELECT MENU_SEQ ,STORE_SEQ, MENU_NAME, CATEG_NAME, MENU_INFO, ORIGIN_FNAME, STORED_FNAME, MENU_PRICE, DELFLAG FROM STORE_CATEGORY WHERE STORE_SEQ = 1 ORDER BY CATEG_NAME DESC;
+
+-- 메뉴를 추가하는 기능
+INSERT INTO STORE_CATEGORY(STORE_SEQ, MENU_NAME, CATEG_NAME, MENU_INFO, ORIGIN_FNAME, STORED_FNAME, MENU_PRICE, DELFLAG) VALUES
+(1, '아이스 아메리카노', '커피', '아라비카산 원두 사용', '경로', '경로', 8000, 'N');
+
+-- 메뉴를 수정하는 기능
+UPDATE STORE_CATEGORY SET MENU_NAME = '아이스 커피', CATEG_NAME = '오늘의 커피', MENU_INFO = '오늘의 추천 커피 입니다.', ORIGIN_FNAME = 'PATH', STORED_FNAME = 'PATH' WHERE STORE_SEQ = 1 AND MENU_SEQ = 1;
+
+-- 메뉴를 삭제하는 기능
+UPDATE STORE_CATEGORY SET DELFLAG = 'Y' WHERE STORE_SEQ = 1 AND MENU_SEQ = 1;
+
+----------------------------------------주문 내역
+
+-- 테이블의 주문내역을 조회하는 기능
+SELECT STORE_SEQ, TABLE_SEQ, MENU_SEQ, MAKE, ORDER_DATE, MENU_PRICE, DELFLAG FROM STORE_ORDER WHERE STORE_SEQ = 1 AND TABLE_SEQ = 1;
+
+-- 테이블의 주문내역을 추가하는 기능, 시간 기록 -- 테이블의 최초 주문 시간이 기록되는 기능
+INSERT INTO STORE_ORDER(STORE_SEQ, TABLE_SEQ, MENU_SEQ, MAKE, ORDER_DATE, MENU_PRICE, DELFLAG) VALUES
+(1, 1, 1, 'N', NULL, (SELECT MENU_PRICE FROM STORE_CATEGORY C WHERE C.MENU_SEQ = 1),'N');
+
+
+테이블의 주문내역의 항목을 선택하여 수정하는 기능
+테이블의 주문내역에 메뉴를 추가하는 기능
+테이블의 특정 주문내역을 삭제하는 기능
+테이블의 전체 주문내역을 삭제하는 기능
+테이블의 주문내역 합계금액을 할인하는 기능
+테이블의 주문내역을 모바일 결제하는 기능
+테이블의 주문내역을 카드 결제하는 기능
+테이블의 주문내역을 현금 결제하는 기능
+현금결제된 금액이 현금출납부에 반영되는 기능
+결제한 정보를 서버에 전송하는 기능
+결제된 주문내역을 삭제하는 기능
+테이블의 예약 설정 기능
+일자별로 매출내역을 전체 조회하는 기능
+특정 매출을 상세조회하는 기능
+특정 매출을 삭제하는 기능 (환불)
+삭제한 매출이 현금일 경우 현금출납부에 반영되는 기능

@@ -1,14 +1,42 @@
 package com.pos.system.dto;
 
-import org.apache.ibatis.type.Alias;
-
 public class Service_Account_DTO {
 	
 	private String service_id;
 	private String service_email;
 	private String service_pw;
 	private String service_type;
-	private String service_delflag;
+	private String regdate;
+	private String delflag;
+	
+	public Service_Account_DTO(String service_id, String service_email, String service_pw, String service_type, String regdate, String delflag) {
+		this.service_id = service_id;
+		this.service_email = service_email;
+		this.service_pw = service_pw;
+		this.service_type = service_type;
+		this.regdate = regdate;
+		this.delflag = delflag;
+	}
+	
+	@Override
+	public String toString() {
+		return "Service_Account_DTO{" +
+			"service_id='" + service_id + '\'' +
+			", service_email='" + service_email + '\'' +
+			", service_pw='" + service_pw + '\'' +
+			", service_type='" + service_type + '\'' +
+			", regdate='" + regdate + '\'' +
+			", delflag='" + delflag + '\'' +
+			'}';
+	}
+	
+	public String getRegdate() {
+		return regdate;
+	}
+	
+	public void setRegdate(String regdate) {
+		this.regdate = regdate;
+	}
 	
 	public String getService_id() {
 		return service_id;
@@ -42,33 +70,15 @@ public class Service_Account_DTO {
 		this.service_type = service_type;
 	}
 	
-	public String getService_delflag() {
-		return service_delflag;
+	public String getDelflag() {
+		return delflag;
 	}
 	
-	public void setService_delflag(String service_delflag) {
-		this.service_delflag = service_delflag;
+	public void setDelflag(String delflag) {
+		this.delflag = delflag;
 	}
 	
 	public Service_Account_DTO() {
 	}
 	
-	public Service_Account_DTO(String service_id, String service_email, String service_pw, String service_type, String service_delflag) {
-		this.service_id = service_id;
-		this.service_email = service_email;
-		this.service_pw = service_pw;
-		this.service_type = service_type;
-		this.service_delflag = service_delflag;
-	}
-	
-	@Override
-	public String toString() {
-		return "Service_Account_DTO{" +
-			"service_id='" + service_id + '\'' +
-			", service_email='" + service_email + '\'' +
-			", service_pw='" + service_pw + '\'' +
-			", service_type='" + service_type + '\'' +
-			", service_delflag='" + service_delflag + '\'' +
-			'}';
-	}
 }

@@ -1,3 +1,5 @@
+<%@ page import="com.pos.system.dto.Service_Board_DTO" %>
+<%@ page import="java.util.List" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <!doctype html>
 <html lang="en">
