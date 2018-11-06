@@ -14,9 +14,9 @@ public class Service_Account_DAO {
 	public Service_Account_DAO(SqlSession sqlSession) {
 		this.sqlSession = sqlSession;
 	}
-	
+
 	public List<Service_Account_DTO> selectAll() {
 		return this.sqlSession.selectList("selectAllAccount");
 	}
-	
+
 }
