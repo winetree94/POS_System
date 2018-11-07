@@ -16,8 +16,8 @@ public interface Service_Account_Login_Mapper {
 	@Select(" SELECT * FROM SERVICE_ACCOUNT ")
 	List<Service_Account_DTO> selectAll();
 
-	// ghldnjs 상세정보
-	@Select(" SELECT * FROM SERVICE_ACCOUNT WHERE ID = #{service_id} ")
+	// 회원 상세정보
+	@Select(" SELECT * FROM SERVICE_ACCOUNT WHERE SERVICE_ID = #{service_id} ")
 	Service_Account_DTO selectOne(Service_Account_DTO dto);
 
 	//회원가입
@@ -29,11 +29,11 @@ public interface Service_Account_Login_Mapper {
 	int modify(Service_Account_DTO dto);
 
 	//로그인
-	@Select("SELECT SERVICE_ID,SERVICE_PW FROM SERVICE_ACCOUN WHERE SERVICE_ID=#{service_id} AND SERVICE_PW=#{service_pw}")
+	@Select("SELECT SERVICE_ID,SERVICE_PW FROM SERVICE_ACCOUNT WHERE SERVICE_ID=#{service_id} AND SERVICE_PW=#{service_pw}")
 	Service_Account_DTO login(Service_Account_DTO dto);
 
 	//회원탈퇴
-	@Update("UPDATE SERVICE_ACCOUNT SET DELFLAG='Y' WHERE SERVICE_ID=#{service+id} AND SERVICE_PW={service_pw}")
+	@Update("UPDATE SERVICE_ACCOUNT SET DELFLAG='Y' WHERE SERVICE_ID=#{service_id} AND SERVICE_PW=#{service_pw}")
 	int signOut(Service_Account_DTO dto);
 
 }

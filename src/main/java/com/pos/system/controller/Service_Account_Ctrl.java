@@ -27,9 +27,24 @@ public class Service_Account_Ctrl {
 		dto.setService_email("1234@naver.com");
 		dto.setService_pw("1234");
 
-		
+		//전체 조회
 		System.out.println(service_Account_Dao.selectAll());
-		System.out.println(mapper.signUp(dto));
+		System.out.println(mapper.selectAll());
+		//회원가입
+		//System.out.println(mapper.signUp(dto));
+		//중복 조회
+		System.out.println(mapper.idDuplicate("alan"));
+		//회원 수정
+		dto.setService_email("321@naver.com");
+		dto.setService_pw("123");
+		System.out.println(mapper.modify(dto));
+		//로그인
+		System.out.println(mapper.login(dto));
+		//상세 조회
+		System.out.println(mapper.selectOne(dto));
+		//회원탈퇴
+		System.out.println(mapper.signOut(dto));
+
 
 		return "index";
 	}
