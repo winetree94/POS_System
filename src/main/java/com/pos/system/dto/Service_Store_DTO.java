@@ -11,11 +11,12 @@ public class Service_Store_DTO {
 	private String store_tel;
 	private String store_hour;
 	private String delflag;
+	private String regdate;
 	
 	public Service_Store_DTO() {
 	}
 	
-	public Service_Store_DTO(int store_seq, String service_id, String store_name, String store_detail, String store_type, String store_address, String store_tel, String store_hour, String delflag) {
+	public Service_Store_DTO(int store_seq, String service_id, String store_name, String store_detail, String store_type, String store_address, String store_tel, String store_hour, String delflag, String regdate) {
 		this.store_seq = store_seq;
 		this.service_id = service_id;
 		this.store_name = store_name;
@@ -25,6 +26,7 @@ public class Service_Store_DTO {
 		this.store_tel = store_tel;
 		this.store_hour = store_hour;
 		this.delflag = delflag;
+		this.regdate = regdate;
 	}
 	
 	@Override
@@ -39,6 +41,7 @@ public class Service_Store_DTO {
 			", store_tel='" + store_tel + '\'' +
 			", store_hour='" + store_hour + '\'' +
 			", delflag='" + delflag + '\'' +
+			", regdate='" + regdate + '\'' +
 			'}';
 	}
 	
@@ -112,5 +115,13 @@ public class Service_Store_DTO {
 	
 	public void setDelflag(String delflag) {
 		this.delflag = delflag;
+	}
+	
+	public String getRegdate() {
+		return regdate;
+	}
+	
+	public void setRegdate(String regdate) {
+		this.regdate = regdate;
 	}
 }

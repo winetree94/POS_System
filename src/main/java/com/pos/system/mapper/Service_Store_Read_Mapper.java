@@ -17,7 +17,7 @@ public interface Service_Store_Read_Mapper {
 	 * 모든 계정의 매장 정보가 전부 조회됩니다.
 	 * @return List&lt;Service_Store_DTO&gt;
 	 */
-	@Select(" SELECT STORE_SEQ, SERVICE_ID, STORE_NAME, STORE_DETAIL, STORE_TYPE, STORE_ADDRESS, STORE_TEL, STORE_HOUR, DELFLAG FROM SERVICE_STORE ")
+	@Select(" SELECT STORE_SEQ, SERVICE_ID, STORE_NAME, STORE_DETAIL, STORE_TYPE, STORE_ADDRESS, STORE_TEL, STORE_HOUR, DELFLAG, REGDATE FROM SERVICE_STORE ")
 	List<Service_Store_DTO> selectAllStoreAdmin();
 	
 	/**
@@ -26,7 +26,7 @@ public interface Service_Store_Read_Mapper {
 	 * @Param String ID 회원의 아이디
 	 * @return List&lt;Service_Store_DTO&gt;
 	 */
-	@Select(" SELECT STORE_SEQ, SERVICE_ID, STORE_NAME, STORE_DETAIL, STORE_TYPE, STORE_ADDRESS, STORE_TEL, STORE_HOUR, DELFLAG FROM SERVICE_STORE WHERE DELFLAG = 'N' AND SERVICE_ID = #{service_id} ")
+	@Select(" SELECT STORE_SEQ, SERVICE_ID, STORE_NAME, STORE_DETAIL, STORE_TYPE, STORE_ADDRESS, STORE_TEL, STORE_HOUR, DELFLAG, REGDATE FROM SERVICE_STORE WHERE DELFLAG = 'N' AND SERVICE_ID = #{service_id} ")
 	List<Service_Store_DTO> selectAllStore(@Param("service_id") String id);
 	
 	/**
@@ -34,7 +34,7 @@ public interface Service_Store_Read_Mapper {
 	 * @Param int 매장의 고유 번호
 	 * @return Service_Store_DTO
 	 */
-	@Select(" SELECT STORE_SEQ, SERVICE_ID, STORE_NAME, STORE_DETAIL, STORE_TYPE, STORE_ADDRESS, STORE_TEL, STORE_HOUR, DELFLAG FROM SERVICE_STORE WHERE DELFLAG = 'N' AND STORE_SEQ = #{store_seq} ")
+	@Select(" SELECT STORE_SEQ, SERVICE_ID, STORE_NAME, STORE_DETAIL, STORE_TYPE, STORE_ADDRESS, STORE_TEL, STORE_HOUR, DELFLAG, REGDATE FROM SERVICE_STORE WHERE DELFLAG = 'N' AND STORE_SEQ = #{store_seq} ")
 	Service_Store_DTO selectOneStore(@Param("store_seq") int store_seq);
 
 }
