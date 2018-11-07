@@ -6,7 +6,7 @@ import org.apache.ibatis.annotations.*;
 import java.util.List;
 
 @Mapper
-public interface Service_Account_Mapper {
+public interface Service_Account_Login_Mapper {
 
 	// 아이디 중복검사
 	@Select(" SELECT COUNT(*) FROM SERVICE_ACCOUNT WHERE SERVICE_ID = #{id} ")
@@ -35,10 +35,5 @@ public interface Service_Account_Mapper {
 	//회원탈퇴
 	@Update("UPDATE SERVICE_ACCOUNT SET DELFLAG='Y' WHERE SERVICE_ID=#{service+id} AND SERVICE_PW={service_pw}")
 	int signOut(Service_Account_DTO dto);
-
-
-
-
-
 
 }
