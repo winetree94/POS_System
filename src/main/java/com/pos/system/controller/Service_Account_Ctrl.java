@@ -22,16 +22,16 @@ public class Service_Account_Ctrl {
 
 	@RequestMapping(value = "/", method = {RequestMethod.POST, RequestMethod.GET})
 	public String home() {
-		Service_Account_DTO dto2 = new Service_Account_DTO();
-		dto2.setService_id("3321123");
-		dto2.setService_email("2j2@naver.com");
-		dto2.setService_pw("4321");
-		System.out.println(service_Account_Service.signUp(dto2));
-		System.out.println(service_Account_Service.idDuplicate("Alan"));
-		System.out.println(service_Account_Service.login(dto2));
-		System.out.println(service_Account_Service.selectAll());
-		System.out.println(service_Account_Service.modify(dto2));
-		System.out.println(service_Account_Service.resign(dto2));
+		Service_Account_DTO dto = new Service_Account_DTO();
+		dto.setService_id("hansolLove2J2");
+		dto.setService_email("2j2@naver.com");
+		dto.setService_pw("4321");
+		System.out.println("-----회원가입 리턴값 : " + service_Account_Service.signUp(dto));
+		System.out.println("-----아이디 중복 검사 리턴값 : " + service_Account_Service.idDuplicate("Alan"));
+		System.out.println("-----로그인 리턴값 : " + service_Account_Service.login(dto));
+		System.out.println("-----모든 회원 정보 검색 리턴값 : " +service_Account_Service.selectAll());
+		System.out.println("-----회원정보 수정 리턴값 : " +service_Account_Service.modify(dto));
+		System.out.println("-----회원탈퇴 리턴값 : " +service_Account_Service.resign(dto));
 		
 		return "index";
 	}

@@ -44,8 +44,10 @@ public class IService_Account_Service_Impl implements IService_Account_Service {
 
 	public Service_Account_DTO signUp(Service_Account_DTO dto){
 		int n  = mapper_Create.signUp(dto);
-		dto = mapper_Read.selectOne(dto);
-		return dto;
+		if(n>0) {
+			return mapper_Read.selectOne(dto);
+		}
+		return null;
 	}
 
 	public int resign(Service_Account_DTO dto){
