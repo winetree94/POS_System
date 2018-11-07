@@ -27,7 +27,7 @@ public interface Service_Store_Read_Mapper {
 	 * @return List&lt;Service_Store_DTO&gt;
 	 */
 	@Select(" SELECT STORE_SEQ, SERVICE_ID, STORE_NAME, STORE_DETAIL, STORE_TYPE, STORE_ADDRESS, STORE_TEL, STORE_HOUR, DELFLAG, REGDATE FROM SERVICE_STORE WHERE DELFLAG = 'N' AND SERVICE_ID = #{service_id} ")
-	List<Service_Store_DTO> selectAllStore(@Param("service_id") String id);
+	List<Service_Store_DTO> selectAllStore(@Param("service_id") String service_id);
 	
 	/**
 	 * 매장 상세보기
