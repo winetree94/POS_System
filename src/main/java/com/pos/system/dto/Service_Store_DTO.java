@@ -2,6 +2,7 @@ package com.pos.system.dto;
 
 public class Service_Store_DTO {
 	
+	private int store_seq;
 	private String service_id;
 	private String store_name;
 	private String store_detail;
@@ -11,10 +12,26 @@ public class Service_Store_DTO {
 	private String store_hour;
 	private String delflag;
 	
+	public Service_Store_DTO() {
+	}
+	
+	public Service_Store_DTO(int store_seq, String service_id, String store_name, String store_detail, String store_type, String store_address, String store_tel, String store_hour, String delflag) {
+		this.store_seq = store_seq;
+		this.service_id = service_id;
+		this.store_name = store_name;
+		this.store_detail = store_detail;
+		this.store_type = store_type;
+		this.store_address = store_address;
+		this.store_tel = store_tel;
+		this.store_hour = store_hour;
+		this.delflag = delflag;
+	}
+	
 	@Override
 	public String toString() {
 		return "Service_Store_DTO{" +
-			"service_id='" + service_id + '\'' +
+			"store_seq=" + store_seq +
+			", service_id='" + service_id + '\'' +
 			", store_name='" + store_name + '\'' +
 			", store_detail='" + store_detail + '\'' +
 			", store_type='" + store_type + '\'' +
@@ -23,6 +40,14 @@ public class Service_Store_DTO {
 			", store_hour='" + store_hour + '\'' +
 			", delflag='" + delflag + '\'' +
 			'}';
+	}
+	
+	public int getStore_seq() {
+		return store_seq;
+	}
+	
+	public void setStore_seq(int store_seq) {
+		this.store_seq = store_seq;
 	}
 	
 	public String getService_id() {
@@ -86,20 +111,6 @@ public class Service_Store_DTO {
 	}
 	
 	public void setDelflag(String delflag) {
-		this.delflag = delflag;
-	}
-	
-	public Service_Store_DTO() {
-	}
-	
-	public Service_Store_DTO(String service_id, String store_name, String store_detail, String store_type, String store_address, String store_tel, String store_hour, String delflag) {
-		this.service_id = service_id;
-		this.store_name = store_name;
-		this.store_detail = store_detail;
-		this.store_type = store_type;
-		this.store_address = store_address;
-		this.store_tel = store_tel;
-		this.store_hour = store_hour;
 		this.delflag = delflag;
 	}
 }
