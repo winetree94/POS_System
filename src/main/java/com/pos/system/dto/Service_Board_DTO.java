@@ -1,6 +1,5 @@
 package com.pos.system.dto;
 
-import java.sql.Timestamp;
 import java.util.Date;
 
 public class Service_Board_DTO {
@@ -8,7 +7,7 @@ public class Service_Board_DTO {
 	private int board_seq;
 	private String service_id;
 	private int readcount;
-	private Timestamp regdate;
+	private Date regdate;
 	private String title;
 	private String content;
 	private int ref;
@@ -58,11 +57,11 @@ public class Service_Board_DTO {
 		this.readcount = readcount;
 	}
 	
-	public Timestamp getRegdate() {
+	public Date getRegdate() {
 		return regdate;
 	}
 	
-	public void setRegdate(Timestamp regdate) {
+	public void setRegdate(Date regdate) {
 		this.regdate = regdate;
 	}
 	
@@ -125,7 +124,7 @@ public class Service_Board_DTO {
 	public Service_Board_DTO() {
 	}
 	
-	public Service_Board_DTO(int board_seq, String service_id, int readcount, Timestamp regdate, String title, String content, int ref, int step, int depth, String type, String delflag) {
+	public Service_Board_DTO(int board_seq, String service_id, int readcount, Date regdate, String title, String content, int ref, int step, int depth, String type, String delflag) {
 		this.board_seq = board_seq;
 		this.service_id = service_id;
 		this.readcount = readcount;
