@@ -19,7 +19,7 @@ public interface Service_Store_Delete_Mapper {
 	 * @return int
 	 */
 	@Update(" UPDATE SERVICE_STORE SET DELFLAG = 'Y' WHERE STORE_SEQ = #{store_seq} ")
-	int deleteStore(@Param("store_seq") String store_seq);
+	int deleteStore(@Param("store_seq") int store_seq);
 	
 	/**
 	 * 관리자의 매장 삭제 기능입니다.
@@ -29,7 +29,7 @@ public interface Service_Store_Delete_Mapper {
 	 * @return int
 	 */
 	@Delete(" DELETE FROM SERVICE_STORE WHERE STORE_SEQ = #{store_seq} ")
-	int wipeStore(@Param("store_seq") String store_seq);
+	int wipeStore(@Param("store_seq") int store_seq);
 	
 	/**
 	 * 관리자의 모든 매장의 삭제 기능입니다.
