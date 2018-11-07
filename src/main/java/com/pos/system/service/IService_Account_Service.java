@@ -11,6 +11,6 @@ public interface IService_Account_Service {
 	public int idDuplicate(String id);
 	public Service_Account_DTO login(Service_Account_DTO dto);
 	public int modify(Service_Account_DTO dto);
-	public int signUp(Service_Account_DTO dto);
+	public Service_Account_DTO signUp(Service_Account_DTO dto);
 	public int resign(Service_Account_DTO dto);
 }
