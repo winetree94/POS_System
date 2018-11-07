@@ -16,12 +16,12 @@ public interface Service_Account_Login_Mapper {
 	@Select(" SELECT * FROM SERVICE_ACCOUNT ")
 	List<Service_Account_DTO> selectAll();
 
-	// 가입 상세정보
+	// ghldnjs 상세정보
 	@Select(" SELECT * FROM SERVICE_ACCOUNT WHERE ID = #{service_id} ")
 	Service_Account_DTO selectOne(Service_Account_DTO dto);
 
 	//회원가입
-	@Insert("INSERT SERVICE_ACCOUNT VALUES(#{service_id},#{service_email},#{service_pw},'U',NOW(),'N'")
+	@Insert("INSERT SERVICE_ACCOUNT VALUES(#{service_id},#{service_email},#{service_pw},'U',NOW(),'N') ")
 	int signUp(Service_Account_DTO dto);
 
 	//회원수정
