@@ -22,15 +22,17 @@ public interface Service_Board_Check_Mapper {
 	 * @param type
 	 * @return List<Service_Board_DTO>
 	 */
-	@Select(" SELECT BOARD_SEQ, SERVICE_ID ,READCOUNT, 'REGDATE', TITLE, CONTENT, 'REF', STEP, 'DEPTH', 'TYPE', 'DELFLAG' FROM SERVICE_BOARD WHERE TYPE = #{type} ")
+	@Select(" SELECT BOARD_SEQ, SERVICE_ID ,READCOUNT, REGDATE, TITLE, CONTENT, REF, STEP, DEPTH, TYPE, DELFLAG FROM SERVICE_BOARD WHERE TYPE = #{type} ")
 	List<Service_Board_DTO> selectNotice(String type);
-	
+	  
 	/**
 	 * 특정 게시글 상세조회
 	 * @param seq
 	 * @return Service_Board_DTO
 	 */
-	@Select(" SELECT BOARD_SEQ, SERVICE_ID ,READCOUNT,REGDATE, TITLE, CONTENT, 'REF', STEP, 'DEPTH', 'TYPE', DELFLAG FROM SERVICE_BOARD WHERE BOARD_SEQ = #{SEQ} ")
+	@Select(" SELECT BOARD_SEQ, SERVICE_ID ,READCOUNT,REGDATE, TITLE, CONTENT, REF, STEP, DEPTH, TYPE, DELFLAG FROM SERVICE_BOARD WHERE BOARD_SEQ = #{SEQ} ")
 	Service_Board_DTO selectOneBoard(int seq);
+	
+	
 	
 }
