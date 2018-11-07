@@ -20,11 +20,12 @@ public class Service_Account_Ctrl {
 		this.service_Account_Service = service_Account_Service;
 	}
 
-	@RequestMapping(value = "/", method = {RequestMethod.POST, RequestMethod.GET})
+	@RequestMapping(value = "/account", method = {RequestMethod.POST, RequestMethod.GET})
 	public String home() {
+		System.out.println("-----------------------------성현이 테스트-----------------------------");
 		Service_Account_DTO dto = new Service_Account_DTO();
-		dto.setService_id("hansolLove2J2");
-		dto.setService_email("2j2@naver.com");
+		dto.setService_id("SungLoveDeadpool2");
+		dto.setService_email("Deadpool@naver.com");
 		dto.setService_pw("4321");
 		System.out.println("-----회원가입 리턴값 : " + service_Account_Service.signUp(dto));
 		System.out.println("-----아이디 중복 검사 리턴값 : " + service_Account_Service.idDuplicate("Alan"));
@@ -32,7 +33,7 @@ public class Service_Account_Ctrl {
 		System.out.println("-----모든 회원 정보 검색 리턴값 : " +service_Account_Service.selectAll());
 		System.out.println("-----회원정보 수정 리턴값 : " +service_Account_Service.modify(dto));
 		System.out.println("-----회원탈퇴 리턴값 : " +service_Account_Service.resign(dto));
-		
+		System.out.println("-----------------------------성현이 테스트-----------------------------");
 		return "index";
 	}
 

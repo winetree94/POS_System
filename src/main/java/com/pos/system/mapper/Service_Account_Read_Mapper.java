@@ -27,7 +27,7 @@ public interface Service_Account_Read_Mapper {
      * @Param Service_Account_DTO
      * @return Service_Account_DTO
      */
-    @Select(" SELECT * FROM SERVICE_ACCOUNT WHERE SERVICE_ID = #{service_id} ")
+    @Select(" SELECT SERVICE_ID,SERVICE_EMAIL,SERVICE_TYPE,REGDATE, DELFLAG FROM SERVICE_ACCOUNT WHERE SERVICE_ID = #{service_id} ")
     Service_Account_DTO selectOne(Service_Account_DTO dto);
 
 
