@@ -10,14 +10,14 @@ import java.util.List;
 
 @Mapper
 @Repository
-public interface Service_Store_Check_Mapper {
+public interface Service_Store_Read_Mapper {
 	
 	/**
 	 * 관리자 권한의 모든 매장 조회 기능입니다.
 	 * 모든 계정의 매장 정보가 전부 조회됩니다.
 	 * @return List&lt;Service_Store_DTO&gt;
 	 */
-	@Select(" SELECT SERVICE_ID, STORE_NAME, STORE_DETAIL, STORE_TYPE, STORE_ADDRESS, STORE_TEL, STORE_HOUR, DELFLAG FROM SERVICE_STORE ")
+	@Select(" SELECT STORE_SEQ, SERVICE_ID, STORE_NAME, STORE_DETAIL, STORE_TYPE, STORE_ADDRESS, STORE_TEL, STORE_HOUR, DELFLAG, REGDATE FROM SERVICE_STORE ")
 	List<Service_Store_DTO> selectAllStoreAdmin();
 	
 	/**
@@ -26,13 +26,15 @@ public interface Service_Store_Check_Mapper {
 	 * @Param String ID 회원의 아이디
 	 * @return List&lt;Service_Store_DTO&gt;
 	 */
-	@Select(" SELECT SERVICE_ID, STORE_NAME, STORE_DETAIL, STORE_TYPE, STORE_ADDRESS, STORE_TEL, STORE_HOUR, DELFLAG FROM SERVICE_STORE WHERE DELFLAG = 'N' AND SERVICE_ID = #{service_id} ")
+	@Select(" SELECT STORE_SEQ, SERVICE_ID, STORE_NAME, STORE_DETAIL, STORE_TYPE, STORE_ADDRESS, STORE_TEL, STORE_HOUR, DELFLAG, REGDATE FROM SERVICE_STORE WHERE DELFLAG = 'N' AND SERVICE_ID = #{service_id} ")
 	List<Service_Store_DTO> selectAllStore(@Param("service_id") String id);
 	
-	
-	
-	
-
-
+	/**
+	 * 매장 상세보기
+	 * @Param int 매장의 고유 번호
+	 * @return Service_Store_DTO
+	 */
+	@Select(" SELECT STORE_SEQ, SERVICE_ID, STORE_NAME, STORE_DETAIL, STORE_TYPE, STORE_ADDRESS, STORE_TEL, STORE_HOUR, DELFLAG, REGDATE FROM SERVICE_STORE WHERE DELFLAG = 'N' AND STORE_SEQ = #{store_seq} ")
+	Service_Store_DTO selectOneStore(@Param("store_seq") int store_seq);
 
 }
