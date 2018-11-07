@@ -1,5 +1,6 @@
-package com.pos.system.dao;
+package com.pos.system.dao.impl;
 
+import com.pos.system.dao.IService_Account_DAO;
 import com.pos.system.dto.Service_Account_DTO;
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
