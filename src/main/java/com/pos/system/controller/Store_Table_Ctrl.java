@@ -2,11 +2,7 @@ package com.pos.system.controller;
 
 
 import com.pos.system.dto.Store_Table_DTO;
-import com.pos.system.mapper.Store_Table_Create_Mapper;
-import com.pos.system.mapper.Store_Table_Delete_Mapper;
-import com.pos.system.mapper.Store_Table_Read_Mapper;
-import com.pos.system.mapper.Store_Table_Update_Mapper;
-
+import com.pos.system.service.IStore_Table_Service;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -15,46 +11,39 @@ import org.springframework.web.bind.annotation.RequestMethod;
 @Controller
 public class Store_Table_Ctrl {
 
-
-
-    private final Store_Table_Create_Mapper mapper_Create;
-    private final Store_Table_Read_Mapper mapper_Read;
-    private final Store_Table_Update_Mapper mapper_Update;
-    private final Store_Table_Delete_Mapper mapper_Delete;
+    private final IStore_Table_Service service;
 
     @Autowired
-    public Store_Table_Ctrl(Store_Table_Create_Mapper mapper_Create, Store_Table_Read_Mapper mapper_Read, Store_Table_Update_Mapper mapper_Update, Store_Table_Delete_Mapper mapper_Delete) {
-        this.mapper_Create = mapper_Create;
-        this.mapper_Read = mapper_Read;
-        this.mapper_Update = mapper_Update;
-        this.mapper_Delete = mapper_Delete;
+    public Store_Table_Ctrl(IStore_Table_Service service) {
+        this.service = service;
     }
+
+
 
 
 
     @RequestMapping(value = "/table", method = {RequestMethod.GET,RequestMethod.POST})
     public String home(){
+    System.out.println(" 전체조회 리턴값 :  " + service.selectAll(1));
+    System.out.println(" 세부사항 조회 리턴값 :  " + service.selectOne(1));
+        Store_Table_DTO dto = new Store_Table_DTO();
+        dto.setTable_name("1번");
+        dto.setMax_people(5);
+        dto.setMin_people(2);
+        dto.setReservation("N");
+        dto.setStore_seq(1);
+    System.out.println(" 테이블 생성 리턴값 :  " + service.createTable(dto));
 
-        System.out.println("-----------------------------성현이 테스트-----------------------------");
-            System.out.println("모든 테이블 조회 리턴값 : "+ mapper_Read.selectAll(1));
-            System.out.println("모든 테이블 조회 리턴값 : "+ mapper_Read.selectOne(1));
-            System.out.println("테이블 삭제 리턴값: "+ mapper_Delete.deleteTable(1) );
+        dto.setTable_name("바뀐것");
+        dto.setReservation("Y");
+        dto.setMax_people(2000);
+        dto.setMin_people(1000);
 
-            Store_Table_DTO dto = new Store_Table_DTO();
-            dto.setStore_seq(3);
-            dto.setTable_name("4번");
-            dto.setReservation("N");
-            dto.setMax_people(70);
-            dto.setMin_people(20);
+    System.out.println(" 테이블 수정 리턴값 :  " + service.modifyTable(dto));
 
-            System.out.println("테이블 생성 리턴값: "+ mapper_Create.createTable(dto) );
+    System.out.println(" 테이블 삭제 리턴값 :  " + service.deleteTable(1));
 
-            dto.setMax_people(10);
-            dto.setMin_people(5);
-            dto.setTable_name("5번테이블로");
-            dto.setReservation("Y");
-            dto.setTable_seq(4);
-            System.out.println("테이블 수정 리턴값: "+ mapper_Update.modifyTable(dto));
+
 
 
 

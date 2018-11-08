@@ -19,4 +19,6 @@ public interface Store_Table_Read_Mapper {
     //테이블 세부 조회
     @Select(" SELECT TABLE_SEQ, STORE_SEQ, TABLE_NAME, RESERVATION, MIN_PEOPLE, MAX_PEOPLE, DELFLAG FROM STORE_TABLE WHERE TABLE_SEQ=#{table_seq} ")
     public Store_Table_DTO selectOne(int table_seq);
+
+
 }

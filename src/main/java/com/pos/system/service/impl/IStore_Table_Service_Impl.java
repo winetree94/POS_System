@@ -36,15 +36,25 @@ public class IStore_Table_Service_Impl {
         return mapper_Read.selectOne(table_seq) ;
     }
 
-    public Store_Table_DTO createTable(Store_Table_DTO dto){
-        int n = mapper_Create.createTable(dto);
-        if (n>0){
-            return mapper_Read.selectOne(dto.getTable_seq());
-        }
+    //테이블 생성
+    public int createTable(Store_Table_DTO dto){
 
-        return null;
+        return mapper_Create.createTable(dto);
     }
 
+    //테이블 수정
+
+    public Store_Table_DTO modifyTable(Store_Table_DTO dto){
+        int n = mapper_Update.modifyTable(dto);
+        if(n>0){
+            return mapper_Read.selectOne(dto.getTable_seq());
+        }
+        return null;
+    }
+    // 테이블 삭제
+    public int deleteTable(int table_seq){
+        return mapper_Delete.deleteTable(table_seq);
+    }
 
 
 
