@@ -12,5 +12,18 @@
 
 <h1>store detail</h1>
 
+${stores_detail}
+
+
+<form action="./1" method="post">
+	<input type="text" name="store_name" value="">
+	<input type="text" name="store_detail" value="">
+	<input type="text" name="store_type" value="">
+	<input type="text" name="store_address" value="">
+	<input type="text" name="store_tel" value="">
+	<input type="text" name="store_hour" value="">
+	<input type="submit">
+</form>
+
 </body>
 </html>

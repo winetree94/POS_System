@@ -16,7 +16,7 @@ public interface Service_Store_Update_Mapper {
 	 * @param dto
 	 * @return int 0이면 실패를 의미, 1이면 성공
 	 */
-	@Update(" UPDATE SERVICE_STORE SET STORE_NAME = #{store_name}, STORE_DETAIL = #{store_detail}, STORE_TYPE = #{store_type}, STORE_ADDRESS = #{store_address}, STORE_TEL = #{store_tel}, STORE_HOUR = store_hour WHERE STORE_SEQ = #{store_seq} ")
+	@Update(" UPDATE SERVICE_STORE SET STORE_NAME = #{store_name}, STORE_DETAIL = #{store_detail}, STORE_TYPE = #{store_type}, STORE_ADDRESS = #{store_address}, STORE_TEL = #{store_tel}, STORE_HOUR = #{store_hour} WHERE STORE_SEQ = #{store_seq} ")
 	int updateStoreInfo(Service_Store_DTO dto);
 
 }

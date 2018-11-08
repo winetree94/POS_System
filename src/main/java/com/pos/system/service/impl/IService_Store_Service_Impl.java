@@ -30,12 +30,8 @@ public class IService_Store_Service_Impl implements IService_Store_Service {
 	}
 	
 	@Override
-	public Service_Store_DTO modifyStore(Service_Store_DTO dto) {
-		int n = mapper_Update.updateStoreInfo(dto);
-		if(n > 0) {
-			return mapper_Read.selectOneStore(dto.getStore_seq());
-		}
-		return null;
+	public int modifyStore(Service_Store_DTO dto) {
+		return mapper_Update.updateStoreInfo(dto);
 	}
 	
 	@Override
