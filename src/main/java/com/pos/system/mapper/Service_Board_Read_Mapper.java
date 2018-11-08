@@ -3,11 +3,13 @@ package com.pos.system.mapper;
 import java.util.List;
 
 import org.apache.ibatis.annotations.*;
+import org.springframework.stereotype.Repository;
 
 import com.pos.system.dto.Service_Board_DTO;
 
 @Mapper
-public interface Service_Board_Check_Mapper {
+@Repository
+public interface Service_Board_Read_Mapper {
 
 	
 	/**
@@ -31,7 +33,7 @@ public interface Service_Board_Check_Mapper {
 	 * @return Service_Board_DTO
 	 */
 	@Select(" SELECT BOARD_SEQ, SERVICE_ID ,READCOUNT,REGDATE, TITLE, CONTENT, REF, STEP, DEPTH, TYPE, DELFLAG FROM SERVICE_BOARD WHERE BOARD_SEQ = #{SEQ} ")
-	Service_Board_DTO selectOneBoard(int seq);
+	Service_Board_DTO selectOneBoard(int board_seq);
 	
 	
 	
