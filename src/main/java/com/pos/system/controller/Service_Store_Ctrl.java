@@ -1,46 +1,93 @@
 package com.pos.system.controller;
 
-import com.pos.system.dto.Service_Store_DTO;
-import com.pos.system.mapper.Service_Store_Read_Mapper;
-import com.pos.system.mapper.Service_Store_Create_Mapper;
-import com.pos.system.mapper.Service_Store_Update_Mapper;
 import com.pos.system.service.IService_Store_Service;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.*;
+import org.springframework.web.context.request.WebRequest;
 
-import java.util.List;
+import javax.servlet.http.HttpServletRequest;
 
+/**
+ * Service_Store Controller
+ * REST Design Pattern 적용
+ * @author windtree
+ */
 @Controller
 public class Service_Store_Ctrl {
 
 	IService_Store_Service service;
 	
-	@GetMapping("/store")
-	public String store_List(){
-		System.out.println("----------------------------------------한솔이테스트---------------------------------------------");
+	/**
+	 * 매장 목록 출력
+	 * @param req
+	 * @return
+	 */
+	@GetMapping("/stores")
+	public String store_List(HttpServletRequest req){
+		
+		
+		
+		return "./store/store-list-form";
+	}
+
+	
+	@GetMapping("/stores/new")
+	public String store_new_form(){
 		
 		
 		
 		
 		
 		
+		return "./store/new/new";
+	}
+	
+	@PostMapping("/stores")
+	public String store_new(WebRequest req){
 		
 		
 		
 		
 		
 		
+		return "redirect:/store";
+	}
+	
+	@GetMapping("/stores/{id}")
+	public String store_detail(@PathVariable("id") String id){
 		
 		
 		
 		
 		
+		return "";
+	}
+	
+	@GetMapping("/stores/{id}/edit")
+	public String store_edit(@PathVariable("id") String id){
 		
 		
 		
-		System.out.println("----------------------------------------한솔이테스트---------------------------------------------");
-		return "./store/store-list";
+		return "";
+	}
+	
+	@PutMapping("/stores/{id}")
+	public String store_edit_confirm(@PathVariable("id") String id) {
+		
+		
+		
+		
+		return "";
+	}
+	
+	
+	@DeleteMapping("/stores/{id}")
+	public String store_delete(@PathVariable("id") String id){
+		
+		
+		
+		
+		return "";
 	}
 	
 }
