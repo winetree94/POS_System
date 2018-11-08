@@ -11,15 +11,20 @@ import org.springframework.web.bind.annotation.RequestMethod;
 @Controller
 public class Service_Account_Ctrl {
 	
-	private final IService_Account_DAO service_Account_Dao;
+
 	private final IService_Account_Service service_Account_Service;
 
 	@Autowired
-	public Service_Account_Ctrl(IService_Account_DAO service_Account_Dao, IService_Account_Service service_Account_Service) {
-		this.service_Account_Dao = service_Account_Dao;
+	public Service_Account_Ctrl(IService_Account_Service service_Account_Service) {
+
 		this.service_Account_Service = service_Account_Service;
 	}
 
+
+
+
+
+	//테스트용
 	@RequestMapping(value = "/account", method = {RequestMethod.POST, RequestMethod.GET})
 	public String home() {
 		System.out.println("-----------------------------성현이 테스트-----------------------------");
