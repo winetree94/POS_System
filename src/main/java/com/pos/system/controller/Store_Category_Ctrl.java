@@ -23,8 +23,11 @@ public class Store_Category_Ctrl {
     public String home(){
         System.out.println("-----------------------------성현이 테스트-----------------------------");
 
-        System.out.println("모든 메뉴 조회 리턴값 : "+service.selectAll());
-        System.out.println("카테고리별 조회 리턴값 : "+service.categSelect("커피"));
+        System.out.println("모든 메뉴 조회 리턴값 : "+service.selectAll(1));
+        Store_Category_DTO dto = new Store_Category_DTO();
+        dto.setCateg_name("커피");
+        dto.setStore_seq(1);
+        System.out.println("카테고리별 조회 리턴값 : "+service.categSelect(dto));
 //        Store_Category_DTO dto = new Store_Category_DTO();
 //        dto.setStore_seq(6);
 //        dto.setCateg_name("쥬스");
@@ -35,7 +38,7 @@ public class Store_Category_Ctrl {
 //        dto.setStored_fname("12321jpg");
 //        System.out.println("메뉴 생성 리턴값 : "+service.createMenu(dto));
 
-        System.out.println("메뉴 상세정보보기 리턴값 : "+ service.selectOne("오륀지 쥬스"));
+        System.out.println("메뉴 상세정보보기 리턴값 : "+ service.selectOne(1));
 //        Store_Category_DTO dto = new Store_Category_DTO();
 //        dto.setMenu_seq(1);
 //        dto.setMenu_name("카푸치노");
