@@ -9,6 +9,6 @@ import org.springframework.stereotype.Repository;
 public interface Store_Category_Delete_Mapper {
 
     @Update(" UPDATE STORE_CATEGORY SET DELFLAG = 'Y' WHERE MENU_SEQ = #{menu_seq} ")
-    public int deleteMenu(Store_Category_DTO dto);
+    public int deleteMenu(int menu_seq);
 
 }

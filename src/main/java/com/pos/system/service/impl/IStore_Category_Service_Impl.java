@@ -27,13 +27,13 @@ public class IStore_Category_Service_Impl implements IStore_Category_Service {
     }
 
     //전체 메뉴를 조회하는 기능
-    public List<Store_Category_DTO> selectAll(){
-        return mapper_Read.selectAll();
+    public List<Store_Category_DTO> selectAll(int store_seq){
+        return mapper_Read.selectAll(store_seq);
     }
 
     //카테고리별 메뉴의 목록을 조회하는 기능
-    public List<Store_Category_DTO> categSelect(String categ_name){
-        return mapper_Read.categSelect(categ_name);
+    public List<Store_Category_DTO> categSelect(Store_Category_DTO dto){
+        return mapper_Read.categSelect(dto);
     }
 
 
@@ -43,8 +43,8 @@ public class IStore_Category_Service_Impl implements IStore_Category_Service {
     }
 
     //메뉴를 상세정보를 조회하는 기능
-    public Store_Category_DTO selectOne(String menu_name){
-        return mapper_Read.selectOne(menu_name);
+    public Store_Category_DTO selectOne(int menu_seq){
+        return mapper_Read.selectOne(menu_seq);
     }
 
     // 메뉴를 수정하는 기능
@@ -53,8 +53,8 @@ public class IStore_Category_Service_Impl implements IStore_Category_Service {
     }
 
     //메뉴 삭제 기능
-    public int deleteMenu(Store_Category_DTO dto){
-        return mapper_Delete.deleteMenu(dto);
+    public int deleteMenu(int menu_seq){
+        return mapper_Delete.deleteMenu(menu_seq);
     }
 
 
