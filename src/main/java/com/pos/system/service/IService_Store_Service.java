@@ -20,9 +20,9 @@ public interface IService_Store_Service {
 	 * 나머지 값으로 매장의 정보를 변경합니다.
 	 * 변경에 실패하면 null 을 반환합니다.
 	 * @param dto
-	 * @return dto
+	 * @return int
 	 */
-	Service_Store_DTO modifyStore(Service_Store_DTO dto);
+	int modifyStore(Service_Store_DTO dto);
 	
 	/**
 	 * 서비스 계정의 매장 목록을 반환하는 기능
