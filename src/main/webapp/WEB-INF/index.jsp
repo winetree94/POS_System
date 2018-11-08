@@ -28,7 +28,7 @@
 	var use_file = true; // 파일 업로드 기능 사용 여부
 </script>
 
-<jsp:include page="util/editor.jsp"/>
+<jsp:include page="view/util/editor.jsp"/>
 
 </body>
 </html>

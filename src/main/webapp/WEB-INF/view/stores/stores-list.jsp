@@ -1,3 +1,4 @@
+<%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <!doctype html>
 <html lang="en">
 <head>
@@ -8,6 +9,10 @@
 	<title>Document</title>
 </head>
 <body>
+
+<h1>store list</h1>
+
+${stores_list}
 
 </body>
 </html>
