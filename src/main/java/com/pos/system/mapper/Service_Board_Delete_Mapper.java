@@ -1,8 +1,10 @@
 package com.pos.system.mapper;
 
 import org.apache.ibatis.annotations.*;
+import org.springframework.stereotype.Repository;
 
 @Mapper
+@Repository
 public interface Service_Board_Delete_Mapper {
 
 	/**
@@ -11,7 +13,7 @@ public interface Service_Board_Delete_Mapper {
 	 * @return int
 	 */
 	@Update(" UPDATE SERVICE_BOARD SET DELFLAG = 'Y' WHERE BOARD_SEQ = #{seq} ")
-	int delteOneBoard(int seq);
+	int delteOneBoard(int board_seq);
 	
 	
 }
