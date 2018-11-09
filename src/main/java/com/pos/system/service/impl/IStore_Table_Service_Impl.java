@@ -5,13 +5,14 @@ import com.pos.system.mapper.Store_Table_Create_Mapper;
 import com.pos.system.mapper.Store_Table_Delete_Mapper;
 import com.pos.system.mapper.Store_Table_Read_Mapper;
 import com.pos.system.mapper.Store_Table_Update_Mapper;
+import com.pos.system.service.IStore_Table_Service;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 
 @Service
-public class IStore_Table_Service_Impl {
+public class IStore_Table_Service_Impl implements IStore_Table_Service {
 
     private Store_Table_Create_Mapper mapper_Create;
     private Store_Table_Read_Mapper mapper_Read;
