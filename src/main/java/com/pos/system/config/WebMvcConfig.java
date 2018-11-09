@@ -8,7 +8,7 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
 @Configuration
 public class WebMvcConfig implements WebMvcConfigurer {
-
+	
 	private final Service_Interceptor service_Interceptor;
 	
 	@Autowired
@@ -19,9 +19,7 @@ public class WebMvcConfig implements WebMvcConfigurer {
 	@Override
 	public void addInterceptors(InterceptorRegistry registry) {
 		registry.addInterceptor(service_Interceptor)
-			.addPathPatterns("/store")
-			.addPathPatterns("/*")
-			.addPathPatterns("/*");
+			.addPathPatterns("/stores");
 	}
 	
 }

@@ -2,24 +2,26 @@ package com.pos.system.controller;
 
 import com.pos.system.dto.Service_Store_DTO;
 import com.pos.system.service.IService_Store_Service;
+import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.context.request.WebRequest;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.util.List;
 
 /**
  * Service_Store Controller
  * REST Design Pattern 적용
- * @author windtree
+ * @author winetree
  */
 @RequestMapping("/stores")
 @Controller
 public class Service_Store_Ctrl {
+	
+	public static final Logger logger =
 
 	private final IService_Store_Service service;
 	
@@ -28,29 +30,28 @@ public class Service_Store_Ctrl {
 		this.service = service;
 	}
 	
-
-	
-	
 	/**
 	 * 매장 목록 출력
 	 * @param req
 	 * @return
 	 */
 	@GetMapping("")
-	public String store_List(WebRequest req, HttpSession session){
+	public String store_List(HttpServletRequest request, HttpServletResponse response, HttpSession session){
 		System.out.println("---------------------------store_list form------------------------------");
 		
-		// 실제로는 세션에서 아이디를 가져와서 처리함.
-		// String service_id = (String)session.getAttribute("id");
-		session.setAttribute("id", "winetree");
-		String service_id = "winetree"; //테스트
+		String service_id = (String)session.getAttribute("id");
 		List<Service_Store_DTO> stores_list = service.selectAllStore(service_id);
-		req.setAttribute("stores_list", stores_list, req.SCOPE_REQUEST);
-		
-		System.out.println("g");
+		request.setAttribute("stores_list", stores_list);
 		
 		return "./view/stores/stores-list";
 	}
+	
+	
+	
+
+	
+	
+	
 	
 	/**
 	 * 매장 추가 화면
@@ -61,9 +62,12 @@ public class Service_Store_Ctrl {
 	@GetMapping("new")
 	public String store_new_form(){
 		System.out.println("Stores_new_Form");
-		//return "redirect:";
 		return "./view/stores/stores-new";
 	}
+	
+	
+	
+	
 	
 	/**
 	 * 매장 등록 처리
@@ -71,7 +75,7 @@ public class Service_Store_Ctrl {
 	 * @return
 	 */
 	@PostMapping("")
-	public String store_new(HttpServletRequest request, HttpSession session){
+	public String store_new(HttpServletRequest request, HttpServletResponse response, HttpSession session){
 		System.out.println("---------------------------store_new_logic------------------------------");
 
 		Service_Store_DTO dto = new Service_Store_DTO();
@@ -91,14 +95,23 @@ public class Service_Store_Ctrl {
 		dto.setStore_address(store_address);
 		dto.setStore_tel(store_tel);
 		dto.setStore_hour(store_hour);
+		
 		try {
 			service.createStore(dto);
 		} catch(Exception e){
 			e.printStackTrace();
-			return "./view/comm/error";
+			return "redirect:/errorpage";
 		}
-		return "./view/stores/stores-list";
+		
+		return "redirect:/stores";
 	}
+	
+	
+	
+	
+	
+	
+	
 	
 	/**
 	 * 매장 세부정보 화면
@@ -107,39 +120,59 @@ public class Service_Store_Ctrl {
 	 */
 	@GetMapping("{store_seq}")
 	public String store_detail(
-		@PathVariable("store_seq") String store_seq,
 		HttpServletRequest request,
-		HttpSession session
+		HttpServletResponse response,
+		HttpSession session,
+		@PathVariable("store_seq") String store_seq
 	){
 		System.out.println("---------------------------store_detail form------------------------------");
+		
 		String service_id = (String)session.getAttribute("id");
 		
 		Service_Store_DTO stores_detail = service.selectStore(Integer.parseInt(store_seq));
-		request.setAttribute("stores_detail", stores_detail);
 		
-	//	if(!stores_detail.getService_id().equalsIgnoreCase(service_id)) {
-		//	return "./view/comm/error";
-	//	}
+		if(!stores_detail.getService_id().equalsIgnoreCase(service_id)) {
+			return "redirect:/errorpage";
+		} else {
+			request.setAttribute("stores_detail", stores_detail);
+		}
 		
 		return "./view/stores/stores-detail";
 	}
 	
-	/**
-	 * 매장 정보 수정 화면
-	 * @param id
-	 * @return
-	 */
+	
+	
+	
+	
+	
+	
+	
 	@GetMapping("{store_seq}/edit")
 	public String store_edit(
-		@PathVariable("store_seq") String store_seq,
 		HttpServletRequest request,
-		HttpSession session
+		HttpServletResponse response,
+		HttpSession session,
+		@PathVariable("store_seq") String store_seq
 	){
-		System.out.println("---------------------------store_edit_form------------------------------");
+		System.out.println("---------------------------store_edit form------------------------------");
+		
+		String service_id = (String)session.getAttribute("id");
 		Service_Store_DTO stores_detail = service.selectStore(Integer.parseInt(store_seq));
-		request.setAttribute("stores_detail", stores_detail);
-		return "./view/stores/stores-new";
+		
+		if(!stores_detail.getService_id().equalsIgnoreCase(service_id)) {
+			return "redirect:/errorpage";
+		} else {
+			request.setAttribute("stores_detail", stores_detail);
+		}
+		return "./view/stores/stores-edit";
 	}
+	
+	
+	
+	
+	
+	
+	
 	
 	/**
 	 * 매장 정보 수정 처리
@@ -148,17 +181,18 @@ public class Service_Store_Ctrl {
 	 */
 	@PostMapping("{store_seq}")
 	public String store_edit_confirm(
-		@PathVariable("store_seq") String store_seq,
 		HttpServletRequest request,
-		HttpSession session
+		HttpServletResponse response,
+		HttpSession session,
+		@PathVariable("store_seq") String store_seq
 	) {
 		System.out.println("---------------------------store_edit_confirm------------------------------");
 
-		
 		Service_Store_DTO stores_detail = new Service_Store_DTO();
 		
 		stores_detail.setStore_seq(Integer.parseInt(store_seq));
 		
+		stores_detail.setService_id((String)session.getAttribute("id"));
 		stores_detail.setStore_name(request.getParameter("store_name"));
 		stores_detail.setStore_detail(request.getParameter("store_detail"));
 		stores_detail.setStore_type(request.getParameter("store_type"));
@@ -169,22 +203,33 @@ public class Service_Store_Ctrl {
 		int result = service.modifyStore(stores_detail);
 		System.out.println(result);
 		
-		return result>0?"redirect:/stores/"+store_seq:"./view/comm/error";
+		return result>0?"redirect:/stores/"+store_seq:"redirect:/errorpage";
 	}
+	
+	
+	
+	
+	
+	
+	
+	
+	
 	
 	/**
 	 * 매장 삭제 처리
 	 * @param id
 	 * @return
 	 */
-	@DeleteMapping("{store_seq}")
+	@PostMapping("{store_seq}/delete")
 	public String store_delete(@PathVariable("store_seq") String store_seq){
 		System.out.println("---------------------------store_delete_logic------------------------------");
 		
-		
-		
-		
-		return "redirect:";
+		int result = service.deleteStore(Integer.parseInt(store_seq));
+		if(result>0) {
+			return "redirect:/stores";
+		} else {
+			return "redirect:/errorpage";
+		}
 	}
 	
 }
