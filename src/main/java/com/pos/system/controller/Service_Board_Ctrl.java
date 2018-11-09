@@ -2,10 +2,15 @@ package com.pos.system.controller;
 
 import java.util.List;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.pos.system.dto.Service_Board_DTO;
@@ -29,11 +34,10 @@ public class Service_Board_Ctrl {
 		this.mapper_Delete = mapper_Delete;
 	}
 
-	@GetMapping("/board")
+	@GetMapping("/board/new")
 	public String home(MultipartFile file) {
 		System.out.println("------------------재이 테스트-------------------------");
-		
-		Service_File_Mapper mapper;
+
 	//	mapper.uploadFile(fdto);
 		Service_File_DTO fDto = new Service_File_DTO();
 		fDto.setOrigin_fname("originfname");
@@ -41,14 +45,26 @@ public class Service_Board_Ctrl {
 		fDto.setFile_size(200);
 		Service_File_DTO n = fDto;
 		System.out.println(n);
-
-		
-		
-		
-		
 		
 		System.out.println("----------------------재이 테스트--------------------------");
-		return "./board/boardlist";
+		return "./view/board/board-new";
 	}
+	
+	@PostMapping("/board/new")
+	public String upload(
+			HttpServletRequest request,
+			HttpServletResponse response,
+			HttpSession session,
+			MultipartFile image
+			) {
+		
+		String filename = image.getOriginalFilename();
+		System.out.println(filename);
+		
+		return "redirect:/board/new";
+	}
+
+	
+	
 	
 }

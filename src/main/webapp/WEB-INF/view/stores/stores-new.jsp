@@ -12,5 +12,17 @@
 
 <h1>store new</h1>
 
+<form action="/stores" method="post">
+
+	<input type="text" name="store_name">
+	<input type="text" name="store_detail">
+	<input type="text" name="store_type">
+	<input type="text" name="store_address">
+	<input type="text" name="store_tel">
+	<input type="text" name="store_hour">
+
+	<input type="submit">
+</form>
+
 </body>
 </html>

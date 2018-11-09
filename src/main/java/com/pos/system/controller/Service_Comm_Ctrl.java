@@ -5,11 +5,26 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
+import javax.servlet.http.HttpSession;
+
 @Controller
 public class Service_Comm_Ctrl {
 	
-	@RequestMapping(value = "/error", method = {RequestMethod.GET, RequestMethod.POST})
-	public String error(){
+	
+	@GetMapping("/")
+	public String home(HttpSession session){
+		System.out.println("index 리다이렉트");
+		
+		// 개발용 세션 저장
+		session.setAttribute("id", "winetree");
+		
+		return "./index";
+	}
+	
+	@GetMapping("/errorpage")
+	public String errorPage(){
+		System.out.println("error 페이지 redirect");
+		
 		return "./view/comm/error";
 	}
 }
