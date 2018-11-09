@@ -24,10 +24,10 @@ public interface Service_Account_Read_Mapper {
 
     /**
      * 서비스 사용자의 상세 정보를 조회합니다.
-     * @Param Service_Account_DTO
+     * @Param String service_id
      * @return Service_Account_DTO
      */
-    @Select(" SELECT SERVICE_ID,SERVICE_EMAIL,SERVICE_TYPE,REGDATE, DELFLAG FROM SERVICE_ACCOUNT WHERE SERVICE_ID = #{service_id} ")
+    @Select(" SELECT SERVICE_ID, SERVICE_PW, SERVICE_EMAIL,SERVICE_TYPE,REGDATE, DELFLAG FROM SERVICE_ACCOUNT WHERE SERVICE_ID = #{service_id} AND SERVICE_PW= #{service_pw} ")
     Service_Account_DTO selectOne(Service_Account_DTO dto);
 
 
@@ -47,7 +47,7 @@ public interface Service_Account_Read_Mapper {
      * @Param Service_Account_DTO
      * @return Service_Account_DTO
      */
-    @Select(" SELECT SERVICE_ID,SERVICE_TYPE,SERVICE_EMAIL FROM SERVICE_ACCOUNT WHERE SERVICE_ID=#{service_id} AND SERVICE_PW=#{service_pw} ")
+    @Select(" SELECT SERVICE_ID,SERVICE_TYPE FROM SERVICE_ACCOUNT WHERE SERVICE_ID=#{service_id} AND SERVICE_PW=#{service_pw} ")
     Service_Account_DTO login(Service_Account_DTO dto);
 
 
