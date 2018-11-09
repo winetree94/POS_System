@@ -21,8 +21,6 @@ import java.util.List;
 @Controller
 public class Service_Store_Ctrl {
 	
-	public static final Logger logger =
-
 	private final IService_Store_Service service;
 	
 	@Autowired
