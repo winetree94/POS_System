@@ -1,9 +1,8 @@
-package com.pos.system.rest;
+package com.pos.system.restcontroller;
 
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-public class Service_Store_Rest_Ctrl {
-
+public class Store_Table_Rest_Ctrl {
 
 }
