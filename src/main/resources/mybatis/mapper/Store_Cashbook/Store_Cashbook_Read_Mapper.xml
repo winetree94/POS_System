@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+	PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="mybatis.mapper.Store_Cashbook">
+	
+	<select id="selectCashbook" parameterType="int" resultType="Store_Cashbook_DTO">
+		SELECT CASH_SEQ, STORE_SEQ, CASH_DATE, CASH_DEPOSIT, CASH_BALANCE FROM STORE_CASHBOOK WHERE STORE_SEQ = #{store_seq} ORDER BY CASH_DATE DESC;
+	</select>
+	
+
+</mapper>

@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+	PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="mybatis.mapper.Store_Cashbook">
+	
+	<insert id="insertCashbook" parameterType="com.pos.system.dto.Store_Cashbook_DTO">
+		INSERT INTO STORE_CASHBOOK(STORE_SEQ, CASH_DATE, CASH_DEPOSIT, CASH_BALANCE) VALUES (
+			#{store_seq},
+			NOW(),
+			#{cash_deposit},
+			IFNULL((SELECT CASH_BALANCE FROM STORE_CASHBOOK A WHERE CASH_SEQ = (
+			SELECT MAX(CASH_SEQ) FROM STORE_CASHBOOK B WHERE STORE_SEQ = 1)), 0) + #{cash_deposit})
+	</insert>
+
+</mapper>
