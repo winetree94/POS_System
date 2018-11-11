@@ -10,7 +10,7 @@ public interface IStore_Table_Service {
     /**
      * 서비스매장의 모든 테이블 목록을 반환하는 기능
      * @Param int store_seq 매장의 고유번호
-     * @return &lt;Store_Table_DTO_DTO&gt; 테이블의 리스트
+     * @return List&lt;Store_Table_DTO&gt; 테이블의 리스트
      */
     public List<Store_Table_DTO> selectAll(int store_seq);
 

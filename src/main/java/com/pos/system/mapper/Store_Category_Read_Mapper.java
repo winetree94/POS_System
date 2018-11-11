@@ -9,15 +9,29 @@ import java.util.List;
 @Mapper
 @Repository
 public interface Store_Category_Read_Mapper {
-    //전체 메뉴 조회
+
+    /**
+     * 매장의 모든 메뉴를 조회 기능입니다.
+     * @param \store_seq\
+     * @return List&lt;Store_Category_DTO&gt;
+     */
    @Select(" SELECT MENU_SEQ,STORE_SEQ, MENU_NAME, CATEG_NAME, MENU_INFO,ORIGIN_FNAME, STORED_FNAME, MENU_PRICE, DELFLAG FROM STORE_CATEGORY WHERE STORE_SEQ=#{store_seq} ")
    List<Store_Category_DTO> selectAll(int store_seq);
 
-    //카테고리별 메뉴의 목록을 조회
+
+    /**
+     * 매장의 카테고리별 메뉴의 목록을 조회합니
+     * @param \Store_Category_DTO\
+     * @return List&lt;Store_Category_DTO&gt;
+     */
      @Select(" SELECT MENU_SEQ,STORE_SEQ, MENU_NAME, CATEG_NAME, MENU_INFO,ORIGIN_FNAME, STORED_FNAME, MENU_PRICE, DELFLAG FROM STORE_CATEGORY WHERE CATEG_NAME=#{categ_name} AND STORE_SEQ=#{store_seq}")
     public List<Store_Category_DTO> categSelect(Store_Category_DTO dto);
 
-    //메뉴 상세정보 조회
-    @Select(" SELECT MENU_SEQ,STORE_SEQ, MENU_NAME, CATEG_NAME, MENU_INFO,ORIGIN_FNAME, STORED_FNAME, MENU_PRICE, DELFLAG FROM STORE_CATEGORY WHERE MENU_NAME=#{menu_name} ")
+    /**
+     * 메뉴의 상세정보를 볼 수 있는 기능.
+     * @param int menu_seq 메뉴의 고유번호
+     * @return \Store_Category_DTO\
+     */
+    @Select(" SELECT MENU_SEQ,STORE_SEQ, MENU_NAME, CATEG_NAME, MENU_INFO,ORIGIN_FNAME, STORED_FNAME, MENU_PRICE, DELFLAG FROM STORE_CATEGORY WHERE MENU_SEQ=#{menu_seq} ")
     public Store_Category_DTO selectOne(int menu_seq);
 }

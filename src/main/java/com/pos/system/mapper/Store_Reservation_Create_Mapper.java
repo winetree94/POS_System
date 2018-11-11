@@ -1,6 +1,5 @@
 package com.pos.system.mapper;
 
-import com.pos.system.dto.Service_Store_DTO;
 import com.pos.system.dto.Store_Reservation_DTO;
 import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Mapper;
@@ -20,7 +19,5 @@ public interface Store_Reservation_Create_Mapper {
     int createReserv(Store_Reservation_DTO dto);
 
 
-    @Insert(" INSERT INTO SERVICE_STORE(SERVICE_ID, STORE_NAME, STORE_DETAIL, STORE_TYPE, STORE_ADDRESS, STORE_TEL, STORE_HOUR, DELFLAG, REGDATE) VALUES(#{service_id}, #{store_name}, #{store_detail}, #{store_type}, #{store_address}, #{store_tel}, #{store_hour}, 'N', NOW()) ")
-    int createStore(Service_Store_DTO dto);
 
 }
