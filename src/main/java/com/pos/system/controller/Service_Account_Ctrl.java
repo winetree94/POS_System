@@ -28,7 +28,11 @@ public class Service_Account_Ctrl {
 	}
 
 
-
+	/**
+	 * 회원가입 화면 이동
+	 * @param
+	 * @return "./view/account/register"r
+	 */
 	@GetMapping("/signupform")
 	public String signUpForm(){
 
@@ -40,11 +44,15 @@ public class Service_Account_Ctrl {
 		Service_Account_DTO udto = service.signUp(dto);
 		System.out.println(udto);
 
-			return (udto !=null)? "redirect:/account": "redirect:/account/signupform";
+		return (udto !=null)? "redirect:/account": "redirect:/account/signupform";
 	}
 
 
-	//아이디 중복체크
+	/**
+	 * 아이디 중복 체크 처리
+	 * @param String service_id 회원이 입력한 아이디값.
+	 * @return "./view/account/register"
+	 */
 	@PostMapping("idduplicate")
 	@ResponseBody
 	public String idDuplicate(String service_id) {
@@ -68,14 +76,23 @@ public class Service_Account_Ctrl {
 
 
 
-	//로그인
-
+	/**
+	 * 로그인 화면 이동
+	 * @param
+	 * @return "./view/account/loginform"
+	 */
 	@GetMapping("")
 	public String loginForm(){
 
 		return "./view/account/loginform";
 	}
 
+	/**
+	 * 로그인 체크 처리
+	 * Ajax 방식
+	 * @param \Service_Account_DTO\ dto . 사용자의 아이디와 비밀번호
+	 * @return dto.getService_type() 서비스의 타입을 세션에 담기위해 리턴값으로 dto의 Service_type을 같이 반환한다.
+	 */
 	@PostMapping("logincheck")
 	@ResponseBody
 	public String logincheck(Service_Account_DTO dto){
@@ -85,6 +102,11 @@ public class Service_Account_Ctrl {
 		return(udto==null)?"실패":"성공/"+udto.getService_type();
 }
 
+	/**
+	 * 로그인 처리
+	 * @param \Service_Account_DTO\ dto , session 서비스 회원의 아이디와 계정타입, 세션
+	 * @return "redirect:/"
+	 */
 	@PostMapping("")
 	public String login(Service_Account_DTO dto, HttpSession session){
 		Service_Account_DTO udto = service.login(dto);

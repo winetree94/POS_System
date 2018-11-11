@@ -10,13 +10,22 @@ import java.util.List;
 @Repository
 public interface Store_Table_Read_Mapper {
 
-    //매장에 있는 모든 테이블 조회
-    //TABLE_SEQ , STORE_SEQ, TABLE_NAME, RESERVATION, MIN_PEOPLE, MAX_PEOPLE, DELFLAG
-    @Select(" SELECT TABLE_SEQ, STORE_SEQ, TABLE_NAME, RESERVATION, MIN_PEOPLE, MAX_PEOPLE, DELFLAG FROM STORE_TABLE WHERE STORE_SEQ=#{store_seq} ")
+    /**
+     * 매장의 모든 테이블을 조회하는 기능입니다.
+     * 삭제한 매장은 조회되지 않습니다.
+     * @Param int store_seq 매장의 고유 번호
+     * @return List&lt;Store_Table_DTO&gt;
+     */
+    @Select(" SELECT TABLE_SEQ, STORE_SEQ, TABLE_NAME, RESERVATION, MIN_PEOPLE, MAX_PEOPLE FROM STORE_TABLE WHERE STORE_SEQ=#{store_seq} AND DELFLAG='N' ")
     public List<Store_Table_DTO> selectAll(int store_seq);
 
 
-    //테이블 세부 조회
+
+    /**
+     * 테이블 상세보기
+     * @Param int 테이블의 고유 번호
+     * @return Store_Table_DTO
+     */
     @Select(" SELECT TABLE_SEQ, STORE_SEQ, TABLE_NAME, RESERVATION, MIN_PEOPLE, MAX_PEOPLE, DELFLAG FROM STORE_TABLE WHERE TABLE_SEQ=#{table_seq} ")
     public Store_Table_DTO selectOne(int table_seq);
 
