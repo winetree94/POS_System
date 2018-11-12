@@ -8,7 +8,7 @@ import com.pos.system.dto.Service_File_DTO;
 
 @Mapper
 @Repository
-public interface Service_File_Mapper {
+public interface Service_File_Create_Mapper {
 
 	
 	/**
