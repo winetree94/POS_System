@@ -11,46 +11,27 @@ import org.springframework.stereotype.Controller;
 import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.pos.system.dto.Service_Board_DTO;
 import com.pos.system.dto.Service_File_DTO;
 import com.pos.system.mapper.*;
+import com.pos.system.service.IService_Board_Service;
 
+@RequestMapping("/board")
 @Controller
 public class Service_Board_Ctrl {
 	
-	private Service_Board_Update_Mapper mapper_Update;
-	private Service_Board_Create_Mapper mapper_Create;
-	private Service_Board_Read_Mapper mapper_Read;
-	private Service_Board_Delete_Mapper mapper_Delete;
+	private final IService_Board_Service service;
 	
 	@Autowired
-	public Service_Board_Ctrl(Service_Board_Update_Mapper mapper_Update, Service_Board_Create_Mapper mapper_Create,
-			Service_Board_Read_Mapper mapper_Read, Service_Board_Delete_Mapper mapper_Delete) {
-		this.mapper_Update = mapper_Update;
-		this.mapper_Create = mapper_Create;
-		this.mapper_Read = mapper_Read;
-		this.mapper_Delete = mapper_Delete;
+	public Service_Board_Ctrl(IService_Board_Service service) {
+		this.service = service;
 	}
 
-	@GetMapping("/board/new")
-	public String home(MultipartFile file) {
-		System.out.println("------------------재이 테스트-------------------------");
-
-	//	mapper.uploadFile(fdto);
-		Service_File_DTO fDto = new Service_File_DTO();
-		fDto.setOrigin_fname("originfname");
-		fDto.setStored_fname("storedfname");
-		fDto.setFile_size(200);
-		Service_File_DTO n = fDto;
-		System.out.println(n);
-		
-		System.out.println("----------------------재이 테스트--------------------------");
-		return "./view/board/board-new";
-	}
 	
-	@PostMapping("/board/new")
+	@GetMapping("/new")
 	public String upload(
 			HttpServletRequest request,
 			HttpServletResponse response,
@@ -58,13 +39,32 @@ public class Service_Board_Ctrl {
 			MultipartFile image
 			) {
 		
-		String filename = image.getOriginalFilename();
-		System.out.println(filename);
-		
-		return "redirect:/board/new";
+		return "./view/board/board-new";
 	}
-
 	
 	
+	/**
+	 * 게시판 목록 출력
+	 * @param request
+	 * @param response
+	 * @param session
+	 * @return
+	 */
+	@GetMapping("")
+	public String board_List(HttpServletRequest request, HttpServletResponse response, HttpSession session){
+	
+		//String service_id = (String) session.getAttribute("id"); service_id 필요성에 의문20181110
+		List<Service_Board_DTO> board_list = service.selectAllBoard();
+		request.setAttribute("board_list", board_list);
+	
+	
+	
+	return "./view/board/board-list";
+	}
+	
+	@GetMapping("write")
+	public String insertBoard() {
+		return "./view/board/insertBoard";
+	}
 	
 }

@@ -29,7 +29,7 @@ public interface Service_Board_Read_Mapper {
 	  
 	/**
 	 * 특정 게시글 상세조회
-	 * @param seq
+	 * @param board_seq
 	 * @return Service_Board_DTO
 	 */
 	@Select(" SELECT BOARD_SEQ, SERVICE_ID ,READCOUNT,REGDATE, TITLE, CONTENT, REF, STEP, DEPTH, TYPE, DELFLAG FROM SERVICE_BOARD WHERE BOARD_SEQ = #{SEQ} ")
