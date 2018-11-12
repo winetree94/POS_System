@@ -1,9 +1,7 @@
 package com.pos.system.service;
 
-<<<<<<< HEAD
-public interface IService_Board_Service {
-=======
 import java.util.List;
+
 
 import com.pos.system.dto.Service_Board_DTO;
 
@@ -60,5 +58,4 @@ public interface IService_Board_Service {
 	 */
 	int readcountBoard(int board_seq);
 	
->>>>>>> aba54a5be226caa57080a464eb733bde48bd9dd9
 }
