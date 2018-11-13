@@ -50,4 +50,19 @@ public class IStore_Order_Service_Impl implements IStore_Order_Service {
 		return dao_Read.orderListAll(dto);
 	}
 	
+	@Override
+	public Store_Order_DTO orderOne(int order_seq){
+		return dao_Read.orderOne(order_seq);
+	}
+	
+	@Override
+	public int deleteOrder(int order_seq) {
+		return mapper_Delete.deleteOrder(order_seq);
+	}
+	
+	@Override
+	public int sumOrder(int ref) {
+		return mapper_Read.sumOrder(ref);
+	}
+	
 }

@@ -14,6 +14,7 @@
 		ORDER_DATE,
 		MENU_PRICE,
 		REF,
+		PAYED,
 		DELFLAG
 		FROM STORE_ORDER
 		WHERE
@@ -32,7 +33,26 @@
 		<if test="ref != null">
 			AND REF = #{ref}
 		</if>
+		<if test="payed == null">
+			AND PAYED = 'N'
+		</if>
+	</select>
 	
+	<select id="orderOne" parameterType="int" resultType="Store_Order_DTO">
+		SELECT
+		ORDER_SEQ,
+		STORE_SEQ,
+		TABLE_SEQ,
+		MENU_SEQ,
+		MAKE,
+		ORDER_DATE,
+		MENU_PRICE,
+		REF,
+		PAYED,
+		DELFLAG
+		FROM STORE_ORDER
+		WHERE
+		ORDER_SEQ = #{value}
 	</select>
 	
 </mapper>

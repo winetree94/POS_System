@@ -10,11 +10,13 @@ public class Store_Order_DTO {
 	private int menu_price;
 	private String ref;
 	private String delflag;
+	private String payed;
+	
 	
 	public Store_Order_DTO() {
 	}
 	
-	public Store_Order_DTO(int order_seq, int store_seq, int table_seq, int menu_seq, String make, String order_date, int menu_price, String ref, String delflag) {
+	public Store_Order_DTO(int order_seq, int store_seq, int table_seq, int menu_seq, String make, String order_date, int menu_price, String ref, String delflag, String payed) {
 		this.order_seq = order_seq;
 		this.store_seq = store_seq;
 		this.table_seq = table_seq;
@@ -24,6 +26,23 @@ public class Store_Order_DTO {
 		this.menu_price = menu_price;
 		this.ref = ref;
 		this.delflag = delflag;
+		this.payed = payed;
+	}
+	
+	@Override
+	public String toString() {
+		return "Store_Order_DTO{" +
+			"order_seq=" + order_seq +
+			", store_seq=" + store_seq +
+			", table_seq=" + table_seq +
+			", menu_seq=" + menu_seq +
+			", make='" + make + '\'' +
+			", order_date='" + order_date + '\'' +
+			", menu_price=" + menu_price +
+			", ref='" + ref + '\'' +
+			", delflag='" + delflag + '\'' +
+			", payed='" + payed + '\'' +
+			'}';
 	}
 	
 	public int getOrder_seq() {
@@ -98,20 +117,11 @@ public class Store_Order_DTO {
 		this.delflag = delflag;
 	}
 	
-	@Override
-	public String toString() {
-		return "Store_Order_DTO{" +
-			"order_seq=" + order_seq +
-			", store_seq=" + store_seq +
-			", table_seq=" + table_seq +
-			", menu_seq=" + menu_seq +
-			", make='" + make + '\'' +
-			", order_date='" + order_date + '\'' +
-			", menu_price=" + menu_price +
-			", ref=" + ref +
-			", delflag='" + delflag + '\'' +
-			'}';
+	public String getPayed() {
+		return payed;
 	}
 	
-	
+	public void setPayed(String payed) {
+		this.payed = payed;
+	}
 }

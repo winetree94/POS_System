@@ -4,5 +4,21 @@
 	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="mybatis.mapper.Store_Invoice">
 	
+	<insert id="payment" parameterType="Store_Invoice_DTO">
+		insert into STORE_INVOICE(STORE_SEQ, TABLE_SEQ, REF, MENU_AMOUNT, TAX_AMOUNT, TOTAL_AMOUNT, DISCOUNT_AMOUNT, FINAL_AMOUNT, PAID_DATE, PAYMENT_METHOD, DELFLAG)
+		VALUES(
+		#{store_seq},
+		#{table_seq},
+		#{ref},
+		#{sumorder} * (9/10),
+		#{sumorder} * (1/10),
+		#{sumorder},
+		#{discount_amount},
+		#{sumorder} - 5000,
+		NOW(),
+		'CARD',
+		'N'
+		)
+	</insert>
 
 </mapper>

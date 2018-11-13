@@ -17,6 +17,10 @@
 		<mapper resource="mybatis/mapper/Store_Order/Store_Order_Read_Mapper.xml"/>
 		<mapper resource="mybatis/mapper/Store_Order/Store_Order_Update_Mapper.xml"/>
 		<mapper resource="mybatis/mapper/Store_Order/Store_Order_Delete_Mapper.xml"/>
+		<mapper resource="mybatis/mapper/Store_Invoice/Store_Invoice_Create_Mapper.xml"/>
+		<mapper resource="mybatis/mapper/Store_Invoice/Store_Invoice_Read_Mapper.xml"/>
+		<mapper resource="mybatis/mapper/Store_Invoice/Store_Invoice_Update_Mapper.xml"/>
+		<mapper resource="mybatis/mapper/Store_Invoice/Store_Invoice_Delete_Mapper.xml"/>
 	</mappers>
 	
 </configuration>

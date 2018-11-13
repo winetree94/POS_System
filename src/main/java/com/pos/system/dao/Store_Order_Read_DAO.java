@@ -8,4 +8,5 @@ public interface Store_Order_Read_DAO {
 	
 	List<Store_Order_DTO> orderListAll(Store_Order_DTO dto);
 	
+	Store_Order_DTO orderOne(int order_seq);
 }

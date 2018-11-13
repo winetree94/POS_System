@@ -17,4 +17,9 @@ public interface IStore_Order_Service {
 	List<Store_Order_DTO> orderListAll(Store_Order_DTO dto);
 	
 	
+	Store_Order_DTO orderOne(int order_seq);
+	
+	int deleteOrder(int order_seq);
+	
+	int sumOrder(int ref);
 }
