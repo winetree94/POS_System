@@ -10,6 +10,10 @@ public interface IService_Board_Service {
 	
 	/**
 	 * 새로운 게시글 추가
+	 * dto에 title, content 필수값,
+	 * service_id는 session에 담김
+	 * file은 선택
+	 *
 	 * @param dto
 	 * @return int
 	 */
@@ -46,6 +50,7 @@ public interface IService_Board_Service {
 	
 	/**
 	 * 게시글 수정
+	 * dto에는 service_id, title, content 필수 값으로 들어가야함
 	 * @param dto
 	 * @return int 
 	 */
