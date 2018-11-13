@@ -3,6 +3,36 @@
 	PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="mybatis.mapper.Store_Order">
-
-
+	
+	<select id="orderList" parameterType="Store_Order_DTO" resultType="Store_Order_DTO">
+		SELECT
+		ORDER_SEQ,
+		STORE_SEQ,
+		TABLE_SEQ,
+		MENU_SEQ,
+		MAKE,
+		ORDER_DATE,
+		MENU_PRICE,
+		REF,
+		DELFLAG
+		FROM STORE_ORDER
+		WHERE
+		STORE_SEQ = #{store_seq}
+		<choose>
+			<when test="delflag != null">
+				AND DELFLAG = #{delflag}
+			</when>
+			<when test="delflag == null">
+				AND DELFLAG = 'N'
+			</when>
+		</choose>
+		<if test="make != null">
+			AND MAKE = #{make}
+		</if>
+		<if test="ref != null">
+			AND REF = #{ref}
+		</if>
+	
+	</select>
+	
 </mapper>

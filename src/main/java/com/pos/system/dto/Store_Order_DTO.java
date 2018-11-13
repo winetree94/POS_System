@@ -8,13 +8,13 @@ public class Store_Order_DTO {
 	private String make;
 	private String order_date;
 	private int menu_price;
-	private int ref;
+	private String ref;
 	private String delflag;
 	
 	public Store_Order_DTO() {
 	}
 	
-	public Store_Order_DTO(int order_seq, int store_seq, int table_seq, int menu_seq, String make, String order_date, int menu_price, int ref, String delflag) {
+	public Store_Order_DTO(int order_seq, int store_seq, int table_seq, int menu_seq, String make, String order_date, int menu_price, String ref, String delflag) {
 		this.order_seq = order_seq;
 		this.store_seq = store_seq;
 		this.table_seq = table_seq;
@@ -82,11 +82,11 @@ public class Store_Order_DTO {
 		this.menu_price = menu_price;
 	}
 	
-	public int getRef() {
+	public String getRef() {
 		return ref;
 	}
 	
-	public void setRef(int ref) {
+	public void setRef(String ref) {
 		this.ref = ref;
 	}
 	
@@ -100,7 +100,7 @@ public class Store_Order_DTO {
 	
 	@Override
 	public String toString() {
-		return "Service_Order_DTO{" +
+		return "Store_Order_DTO{" +
 			"order_seq=" + order_seq +
 			", store_seq=" + store_seq +
 			", table_seq=" + table_seq +

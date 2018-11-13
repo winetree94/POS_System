@@ -7,10 +7,6 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 import java.util.List;
 
 @RestController
@@ -25,26 +21,10 @@ public class Store_Cashbook_Rest_Ctrl {
 	}
 	
 	@GetMapping("/{store_seq}/cashbook")
-	public String test(
-		HttpServletRequest request,
-		HttpServletResponse response,
-		HttpSession session,
+	public List<Store_Cashbook_DTO> cashbook(
 		@PathVariable("store_seq") String store_seq
 	) {
-		
-		Store_Cashbook_DTO dto = new Store_Cashbook_DTO();
-		
-		dto.setCash_deposit(3000);
-		dto.setStore_seq(Integer.parseInt(store_seq));
-		
-		System.out.println(dto);
-		
-		service.insertCashbook(dto);
-		List<Store_Cashbook_DTO> lists = service.selectCashbook(Integer.parseInt(store_seq));
-		
-		System.out.println(lists);
-		
-		return null;
+		return service.selectCashbook(Integer.parseInt(store_seq));
 	}
 	
 	
