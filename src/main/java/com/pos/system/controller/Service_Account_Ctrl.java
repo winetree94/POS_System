@@ -50,7 +50,7 @@ public class Service_Account_Ctrl {
 
 	/**
 	 * 아이디 중복 체크 처리
-	 * @param String service_id 회원이 입력한 아이디값.
+	 * @param \String\ service_id 회원이 입력한 아이디값.
 	 * @return "./view/account/register"
 	 */
 	@PostMapping("idduplicate")

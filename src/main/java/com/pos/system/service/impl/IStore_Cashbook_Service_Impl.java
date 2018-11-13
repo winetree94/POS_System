@@ -40,9 +40,15 @@ public class IStore_Cashbook_Service_Impl implements IStore_Cashbook_Service {
 		this.mapper_Delete = mapper_Delete;
 	}
 	
+	/**
+	 *
+	 * @param dto
+	 * @return
+	 */
 	@Override
-	public int insertCashbook(Store_Cashbook_DTO dto) {
-		return dao_Create.insert(dto);
+	public List<Store_Cashbook_DTO> insertCashbook(Store_Cashbook_DTO dto) {
+		int result = dao_Create.insert(dto);
+		return result>0?dao_Read.selectCashbook(dto.getStore_seq()):null;
 	}
 	
 	@Override

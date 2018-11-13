@@ -15,7 +15,7 @@ public interface Store_Reservation_Create_Mapper {
      * @param dto
      * @return int 성공시 1, 실패시 0을 반환
      */
-    @Insert(" INSERT STORE_RESERVATION(STORE_SEQ, TABLE_SEQ, USER_ID, RESERV_TIME, RESERV_PEOPLE, DELFLAG ) VALUES(#{store_Seq},#{table_Seq},#{user_id},CURRENT_TIMESTAMP,#{reserv_people},'N') ")
+    @Insert(" INSERT STORE_RESERVATION(STORE_SEQ, TABLE_SEQ, USER_ID, RESERV_TIME, RESERV_PEOPLE, DELFLAG ) VALUES(#{store_seq},#{table_seq},#{user_id},#{reserv_time},#{reserv_people},'N') ")
     int createReserv(Store_Reservation_DTO dto);
 
 

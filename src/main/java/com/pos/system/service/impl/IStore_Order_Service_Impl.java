@@ -13,6 +13,8 @@ import com.pos.system.service.IStore_Order_Service;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 public class IStore_Order_Service_Impl implements IStore_Order_Service {
 	
@@ -41,6 +43,26 @@ public class IStore_Order_Service_Impl implements IStore_Order_Service {
 	@Override
 	public int addOrder(Store_Order_DTO dto){
 		return dao_Create.addOrder(dto);
+	}
+	
+	@Override
+	public List<Store_Order_DTO> orderListAll(Store_Order_DTO dto){
+		return dao_Read.orderListAll(dto);
+	}
+	
+	@Override
+	public Store_Order_DTO orderOne(int order_seq){
+		return dao_Read.orderOne(order_seq);
+	}
+	
+	@Override
+	public int deleteOrder(int order_seq) {
+		return mapper_Delete.deleteOrder(order_seq);
+	}
+	
+	@Override
+	public int sumOrder(int ref) {
+		return mapper_Read.sumOrder(ref);
 	}
 	
 }

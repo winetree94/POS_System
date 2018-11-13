@@ -4,24 +4,33 @@
 	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="mybatis.mapper.Store_Order">
 	
+	<!--
+	주문을 추가하는 쿼리문
+	ref 가 null 경우 새로운 테이블로 판단, 새로운 ref 값을 입력합니다.
+	ref 가 있을 경우 그 값을 입력
+	-->
+	
 	<insert id="addOrder" parameterType="Store_Order_DTO">
-		INSERT INTO STORE_ORDER(STORE_SEQ, TABLE_SEQ, MENU_SEQ, MAKE, ORDER_DATE, MENU_PRICE, REF, DELFLAG) VALUES(
-			#{store_seq},
-			#{table_seq},
-			#{menu_seq},
-			'N',
-			NOW(),
-			(SELECT MENU_PRICE FROM STORE_CATEGORY WHERE MENU_SEQ = #{menu_seq}),
-			<choose>
-				<when test="#{ref} == null">
-					(SELECT MAX(REF) FROM STORE_ORDER B) + 1),
-				</when>
-				<when test="#{ref} != null">
-					#{ref},
-				</when>
-			</choose>
-			'N'
-		)
+		
+		INSERT INTO STORE_ORDER(STORE_SEQ, TABLE_SEQ, MENU_SEQ, MAKE, ORDER_DATE, MENU_PRICE, REF, PAYED, DELFLAG) VALUES(
+		#{store_seq},
+		#{table_seq},
+		#{menu_seq},
+		'N',
+		NOW(),
+		(SELECT MENU_PRICE FROM STORE_CATEGORY WHERE MENU_SEQ = #{menu_seq}),
+		<choose>
+			<when test="ref == null">
+				IFNULL(((SELECT MAX(REF) FROM STORE_ORDER B) + 1), 0),
+			</when>
+			<when test="ref != null">
+				#{ref},
+			</when>
+		</choose>
+		'N',
+		'N'
+		);
+		
 	</insert>
 
 </mapper>

@@ -24,6 +24,6 @@ public interface Store_Reservation_Read_Mapper {
      * @return Store_Reservation_DTO
      */
     @Select(" SELECT RESERV_SEQ, STORE_SEQ, TABLE_SEQ, USER_ID, RESERV_TIME, RESERV_PEOPLE,DELFLAG FROM STORE_RESERVATION WHERE RESERV_SEQ=#{RESERV_SEQ} ")
-    public Store_Reservation_DTO selectone(int reserv_seq);
+    public Store_Reservation_DTO selectOne(int reserv_seq);
 
 }
