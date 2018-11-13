@@ -43,7 +43,7 @@ public interface IStore_Category_Service {
      * @param dto
      * @return int
      */
-    public int modify(Store_Category_DTO dto);
+    public Store_Category_DTO modifyMenu(Store_Category_DTO dto);
 
     /**
      * 메뉴를 삭제하는 기능

@@ -15,5 +15,5 @@ public interface Store_Category_Update_Mapper {
      * @return int 0이면 실패를 의미, 1이면 성공
      */
     @Update("UPDATE STORE_CATEGORY SET MENU_NAME=#{menu_name},CATEG_NAME=#{categ_name},MENU_INFO=#{menu_info},ORIGIN_FNAME=#{origin_fname},STORED_FNAME=#{stored_fname}, MENU_PRICE=#{menu_price} WHERE MENU_SEQ =#{menu_seq} ")
-    public int modify(Store_Category_DTO dto);
+    public int modifyMenu(Store_Category_DTO dto);
 }
