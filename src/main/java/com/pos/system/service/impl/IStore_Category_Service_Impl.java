@@ -48,8 +48,12 @@ public class IStore_Category_Service_Impl implements IStore_Category_Service {
     }
 
     // 메뉴를 수정하는 기능
-    public int modify(Store_Category_DTO dto){
-        return mapper_Update.modify(dto);
+    public Store_Category_DTO modifyMenu(Store_Category_DTO dto){
+        int n =  mapper_Update.modifyMenu(dto);
+        if(n>0){
+            return mapper_Read.selectOne(dto.getMenu_seq());
+        }
+            return null;
     }
 
     //메뉴 삭제 기능

@@ -4,15 +4,14 @@ package com.pos.system.restcontroller;
 import com.pos.system.dto.Store_Category_DTO;
 import com.pos.system.service.IStore_Category_Service;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+import java.util.List;
 
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
-
+/**
+ * Store_Category_Rest Controller
+ * REST Design Pattern 적용
+ * @author DEADxFOOL
+ */
 @RestController
 @RequestMapping("/pos")
 public class Store_Category_Rest_Ctrl {
@@ -25,43 +24,151 @@ public class Store_Category_Rest_Ctrl {
     }
 
 
+    /**
+     * 모든 메뉴를 출력하는 기능
+     * @param \store_seq 매장의 고유번호
+     * @return JSON 형태의 모든 메뉴의 세부 정보.
+     */
+    @GetMapping("{store_seq}/menu")
+    public List<Store_Category_DTO> menu(@PathVariable("store_seq") String store_seq){
+        return service.selectAll(Integer.parseInt(store_seq));
+       }
 
-    @GetMapping("/{store_seq}/category")
-    public String test(	HttpServletRequest request,
-                           HttpServletResponse response,
-                           HttpSession session,
-                           @PathVariable("store_seq") String store_seq) {
+    /**
+     * 메뉴를 생성하는 기능
+     * @param \store_seq:매장번호, menu_name:메뉴이름, categ_name:카테고리 이름, menu_info메뉴정보, origin_fname:원본파일이름,
+     *        \stored_fname:저장된파일이름, menu_price:메뉴가격
+     * @return int 1이면 메뉴생성성공, 0이면 실패
+     */
+    @PostMapping("{store_seq}/menu")
+    public int createMenu(@PathVariable("store_seq") String store_seq,
+                          @RequestParam("menu_name") String menu_name,
+                          @RequestParam("categ_name") String categ_name,
+                          @RequestParam("menu_info") String menu_info,
+                          @RequestParam("origin_fname") String origin_fname,
+                          @RequestParam("stored_fname") String stored_fname,
+                          @RequestParam("menu_price") String menu_price
+                          ){
+        Store_Category_DTO dto = new Store_Category_DTO();
+        dto.setStore_seq(Integer.parseInt(store_seq));
+        dto.setMenu_name(menu_name);
+        dto.setCateg_name(categ_name);
+        dto.setMenu_info(menu_info);
+        dto.setOrigin_fname(origin_fname);
+        dto.setStored_fname(stored_fname);
+        dto.setMenu_price(Integer.parseInt(menu_price));
+        //store_seq},#{menu_name},#{categ_name},#{menu_info},#{origin_fname},#{stored_fname},#{menu_price}
 
-
-       //  #{store_seq},#{menu_name},#{categ_name},#{menu_info},#{origin_fname},#{stored_fname},#{menu_price
-
-            Store_Category_DTO dto = new Store_Category_DTO();
-            dto.setStore_seq(Integer.parseInt(store_seq));
-            dto.setMenu_name("김밥");
-            dto.setCateg_name("요리");
-            dto.setMenu_info("유기농 야채로 만든 꿀김밥");
-            dto.setOrigin_fname("오리지날파일");
-            dto.setStored_fname("저장된파일");
-            dto.setMenu_price(2000);
-
-            System.out.println("메뉴 카테고리 전체 조회 리턴값 :  "+  service.selectAll(1));
-            System.out.println("메뉴 카테고리 상세 조회 리턴값 :  "+  service.selectOne(1));
-            System.out.println("메뉴 생성 리턴값 :  "+  service.createMenu(dto));
-
-            Store_Category_DTO hdto = new Store_Category_DTO();
-            hdto = service.selectOne(2);
-            hdto.setMenu_price(50000);
-            hdto.setMenu_info("최고급재료로인해 가격이 상승되었습니다.");
-            System.out.println("메뉴 카테고리 수정 리턴값 :  "+  service.modify(hdto));
-            System.out.println("메뉴 삭제 리턴값 : " + service.deleteMenu(3));
-
-
-
-
-
-
-
-        return null;
+        return service.createMenu(dto);
     }
+
+
+    /**
+     * 메뉴를 수정하는 기능
+     * @param \store_seq:매장고유번호, menu_name:메뉴이름, categ_name:카테고리 이름, menu_info메뉴정보, origin_fname:원본파일이름,
+     *        \stored_fname:저장된파일이름, menu_price:메뉴가격
+     * @return JSON형태의 수정된 메뉴 세부정보
+     */
+    @PostMapping("{store_seq}/menu/edit")
+    public Store_Category_DTO modifyMenu(@PathVariable("store_seq") String store_seq,
+                                     @RequestParam("menu_seq") String menu_seq,
+                                     @RequestParam("menu_name") String menu_name,
+                                     @RequestParam("categ_name") String categ_name,
+                                     @RequestParam("menu_info") String menu_info,
+                                     @RequestParam("origin_fname") String origin_fname,
+                                     @RequestParam("stored_fname") String stored_fname,
+                                     @RequestParam("menu_price") String menu_price){
+
+        Store_Category_DTO dto = new Store_Category_DTO();
+        dto = service.selectOne(Integer.parseInt(menu_seq));
+
+        //MENU_NAME=#{menu_name},CATEG_NAME=#{categ_name},MENU_INFO=#{menu_info},ORIGIN_FNAME=#{origin_fname},STORED_FNAME=#{stored_fname}, MENU_PRICE=#{menu_price}
+        dto.setMenu_name(menu_name);
+        dto.setCateg_name(categ_name);
+        dto.setMenu_info(menu_info);
+        dto.setOrigin_fname(origin_fname);
+        dto.setStored_fname(stored_fname);
+        dto.setMenu_price(Integer.parseInt(menu_price));
+        return service.modifyMenu(dto);
+    }
+
+    /**
+     * 메뉴의 상세정보를 조회하는 기능
+     * @param \store_seq:매장고유번호, menu_seq:메뉴고유번호
+     * @return JSON형태의 메뉴의 세부정보
+     */
+    @GetMapping("{store_seq}/menu/{menu_seq}")
+    public Store_Category_DTO menuDetail(@PathVariable("store_seq") String store_seq,
+                                         @PathVariable("menu_seq") String menu_seq){
+
+
+        return service.selectOne(Integer.parseInt(menu_seq));
+    }
+
+    /**
+     * 카테고리별 메뉴의 정보를 조회하는 기능
+     * @param \store_seq:매장고유번호, menu_seq:메뉴고유번호
+     * @return JSON형태의 카테고리별 메뉴의 세부정보
+     */
+    @GetMapping("{store_seq}/menu/category")
+    public List<Store_Category_DTO> category(@PathVariable("store_seq") String store_seq,
+                                             @RequestParam("categ_name") String categ_name){
+        Store_Category_DTO dto = new Store_Category_DTO();
+        dto.setStore_seq(Integer.parseInt(store_seq));
+        dto.setCateg_name(categ_name);
+        return service.categSelect(dto);
+    }
+
+    /**
+     * 메뉴를 삭제하는 기능.
+     * 메뉴를 데이터베이스에서 삭제하는게 아닌 DELFLAG 칼럼의 값을 'N'에서 'Y'로 변환하는 기능
+     * @param \store_seq:매장고유번호, menu_seq:메뉴고유번호
+     * @return int 1이면 삭제성공, 0이면 실패.
+     */
+    @PostMapping("{store_seq}/menu/delete")
+    public int deleteMenu( @PathVariable("store_seq") String store_seq,
+                           @RequestParam("menu_seq") String menu_seq){
+
+        return service.deleteMenu(Integer.parseInt(menu_seq));
+    }
+
+
+//    @GetMapping("/{store_seq}/category")
+//    public String test(	HttpServletRequest request,
+//                           HttpServletResponse response,
+//                           HttpSession session,
+//                           @PathVariable("store_seq") String store_seq) {
+//
+//
+//       //  #{store_seq},#{menu_name},#{categ_name},#{menu_info},#{origin_fname},#{stored_fname},#{menu_price
+//
+//            Store_Category_DTO dto = new Store_Category_DTO();
+//            dto.setStore_seq(Integer.parseInt(store_seq));
+//            dto.setMenu_name("김밥");
+//            dto.setCateg_name("요리");
+//            dto.setMenu_info("유기농 야채로 만든 꿀김밥");
+//            dto.setOrigin_fname("오리지날파일");
+//            dto.setStored_fname("저장된파일");
+//            dto.setMenu_price(2000);
+//
+//            System.out.println("메뉴 카테고리 전체 조회 리턴값 :  "+  service.selectAll(1));
+//            System.out.println("메뉴 카테고리 상세 조회 리턴값 :  "+  service.selectOne(1));
+//            System.out.println("메뉴 생성 리턴값 :  "+  service.createMenu(dto));
+//
+//            Store_Category_DTO hdto = new Store_Category_DTO();
+//            hdto = service.selectOne(2);
+//            hdto.setMenu_price(50000);
+//            hdto.setMenu_info("최고급재료로인해 가격이 상승되었습니다.");
+//            System.out.println("메뉴 카테고리 수정 리턴값 :  "+  service.modify(hdto));
+//            System.out.println("메뉴 삭제 리턴값 : " + service.deleteMenu(3));
+//
+//
+//
+//
+//
+//
+//
+//        return null;
+//    }
 
 }

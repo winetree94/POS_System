@@ -35,7 +35,7 @@ public class IStore_Reservation_Service_Impl implements IStore_Reservation_Servi
 
     //예약 세부조회
     public Store_Reservation_DTO selectOne(int reserv_seq){
-    return mapper_Read.selectone(reserv_seq);
+    return mapper_Read.selectOne(reserv_seq);
     }
 
     //예약 생성
@@ -50,7 +50,7 @@ public class IStore_Reservation_Service_Impl implements IStore_Reservation_Servi
         int n = mapper_Update.updateReserv(dto);
 
         if(n>0){
-            return mapper_Read.selectone(dto.getReserv_seq());
+            return mapper_Read.selectOne(dto.getReserv_seq());
 
         }
         return null;
