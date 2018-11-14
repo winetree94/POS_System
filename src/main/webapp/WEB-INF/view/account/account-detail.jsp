@@ -1,7 +1,4 @@
-<%@ page import="com.pos.system.dto.Service_Board_DTO" %>
-<%@ page import="java.util.List" %>
 <%@ page import="com.pos.system.dto.Service_Account_DTO" %>
-<%@ page import="com.pos.system.dto.Store_Account_DTO" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <!doctype html>
 <html lang="en">
@@ -19,17 +16,17 @@
 
 </head>
 <body>
+
 <%
-    Service_Account_DTO user =(Service_Account_DTO)request.getAttribute("user");
+    Service_Account_DTO userDetail =(Service_Account_DTO)request.getAttribute("userDetail");
+
 %>
 
-<h1>유저정보 페이지</h1>
-    <%= user.getService_id() %>
-    ${user.service_type}
-    ${user.delflag}
-    <%= user.getService_email() %>
-    <%= user.getRegdate()%>
-
+<h1>ACCOUNT DETAIL</h1>
+   아이디 : ${userDetail.service_id}
+   유저 타입 :  ${userDetail.service_type}
+   이메일 주소 : ${userDetail.service_email}
+   가입일 :  ${userDetail.regdate}
 
 </body>
 </html>

@@ -96,12 +96,12 @@
 </script>
 
 <body>
-<h1>POS LOG-IN PAGE </h1>
+<h1>POS LOGIN PAGE </h1>
 <!-- ajax -->
 <!-- ajax처리떄문에 one quotation으로 처리해준다. -->
 <div id='container'>
 
-    <div id='title'>POS 로그인 페이지</div>
+    <div id='title'></div>
     <div id='id'>아이디</div>
 
     <form method='post' id='frm'>
@@ -112,14 +112,15 @@
 
         <input type='password' name='service_pw' id='inputPw' required='required'>
         <br/>
+        <br/>
         <input type='button' id='login' name='login' value='로그인' onclick='loginCheck()'/>
+        <a href='#' onclick='signUp()'>
+            <input type='button' id='SignUp' name='signup' value='회원가입'/>
+        </a>
         <br/>
 
         <div id='bottom'>
 
-            <a href='#' onclick='signUp()'>
-                <input type='button' id='SignUp' name='signup' value='회원가입'/>
-            </a>
 
 
         </div>

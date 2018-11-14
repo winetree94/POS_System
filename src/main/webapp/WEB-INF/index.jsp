@@ -17,11 +17,10 @@
 	<link rel="stylesheet" href="./src/css/style.css">
 
 </head>
-<body>
 <jsp:include page="./view/comm/header.jsp"/>
+<body>
 
-<h1>POS SYSTEM</h1>
-
+<h2>한솔,재이,성현 콜라보</h2>
 
 
 </body>

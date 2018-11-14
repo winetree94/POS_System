@@ -42,7 +42,7 @@ public class Service_Account_Ctrl {
 		return "./view/account/register";
 	}
 
-	@PostMapping("register")
+	@PostMapping("/register")
 	public String register(Service_Account_DTO dto){
 		Service_Account_DTO udto = service.signUp(dto);
 		System.out.println(udto);
@@ -56,7 +56,7 @@ public class Service_Account_Ctrl {
 	 * @param \String\ service_id 회원이 입력한 아이디값.
 	 * @return "./view/account/register"
 	 */
-	@PostMapping("idduplicate")
+	@PostMapping("/idduplicate")
 	@ResponseBody
 	public String idDuplicate(String service_id) {
 		//System.out.println("실행확인");
@@ -126,7 +126,7 @@ public class Service_Account_Ctrl {
 	 * @param \HttpSession 세션
 	 * @return "redirect:../"
 	 */
-	@GetMapping("logout")
+	@GetMapping("/logout")
 	public String logout(HttpSession session){
 		Service_Account_DTO user = (Service_Account_DTO)session.getAttribute("user");
 		if(user!=null) {
@@ -141,18 +141,17 @@ public class Service_Account_Ctrl {
 	 * @param \HttpSession 세션
 	 * @return "redirect:../"
 	 */
-	@GetMapping("{service_id}")
+	@GetMapping("/{service_id}")
 	public String accountDetail(@PathVariable("service_id") String service_id, HttpSession session, HttpServletRequest request, HttpServletResponse response){
 		Service_Account_DTO user = (Service_Account_DTO)session.getAttribute("user");
 		service_id = user.getService_id();
 		Service_Account_DTO userDetail = service.accountDetail(service_id);
-		System.out.println(userDetail);
-
-
+		System.out.println("유저 디테일 : " + userDetail);
 			request.setAttribute("userDetail",userDetail);
-		System.out.println("--------------------------------------------------------------");
 		return "./view/account/account-detail";
 	}
+
+
 
 
 
