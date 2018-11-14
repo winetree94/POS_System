@@ -23,7 +23,7 @@ public interface Service_Board_Update_Mapper {
 	
 	/**
 	 * 조회수 자동 증가
-	 * @param seq
+	 * @param board_seq
 	 * @return int
 	 */
 	@Update(" UPDATE SERVICE_BOARD SET READCOUNT=READCOUNT+1 WHERE BOARD_SEQ=#{board_seq} ")

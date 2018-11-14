@@ -23,6 +23,10 @@
 			border-collapse: collapse;
 			text-align : center;
 		}
+		a{
+			color: hotpink;
+		}
+
 		
 	</style>
 </head>
@@ -46,12 +50,12 @@
 			<td>${dto.getBoard_seq()}</td>
 			<td>${dto.getService_id()}</td>
 			<td>${dto.getTitle()}</td>
-			<td>${dto.getContent()}</td>
+			<td><a href="/board/${dto.board_seq}">${dto.getContent()}</a></td>
 			<td><fmt:formatDate value="${dto.getRegdate()}" pattern="yyyy-MM-dd"/></td>
 			<td>${dto.getReadcount()}</td>
 		</tr>
 	</c:forEach>
-	
+
 </table>
 
 </body>

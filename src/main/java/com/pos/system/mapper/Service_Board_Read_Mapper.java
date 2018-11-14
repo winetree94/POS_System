@@ -16,7 +16,7 @@ public interface Service_Board_Read_Mapper {
 	 * 모든 게시물 조회 
 	 * @return List<Service_Board_DTO> 
 	 */
-	@Select(" SELECT BOARD_SEQ, SERVICE_ID ,READCOUNT, REGDATE, TITLE, CONTENT, REF, STEP, DEPTH, TYPE, DELFLAG FROM SERVICE_BOARD ")
+	@Select(" SELECT BOARD_SEQ, SERVICE_ID ,READCOUNT, REGDATE, TITLE, CONTENT, REF, STEP, DEPTH, TYPE, DELFLAG FROM SERVICE_BOARD WHERE DELFLAG = 'N' ")
 	List<Service_Board_DTO> selectAllBoard();
 	
 	/**
@@ -32,7 +32,7 @@ public interface Service_Board_Read_Mapper {
 	 * @param board_seq
 	 * @return Service_Board_DTO
 	 */
-	@Select(" SELECT BOARD_SEQ, SERVICE_ID ,READCOUNT,REGDATE, TITLE, CONTENT, REF, STEP, DEPTH, TYPE, DELFLAG FROM SERVICE_BOARD WHERE BOARD_SEQ = #{SEQ} ")
+	@Select(" SELECT BOARD_SEQ, SERVICE_ID ,READCOUNT, REGDATE, TITLE, CONTENT, REF, STEP, DEPTH, TYPE, DELFLAG FROM SERVICE_BOARD WHERE BOARD_SEQ = #{board_seq} ")
 	Service_Board_DTO selectOneBoard(int board_seq);
 	
 	

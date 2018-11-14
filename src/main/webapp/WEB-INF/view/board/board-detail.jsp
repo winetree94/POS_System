@@ -9,6 +9,7 @@
 		<title>Insert title here</title>
 	</head>
 	<body>
-		<h1>새글 쓰기</h1>
+		<h2>board-detail</h2>
+	${board_detail}
 	</body>
 </html>

@@ -39,16 +39,20 @@
 	function sizeChk() {
 		//		if (document.getElementById("filechk").value != "") {
 		// var fileSize = document.querySelector('input[type=file]').files[0].size;
-		var fileSize = document.getElementById('filechk').files[0].size;
-		var maxSize = 2 * 1024 * 1024;
 
-		if (fileSize > maxSize) {
-			alert("사이즈가 너무 커요");
-			return false;
-		} else {
-			alert("적당한 사이즈네요");
-			return true;
-		}
+			var maxSize = 2 * 1024 * 1024;
+
+		if (document.getElementById('filechk').files[0] != undefined){
+            var fileSize = document.getElementById('filechk').files[0].size;
+			if (fileSize > maxSize) {
+				alert("사이즈가 너무 커요");
+				return false;
+			} else {
+				alert("적당한 사이즈네요");
+				return true;
+			}
+        }
+        return true;
 	}
 
 	function submitContents() {

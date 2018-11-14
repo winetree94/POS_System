@@ -9,10 +9,10 @@ public interface Service_Board_Delete_Mapper {
 
 	/**
 	 * 특정 게시글 삭제
-	 * @param seq
+	 * @param board_seq
 	 * @return int
 	 */
-	@Update(" UPDATE SERVICE_BOARD SET DELFLAG = 'Y' WHERE BOARD_SEQ = #{seq} ")
+	@Update(" UPDATE SERVICE_BOARD SET DELFLAG = 'Y' WHERE BOARD_SEQ = #{board_seq} ")
 	int delteOneBoard(int board_seq);
 	
 	
