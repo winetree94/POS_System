@@ -2,11 +2,14 @@ package com.pos.system.controller;
 
 import com.pos.system.dto.Service_Account_DTO;
 import com.pos.system.service.IService_Account_Service;
+import com.sun.deploy.net.HttpResponse;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpRequest;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 /**
@@ -31,7 +34,7 @@ public class Service_Account_Ctrl {
 	/**
 	 * 회원가입 화면 이동
 	 * @param
-	 * @return "./view/account/register"r
+	 * @return "./view/account/register"
 	 */
 	@GetMapping("/signupform")
 	public String signUpForm(){
@@ -82,9 +85,12 @@ public class Service_Account_Ctrl {
 	 * @return "./view/account/loginform"
 	 */
 	@GetMapping("")
-	public String loginForm(){
-
+	public String loginForm(HttpSession session){
+		Service_Account_DTO user = (Service_Account_DTO)session.getAttribute("user");
+		if(user==null){
 		return "./view/account/loginform";
+		}
+		return "redirect:./";
 	}
 
 	/**
@@ -109,10 +115,43 @@ public class Service_Account_Ctrl {
 	 */
 	@PostMapping("")
 	public String login(Service_Account_DTO dto, HttpSession session){
-		Service_Account_DTO udto = service.login(dto);
-		session.setAttribute("id",udto);
-		System.out.println(udto);
-		return "redirect:/";
+		Service_Account_DTO user = service.login(dto);
+		session.setAttribute("user", user);
+		System.out.println(user);
+		return "redirect:./";
+	}
+
+	/**
+	 * 로그아웃 처리
+	 * @param \HttpSession 세션
+	 * @return "redirect:../"
+	 */
+	@GetMapping("logout")
+	public String logout(HttpSession session){
+		Service_Account_DTO user = (Service_Account_DTO)session.getAttribute("user");
+		if(user!=null) {
+			session.removeAttribute("user");
+		}
+
+		return "redirect:../";
+	}
+
+	/**
+	 * 회원상세정보
+	 * @param \HttpSession 세션
+	 * @return "redirect:../"
+	 */
+	@GetMapping("{service_id}")
+	public String accountDetail(@PathVariable("service_id") String service_id, HttpSession session, HttpServletRequest request, HttpServletResponse response){
+		Service_Account_DTO user = (Service_Account_DTO)session.getAttribute("user");
+		service_id = user.getService_id();
+		Service_Account_DTO userDetail = service.accountDetail(service_id);
+		System.out.println(userDetail);
+
+
+			request.setAttribute("userDetail",userDetail);
+		System.out.println("--------------------------------------------------------------");
+		return "./view/account/account-detail";
 	}
 
 
@@ -137,12 +176,12 @@ public class Service_Account_Ctrl {
 //
 //
 //		if(service_id.equalsIgnoreCase((String)session.getAttribute("id"))){
-//		Service_Account_DTO hdto = service.selectOne(dto);
-//		req.setAttribute("detail",dto);
-//		System.out.println(dto);
-//
-//		return "./view/account/account-detail";
-//
+////		Service_Account_DTO hdto = service.selectOne(dto);
+////		req.setAttribute("detail",dto);
+////		System.out.println(dto);
+////
+////		return "./view/account/account-detail";
+////
 //		}else{
 //			return "redirect:/errorpage";
 //		}

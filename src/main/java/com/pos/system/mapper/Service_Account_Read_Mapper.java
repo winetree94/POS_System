@@ -50,5 +50,9 @@ public interface Service_Account_Read_Mapper {
     @Select(" SELECT SERVICE_ID,SERVICE_TYPE FROM SERVICE_ACCOUNT WHERE SERVICE_ID=#{service_id} AND SERVICE_PW=#{service_pw} ")
     Service_Account_DTO login(Service_Account_DTO dto);
 
+    //아이디 상세정보.
+    @Select(" SELECT SERVICE_ID, SERVICE_EMAIL,SERVICE_TYPE, REGDATE, DELFLAG FROM SERVICE_ACCOUNT WHERE SERVICE_ID=#{service_id}")
+    Service_Account_DTO accountDetail(String service_id);
+
 
 }

@@ -1,5 +1,6 @@
 package com.pos.system.controller;
 
+import com.pos.system.dto.Service_Account_DTO;
 import com.pos.system.dto.Service_Store_DTO;
 import com.pos.system.service.IService_Store_Service;
 import org.apache.logging.log4j.Logger;
@@ -30,17 +31,17 @@ public class Service_Store_Ctrl {
 	
 	/**
 	 * 매장 목록 출력
-	 * @param req
+	 * @param \req
 	 * @return
 	 */
 	@GetMapping("")
 	public String store_List(HttpServletRequest request, HttpServletResponse response, HttpSession session){
 		System.out.println("---------------------------store_list form------------------------------");
 		
-		String service_id = (String)session.getAttribute("id");
-		List<Service_Store_DTO> stores_list = service.selectAllStore(service_id);
+		Service_Account_DTO user = (Service_Account_DTO)session.getAttribute("user");
+		List<Service_Store_DTO> stores_list = service.selectAllStore(user.getService_id());
 		request.setAttribute("stores_list", stores_list);
-		
+
 		return "./view/stores/stores-list";
 	}
 	
@@ -69,7 +70,7 @@ public class Service_Store_Ctrl {
 	
 	/**
 	 * 매장 등록 처리
-	 * @param req
+	 * @param \req\
 	 * @return
 	 */
 	@PostMapping("")
@@ -113,7 +114,7 @@ public class Service_Store_Ctrl {
 	
 	/**
 	 * 매장 세부정보 화면
-	 * @param id
+	 * @param \id
 	 * @return
 	 */
 	@GetMapping("{store_seq}")
@@ -174,7 +175,7 @@ public class Service_Store_Ctrl {
 	
 	/**
 	 * 매장 정보 수정 처리
-	 * @param id
+	 * @param \id
 	 * @return
 	 */
 	@PostMapping("{store_seq}")
@@ -215,7 +216,7 @@ public class Service_Store_Ctrl {
 	
 	/**
 	 * 매장 삭제 처리
-	 * @param id
+	 * @param \id
 	 * @return
 	 */
 	@PostMapping("{store_seq}/delete")

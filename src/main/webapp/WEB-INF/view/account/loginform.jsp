@@ -55,7 +55,7 @@
                 url: "/account/logincheck",
                 data: "service_id="+service_id+"&"+"service_pw="+service_pw,
                 success: function(msg) {
- 				alert(msg);
+ 				//alert(msg);
 
                     var temp = "";
                     var temp1 = "";
@@ -72,7 +72,7 @@
                     if(result=="성공") {
 // 					alert("성공");
                         temp1 = temp1.split("/")[1];
-                        alert(temp1);
+                        //alert(temp1);
                         document.getElementById("loginChk").value = temp1;
                         frm.submit();
 
