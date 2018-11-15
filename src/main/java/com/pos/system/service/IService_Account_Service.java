@@ -58,4 +58,7 @@ public interface IService_Account_Service {
 	//회원상세정보
 	public Service_Account_DTO accountDetail(String service_id);
 
+	//비밀번호 체크
+	public String pwCheck(String service_pw);
+
 }

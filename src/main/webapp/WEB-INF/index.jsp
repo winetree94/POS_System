@@ -3,25 +3,11 @@
 
 <%@ page import="java.util.List" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
-<!doctype html>
-<html lang="en">
-<head>
 
-	<meta charset="UTF-8">
-	<meta name="viewport"
-	      content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
-	<meta http-equiv="X-UA-Compatible" content="ie=edge">
-	<title>Document</title>
-
-	<script type="text/javascript" src="./src/js/script.js"></script>
-	<link rel="stylesheet" href="./src/css/style.css">
-
-</head>
 <jsp:include page="./view/comm/header.jsp"/>
-<body>
+
 
 <h2>한솔,재이,성현 콜라보</h2>
 
 
-</body>
-</html>
+<jsp:include page="./view/comm/footer.jsp"/>

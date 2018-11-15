@@ -1,16 +1,14 @@
 h1 {
-	font-size: 60px;
+	font-size: 100px;
 	text-align: center;
-	padding-top: 10px;
-	margin: 0px 10px 50px auto;
+	padding-top: 0px;
+	margin: 0px 10px 30px auto;
 }
 
 a {
 	text-decoration: none;
 	color: black;
 }
-
-
 
 
 nav ul {
@@ -20,7 +18,7 @@ nav ul {
 nav ul li {
 	display:inline;
 	border-left:1px solid #999;
-	font:bold 12px Dotum;
+	font:bold 18px Dotum;
 	padding:0 10px;
 }
 nav ul li:first-child{
@@ -30,8 +28,8 @@ nav ul li:first-child{
 
 nav{
 	position: absolute;
-	top:42px;
-	right: 10px ;
+	top:110px;
+	right: 15px ;
 }
 
 #main{
@@ -40,6 +38,8 @@ nav{
 
 	bottom: 50px;
 	background-color: gainsboro;
+	padding-bottom: 1px;
+	margin-bottom: 20px;
 }
 
 

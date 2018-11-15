@@ -54,5 +54,8 @@ public interface Service_Account_Read_Mapper {
     @Select(" SELECT SERVICE_ID, SERVICE_EMAIL,SERVICE_TYPE, REGDATE, DELFLAG FROM SERVICE_ACCOUNT WHERE SERVICE_ID=#{service_id}")
     Service_Account_DTO accountDetail(String service_id);
 
+    //비번 체크
+    @Select(" SELECT SERVICE_ID FROM SERVICE_ACCOUNT WHERE  SERVICE_PW=#{service_pw} ")
+    String pwCheck(String service_pw);
 
 }

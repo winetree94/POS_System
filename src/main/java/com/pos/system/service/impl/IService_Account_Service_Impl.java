@@ -60,4 +60,8 @@ public class IService_Account_Service_Impl implements IService_Account_Service {
 		return mapper_Read.accountDetail(service_id);
 	};
 
+	public String pwCheck(String service_pw){
+		return mapper_Read.pwCheck(service_pw);
+	}
+
 }

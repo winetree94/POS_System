@@ -7,8 +7,21 @@
 <%@taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
 <%@taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn"%>
 
-<script type="text/javascript" src="./src/js/script.js"></script>
-<link rel="stylesheet" href="./src/css/style.css">
+<!doctype html>
+<html lang="en">
+<head>
+
+	<meta charset="UTF-8">
+	<meta name="viewport"
+		  content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+	<meta http-equiv="X-UA-Compatible" content="ie=edge">
+	<title>Document</title>
+	<script type="text/javascript" src="/src/js/jquery-3.3.1.js"></script>
+	<script type="text/javascript" src="/src/js/script.js"></script>
+	<link rel="stylesheet" href="/src/css/style.css">
+
+</head>
+<body>
 <div>
 <div id="main">
 	<h1>POS SYSTEM</h1>
@@ -18,7 +31,7 @@
 		<nav id="header">
 			<ul>
 				<li>
-					<a href="./">홈</a>
+					<a href="/">홈</a>
 				</li>
 
 				<li>
