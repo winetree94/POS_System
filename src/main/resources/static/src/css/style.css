@@ -1,3 +1,53 @@
 h1 {
-	color: #aa7978;
+	font-size: 60px;
+	text-align: center;
+	padding-top: 10px;
+	margin: 0px 10px 50px auto;
+}
+
+a {
+	text-decoration: none;
+	color: black;
+}
+
+
+
+
+nav ul {
+	padding-top:10px;
+}
+
+nav ul li {
+	display:inline;
+	border-left:1px solid #999;
+	font:bold 12px Dotum;
+	padding:0 10px;
+}
+nav ul li:first-child{
+	border-left:none;
+
+}
+
+nav{
+	position: absolute;
+	top:42px;
+	right: 10px ;
+}
+
+#main{
+	position: relative;
+	top:0px;
+
+	bottom: 50px;
+	background-color: gainsboro;
+}
+
+
+h2{
+	text-align: center;
+}
+
+
+#container{
+	text-align: center;
 }

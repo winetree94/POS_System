@@ -1,5 +1,6 @@
 package com.pos.system.interceptor;
 
+import com.pos.system.dto.Service_Account_DTO;
 import org.springframework.stereotype.Component;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.handler.HandlerInterceptorAdapter;
@@ -24,13 +25,13 @@ public class Service_Interceptor extends HandlerInterceptorAdapter {
 	public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
 		
 		HttpSession session = request.getSession();
-		
-		String service_id = (String)session.getAttribute("id");
+
+		Service_Account_DTO user = (Service_Account_DTO) session.getAttribute("user");
 		
 		System.out.println("preHandle");
 		
-		if(service_id == null) {
-			response.sendRedirect("./error");
+		if(user == null) {
+			response.sendRedirect("./account");
 			return false;
 		} else {
 			return true;

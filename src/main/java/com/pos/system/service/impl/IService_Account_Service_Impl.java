@@ -53,4 +53,11 @@ public class IService_Account_Service_Impl implements IService_Account_Service {
 	public int resign(Service_Account_DTO dto){
 		return mapper_Delete.resign(dto);
 	}
+
+
+	public Service_Account_DTO accountDetail(String service_id){
+
+		return mapper_Read.accountDetail(service_id);
+	};
+
 }

@@ -43,12 +43,10 @@
         $("#service_id").keyup(function(){
             var inputLength = $(this).val().length;
             $("#result").html("");
-// 		alert(inputLength);
             var service_id = "";
             service_id = $(this).val();
 
-            //이미 while문처럼 돌아가서 while을 쓰면 안된다.
-            //그래서 while을 쓰면은 무한루프처럼 돌아간다. 그래서 if로 벗어나는 코드 작성
+
             //공백이면은 -1 이 나온다
             if(service_id.indexOf(" ")!=-1) {
                 $("#result").css("color","red");
@@ -91,15 +89,15 @@
     });
 </script>
 <body>
-<h1>회원가입 페이지</h1>
+<h1>SIGNUP</h1>
 <div id="container">
 
-    <!-- 이번에는 onsubmit -->
+
     <input type="hidden" id="chkval" value="0">
 
     <form action="/account/register" method="post" id="frm" onsubmit="return check()">
         <div id="info">
-            <div id="leftinfo">정보입력</div>
+            <div id="leftinfo"></div>
 
             <div id="centerinfo">
                 <input type="text" id="service_email" name="service_email" placeholder="이메일" required="required"> <br/>
@@ -120,10 +118,10 @@
         <div id="line"></div>
 
 
-        <div id="bottom"> 		<!-- 약관사항 넣을 것 -->
+        <div id="bottom">
             <br>
             *만 14세 미만은 법정대리인의 동의 후에 회원 서비스 이용이 가능합니다.<br>
-            *동의하지 안으셔도 가입은 됩니다.?<br>
+            *동의하지 않으시면 뒤로가기 눌러주세요<br>
             <strong id="bottomstrong">
                 약관과 개인정보 수집에 대해서 확인하였으며 이에 동의하십니까?
             </strong><br>

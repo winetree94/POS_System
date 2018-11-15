@@ -55,4 +55,7 @@ public interface IService_Account_Service {
 	 */
 	public int resign(Service_Account_DTO dto);
 
+	//회원상세정보
+	public Service_Account_DTO accountDetail(String service_id);
+
 }
