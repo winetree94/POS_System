@@ -49,8 +49,10 @@
 		<tr>
 			<td>${dto.getBoard_seq()}</td>
 			<td>${dto.getService_id()}</td>
+
 			<td>${dto.getTitle()}</td>
-			<td><a class="content" href="/board/${dto.board_seq}">${dto.getContent()}</a></td>
+			<td><a href="/board/${dto.board_seq}">${dto.getTitle()}</a></td>
+			<td><a href="/board/${dto.board_seq}">${dto.getContent()}</a></td>
 			<td><fmt:formatDate value="${dto.getRegdate()}" pattern="yyyy-MM-dd"/></td>
 			<td>${dto.getReadcount()}</td>
 		</tr>

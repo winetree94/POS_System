@@ -78,7 +78,7 @@ public class Service_Board_Ctrl {
 
         String writer = (String)session.getAttribute("id");
         String title = request.getParameter("title");
-        String content = request.getParameter("contents");
+        String content = request.getParameter("content");
 
         Service_Board_DTO dto = new Service_Board_DTO();
 
@@ -124,6 +124,70 @@ public class Service_Board_Ctrl {
         System.out.println(board_seq);
 
         return "./view/board/board-detail";
+    }
+
+
+    /**
+     * 특정 게시글 삭제
+     * @param board_seq
+     * @param request
+     * @param response
+     * @param session
+     * @param file
+     * @return
+     */
+    @PostMapping("/{board_seq}/delete")
+    public String boardDelete(
+            @PathVariable("board_seq") String board_seq,
+            HttpServletRequest request,
+            HttpServletResponse response,
+            HttpSession session,
+            MultipartFile file
+    ){
+        int board_delete = service.delteOneBoard(Integer.parseInt(board_seq));
+
+        if (board_delete == 0){
+            System.out.println("no");
+        }else{
+            System.out.println("성공");
+        }
+        request.setAttribute("board_delete",board_delete);
+
+
+        return "redirect:/board";
+    }
+
+
+    /**
+     * 게시글 수정
+     * @param board_seq
+     * @param request
+     * @param response
+     * @param session
+     * @param file
+     * @return
+     */
+    @PostMapping("/{board_seq}/edit")
+    public String boardModify(
+            @PathVariable("board_seq") String board_seq,
+            HttpServletRequest request,
+            HttpServletResponse response,
+            HttpSession session,
+            MultipartFile file
+    ){
+        return "redirect:/sdfksfdhj";
+    }
+
+    @GetMapping("test")
+    public String test01(){
+
+
+        return "/dsfkljsdf";
+    }
+
+    @GetMapping("test02")
+    public String test02(){
+        return "redirect:test";
     }
 
 
