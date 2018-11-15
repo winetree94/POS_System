@@ -13,7 +13,7 @@
 		<input type="text" class="title" name="title" placeholder="title">
 		<input type="date" class="date" name="date" placeholder="date">
 		<div id="editor-container"></div>
-		<input type="hidden" class="contents" name="contents" value="">
+		<input type="hidden" class="content" name="content" value="">
 		<div class="file"></div>
 		<input type="submit" value="submit">
 	</div>
@@ -30,11 +30,21 @@
 		form.setAttribute("class", form_class);
 		form.setAttribute("method", form_method);
 		form.setAttribute("enctype", form_enctype);
+		form.setAttribute("use_file",use_file);
 
 		if (use_file) {
 			document.querySelector('div.file').innerHTML = "<input type='file' id='filechk' name='image'>";
 		}
+
+        if(title != null && title != undefined) {
+            document.querySelector(".writer").value = writer;
+            document.querySelector(".title").value = title;
+            document.querySelector(".ql-editor").innerHTML = content;
+            document.querySelector(".content").value = content;
+        }
 	}
+
+
 
 	function sizeChk() {
 		//		if (document.getElementById("filechk").value != "") {
@@ -52,14 +62,11 @@
 				return true;
 			}
         }
+
+        var data = document.querySelector('.ql-editor').innerHTML;
+        document.querySelector('.content').value = data;
+
         return true;
 	}
 
-	function submitContents() {
-
-		var data = document.querySelector('.ql-editor').innerHTML;
-		document.querySelector('.contents').value = data;
-
-		return true;
-	}
 </script>
