@@ -7,7 +7,7 @@
 <jsp:include page="./view/comm/header.jsp"/>
 
 
+
 <h2>한솔,재이,성현 콜라보</h2>
-
-
 <jsp:include page="./view/comm/footer.jsp"/>
+
