@@ -1,6 +1,7 @@
 package com.pos.system.service;
 
 import com.pos.system.dto.Service_Account_DTO;
+import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
 
@@ -27,6 +28,9 @@ public interface IService_Account_Service {
 	 */
 	public int idDuplicate(String id);
 
+	//이메일 중복확인
+	public int emailDuplicate(String service_email);
+
 	/**
 	 * 사용자가 로그인하는 기능
 	 * @Param Service_Account_DTO
@@ -35,11 +39,18 @@ public interface IService_Account_Service {
 	public Service_Account_DTO login(Service_Account_DTO dto);
 
 	/**
-	 * 사용자의 비밀번호와 이메일을 변경하는 기능
+	 * 사용자의 이메일을 변경하는 기능
 	 * @Param Service_Account_DTO
 	 * @return int
 	 */
-	public int modify(Service_Account_DTO dto);
+	public int modifyEmail(Service_Account_DTO dto);
+
+	/**
+	 * 사용자의 비밀번호을 변경하는 기능
+	 * @Param Service_Account_DTO
+	 * @return int
+	 */
+	public int modifyPw(Service_Account_DTO dto);
 
 	/**
 	 * 회원가입하는 기능
@@ -59,6 +70,6 @@ public interface IService_Account_Service {
 	public Service_Account_DTO accountDetail(String service_id);
 
 	//비밀번호 체크
-	public String pwCheck(String service_pw);
+	public String pwCheck(@Param("service_id")String service_id, @Param("service_pw")String service_pw);
 
 }

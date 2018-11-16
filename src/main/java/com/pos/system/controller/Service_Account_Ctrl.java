@@ -79,6 +79,14 @@ public class Service_Account_Ctrl {
         return (n == 0) ? "사용가능한 아이디" : "중복된 아이디";
     }
 
+    @PostMapping("/emailduplicate")
+    @ResponseBody
+    public String emailDuplicate(String service_email){
+            int n = service.emailDuplicate(service_email);
+            System.out.println("이메일중복검사"+n);
+        return (n == 0)? "가능":"중복";
+    }
+
 
     /**
      * 로그인 화면 이동
@@ -186,11 +194,37 @@ public class Service_Account_Ctrl {
     public String passwordCheck(@PathVariable("service_id") String service_id, HttpSession session, HttpServletRequest request, HttpServletResponse response) {
         Service_Account_DTO user = (Service_Account_DTO) session.getAttribute("user");
         service_id = user.getService_id();
+        System.out.println(service_id);
         String service_pw = request.getParameter("service_pw");
-        System.out.println("-------작동" + service_pw);
-
-        return service_id.equalsIgnoreCase(service.pwCheck(service_pw)) ? "성공" : "실패";
+        String check_id = service.pwCheck(service_id,service_pw);
+        return service_id.equalsIgnoreCase(check_id) ? "성공" : "실패";
     }
+
+    @PostMapping("/{service_id}/edit/email")
+    public String editEmail(@PathVariable("service_id") String service_id, HttpServletRequest request, HttpServletResponse response){
+        String service_email = request.getParameter("service_email");
+        Service_Account_DTO user = service.accountDetail(service_id);
+        user.setService_email(service_email);
+        int n = service.modifyEmail(user);
+    return (n>0)?"redirect:/account/{service_id}":"/errorpage";
+    }
+
+    @PostMapping("/{service_id}/edit/pw")
+    public String editPw(@PathVariable("service_id") String service_id, HttpServletRequest request, HttpServletResponse response){
+        String service_pw = request.getParameter("new_pw");
+        Service_Account_DTO user = new Service_Account_DTO();
+        user.setService_pw(service_pw);
+        user.setService_id(service_id);
+        int n = service.modifyPw(user);
+        System.out.println(n);
+
+        return (n>0)?"redirect:/account/{service_id}":"/errorpage";
+    }
+
+
+
+
+
 
 
 //	/**

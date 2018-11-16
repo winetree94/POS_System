@@ -123,16 +123,69 @@ function pwSearch() {
 }
 
 
-function editEmail(){
-    var frm = document.forms[0];
-    var service_email = document.getElementById("inputEmail").value;
-    var no_text = /^[A-Za-z0-9_\.\-]+@[A-Za-z0-9\-]+\.[A-Za-z0-9\-]+/;
-    frm.action='./edit';
+// email check function
+function email_check( service_email ) {
+    var regex=/([\w-\.]+)@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.)|(([\w-]+\.)+))([a-zA-Z]{2,4}|[0-9]{1,3})(\]?)$/;
+    return (service_email != '' && service_email != 'undefined' && regex.test(service_email));
+}
 
-    if(no_text.test(inputEmail)==false){
-        alert("이 메일형식이 올바르지 않습니다.");
-        document.addjoin.inputEmail.focus();
-        return false;
+// check when email input lost foucus
+function editEmail() {
+    var service_email = document.getElementById("service_email").value;
+    var frm = document.forms[0];
+    frm.action = './edit/email';
+    // if value is empty then exit
+        if (service_email == '' || service_email == 'undefined') {
+            $("#result").text('이메일 주소를 입력해주세요');
+            return;
     }
 
+    // valid check
+    if (!email_check(service_email)) {
+        $("#result").text('부적합한 이메일 주소 양식입니다.');
+        service_email.focus();
+        return false;
+    }
+    else {
+        $.ajax({
+            type: 'POST' ,
+            url: "/account/emailduplicate",
+            data: "service_email=" + service_email,
+            success: function(msg) {
+                console.log(msg);
+                if(msg=="가능"){
+                    frm.submit();
+
+                }else{
+                    $("#result").text('중복된 이메일 주소입니다.');
+                }
+
+
+            }
+
+
+        });
+    }
 }
+
+function editPw() {
+    var service_pw = document.getElementById("new_pw").value;
+    var re_pw = document.getElementById("re_pw").value;
+    var frm = document.forms[0];
+
+
+    if (service_pw != re_pw) {
+        $("#resultPw").text('입력한 비밀번호가 맞지 않습니다');
+    } else if (service_pw == "" || re_pw == "" || service_pw == "" && re_pw == "") {
+        $("#resultPw").text('비밀번호를 입력해주세요');
+
+        return
+    } else {
+        frm.action = './edit/pw';
+        frm.submit();
+
+    }
+}
+
+
+

@@ -29,7 +29,7 @@ nav ul li:first-child{
 
 nav{
 	position: absolute;
-	top:110px;
+	top:95px;
 	right: 15px ;
 }
 
@@ -49,6 +49,25 @@ h2{
 }
 
 
-#container{
+#container {
 	text-align: center;
+}
+
+#modifyaccountdiv{
+	text-align : center;
+	width: 400px;
+	height : 280px;
+	background-color: gainsboro;
+	margin : 10px auto;
+	padding-top: 10px;
+}
+
+#accountdiv{
+	text-align : center;
+	width: 400px;
+	height : 250px;
+	background-color: gainsboro;
+	margin : 10px auto;
+	padding: auto;
+	padding-top: 10px;
 }

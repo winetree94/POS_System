@@ -14,15 +14,18 @@
     Service_Account_DTO userDetail =(Service_Account_DTO)request.getAttribute("userDetail");
 %>
 
-<h2>ACCOUNT DETAIL</h2>
-   아이디 : ${userDetail.service_id}
-   유저 타입 :  ${userDetail.service_type}
-   이메일 주소 : ${userDetail.service_email}
-   가입일 :  ${userDetail.regdate}
-<br>
-<form method="post">
-<input type="button" value="회원정보수정" onclick="modifyAccount()"/>
-</form>
+<div id="accountdiv">
+    <h2>ACCOUNT DETAIL</h2>
+    <b>아이디</b> : ${userDetail.service_id}<br>
+    <b>유저 타입</b> :  ${userDetail.service_type}<br>
+        <b>이메일 주소</b> : ${userDetail.service_email}<br>
+            <b>가입일</b> :  ${userDetail.regdate}<br>
+    <br>
+    <form method="post">
+        <input type="button" value="회원정보수정" onclick="modifyAccount()"/>
+    </form>
+</div>
+
 <script>
     var service_id = "<%=userDetail.getService_id()%>";
 </script>
