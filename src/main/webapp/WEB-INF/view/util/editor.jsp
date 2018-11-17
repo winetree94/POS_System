@@ -24,6 +24,8 @@
 		var quill = new Quill('#editor-container', {
 			theme : 'snow'
 		});
+        document.querySelector(".ql-container").style.height = "300px";
+        document.querySelector("#editor-form > div").style.width = "500px";
 
 		var form = document.querySelector('#editor-form');
 		form.setAttribute("action", form_action);
@@ -33,7 +35,7 @@
 		form.setAttribute("use_file",use_file);
 
 		if (use_file) {
-			document.querySelector('div.file').innerHTML = "<input type='file' id='filechk' name='image'>";
+			document.querySelector('div.file').innerHTML = "<input type='file' id='filechk' name='file'>";
 		}
 
         if(title != null && title != undefined) {

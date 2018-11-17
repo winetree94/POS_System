@@ -36,14 +36,14 @@ public class IService_Board_Service_Impl implements IService_Board_Service {
 	}
 	
 	@Override
-	public int InsertBoard(Service_Board_DTO dto) {
+	public int insertBoard(Service_Board_DTO dto) {
 		return mapper_Create.insertBoard(dto);
 	}
 
 	@Override
-	public int delteOneBoard(int board_seq) {
+	public int deleteOneBoard(int board_seq) {
 		// TODO Auto-generated method stub
-		return mapper_Delete.delteOneBoard(board_seq);
+		return mapper_Delete.deleteOneBoard(board_seq);
 	}
 
 	@Override
@@ -75,9 +75,9 @@ public class IService_Board_Service_Impl implements IService_Board_Service {
 		// TODO Auto-generated method stub
 		return mapper_Update.readcountBoard(board_seq);
 	}
-	
 
-	
-	
-	
+	@Override
+	public int selectRecentBoard() {
+		return mapper_Read.selectRecentBoard();
+	}
 }

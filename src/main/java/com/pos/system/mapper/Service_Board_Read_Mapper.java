@@ -34,7 +34,13 @@ public interface Service_Board_Read_Mapper {
 	 */
 	@Select(" SELECT BOARD_SEQ, SERVICE_ID ,READCOUNT, REGDATE, TITLE, CONTENT, REF, STEP, DEPTH, TYPE, DELFLAG FROM SERVICE_BOARD WHERE BOARD_SEQ = #{board_seq} ")
 	Service_Board_DTO selectOneBoard(int board_seq);
-	
-	
+
+
+	/**
+	 * 최근 게시글의 seq 조회
+	 * @return board_seq
+	 */
+	@Select(" SELECT MAX(BOARD_SEQ) FROM SERVICE_BOARD ")
+	int selectRecentBoard();
 	
 }

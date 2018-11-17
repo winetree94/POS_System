@@ -7,8 +7,11 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import com.pos.system.dto.Service_File_DTO;
+import com.pos.system.service.IService_File_Service;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.multipart.MultipartFile;
@@ -23,10 +26,14 @@ public class Service_Board_Ctrl {
 
     private final IService_Board_Service service;
 
+
+
+
     @Autowired
     public Service_Board_Ctrl(IService_Board_Service service) {
         this.service = service;
     }
+
 
 
     /**
@@ -64,7 +71,7 @@ public class Service_Board_Ctrl {
      * @param request
      * @param response
      * @param session
-     * @param file
+     * @param
      * @return
      */
     @PostMapping("")
@@ -72,7 +79,7 @@ public class Service_Board_Ctrl {
             HttpServletRequest request,
             HttpServletResponse response,
             HttpSession session,
-            MultipartFile file
+            @RequestParam("file") MultipartFile file
     ) {
         session.setAttribute("id", "winetree"); // for test
 
@@ -81,17 +88,23 @@ public class Service_Board_Ctrl {
         String content = request.getParameter("content");
 
         Service_Board_DTO dto = new Service_Board_DTO();
+        //Service_File_DTO fdto = new Service_File_DTO();
 
         dto.setService_id(writer);
         dto.setTitle(title);
         dto.setContent(content);
 
-        service.InsertBoard(dto);
+        service.insertBoard(dto);
 
-        System.out.println(file);
+        int seq = service.selectRecentBoard();
+        System.out.println(seq);
 
-        if(file != null) {
 
+
+        if(!file.isEmpty()) {
+            //String filename = file.getOriginalFilename();
+
+//            System.out.println(filename);
         }
 
         return "redirect:/board";
@@ -144,7 +157,7 @@ public class Service_Board_Ctrl {
             HttpSession session,
             MultipartFile file
     ){
-        int board_delete = service.delteOneBoard(Integer.parseInt(board_seq));
+        int board_delete = service.deleteOneBoard(Integer.parseInt(board_seq));
 
         if (board_delete == 0){
             System.out.println("no");
@@ -159,7 +172,31 @@ public class Service_Board_Ctrl {
 
 
     /**
-     * 게시글 수정
+     * 게시글 수정 GetMapping
+     * @param board_seq
+     * @param request
+     * @param response
+     * @param session
+     * @param file
+     * @return
+     */
+    @GetMapping("/{board_seq}/edit")
+    public String boardEditForm(
+            @PathVariable("board_seq") String board_seq,
+            HttpServletRequest request,
+            HttpServletResponse response,
+            HttpSession session,
+            MultipartFile file){
+
+        Service_Board_DTO board_edit = service.selectOneBoard(Integer.parseInt(board_seq));
+
+        request.setAttribute("board_edit",board_edit);
+
+        return "./view/board/board-edit";
+    }
+
+    /**
+     * 게시글 수정 PostMapping
      * @param board_seq
      * @param request
      * @param response
@@ -168,27 +205,38 @@ public class Service_Board_Ctrl {
      * @return
      */
     @PostMapping("/{board_seq}/edit")
-    public String boardModify(
+    public String boardEdit(
             @PathVariable("board_seq") String board_seq,
             HttpServletRequest request,
             HttpServletResponse response,
             HttpSession session,
             MultipartFile file
     ){
-        return "redirect:/sdfksfdhj";
+
+        Service_Board_DTO dto = service.selectOneBoard(Integer.parseInt(board_seq));
+
+        session.setAttribute("id", "winetree"); // for test
+
+        String writer = (String)session.getAttribute("id");
+        String title = request.getParameter("title");
+        String content = request.getParameter("content");
+
+        dto.setService_id(writer);
+        dto.setTitle(title);
+        dto.setContent(content);
+
+
+        int result = service.modifyBoard(dto);
+
+        if (result > 0){
+            return "redirect:/board";
+        }else{
+            return "./view/comm/error";
+        }
+
+
     }
 
-    @GetMapping("test")
-    public String test01(){
-
-
-        return "/dsfkljsdf";
-    }
-
-    @GetMapping("test02")
-    public String test02(){
-        return "redirect:test";
-    }
 
 
 }

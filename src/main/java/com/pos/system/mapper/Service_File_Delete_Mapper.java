@@ -1,7 +1,11 @@
 package com.pos.system.mapper;
 
+import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Update;
+import org.springframework.stereotype.Repository;
 
+@Mapper
+@Repository
 public interface Service_File_Delete_Mapper {
 
 	/**

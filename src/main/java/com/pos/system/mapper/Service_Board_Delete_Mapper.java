@@ -13,7 +13,7 @@ public interface Service_Board_Delete_Mapper {
 	 * @return int
 	 */
 	@Update(" UPDATE SERVICE_BOARD SET DELFLAG = 'Y' WHERE BOARD_SEQ = #{board_seq} ")
-	int delteOneBoard(int board_seq);
+	int deleteOneBoard(int board_seq);
 	
 	
 }

@@ -17,14 +17,14 @@ public interface IService_Board_Service {
 	 * @param dto
 	 * @return int
 	 */
-	int InsertBoard(Service_Board_DTO dto);
+	int insertBoard(Service_Board_DTO dto);
 
 	/**
 	 * 특정 게시글 삭제
 	 * @param board_seq
 	 * @return int
 	 */
-	int delteOneBoard(int board_seq);
+	int deleteOneBoard(int board_seq);
 
 	/**
 	 * 모든 게시물 조회
@@ -62,5 +62,11 @@ public interface IService_Board_Service {
 	 * @return int
 	 */
 	int readcountBoard(int board_seq);
-	
+
+	/**
+	 * 가장 최근 게시글 조회
+	 * @param
+	 * @return Service_Baord_DTO
+	 */
+	int selectRecentBoard();
 }

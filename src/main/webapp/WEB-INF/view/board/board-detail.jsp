@@ -42,6 +42,8 @@
         <form action="" method="">
             <input type="button" onclick="edit()" value="수정"/>
             <input type="button" onclick="del()" value="삭제"/>
+            <input type="button" onclick="back()" value="뒤로가기">
+
         </form>
 
         <script type="text/javascript">
@@ -63,6 +65,10 @@
                del.submit();
                //alert("del");
 
+           }
+
+           function back(){
+               history.back();
            }
 
         </script>

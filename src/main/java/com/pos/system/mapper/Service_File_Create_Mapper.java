@@ -16,7 +16,7 @@ public interface Service_File_Create_Mapper {
 	 * @param dto
 	 * @return int
 	 */
-	@Insert(" INSERT INTO SERVICE_FILE VALUES(FILE_SEQ.NEXTVAL, BOARD_SEQ.CURRVAL, #{origin_fname}, #{stored_fname}, #{file_size}, SYSDATE,'N') ")
+	@Insert(" INSERT INTO SERVICE_FILE VALUES(FILE_SEQ.NEXTVAL, BOARD_SEQ.CURRVAL, #{origin_fname}, #{stored_fname}, #{file_size}, NOW(),'N') ")
 	int uploadFile(Service_File_DTO dto);
 	
 	
