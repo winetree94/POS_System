@@ -2,40 +2,40 @@
 <%@ page import="java.util.List" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@taglib uri="http://java.sun.com/jsp/jstl/core"  prefix="c"%>
-  <%@taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
-<!doctype html>
-<html lang="en">
-<head>
+<%@taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
 
-	<meta charset="UTF-8">
-	<meta name="viewport"
-	      content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
-	<meta http-equiv="X-UA-Compatible" content="ie=edge">
-	
-	<title>Document</title>
-
-	<script type="text/javascript" src="./src/js/script.js"></script>
-	<link rel="stylesheet" href="./src/css/style.css">
 
 	<style type="text/css">
 		table{
 			width:600px;
 			border-collapse: collapse;
 			text-align : center;
+			align-content: center;
+			margin-left: auto;
+			margin-right: auto;
 		}
-		a{
+		.content{
 			color: hotpink;
 		}
 
-		
+		#table{
+			text-align: center;
+			align-content: center;
+			width: 1200px;
+			margin-left: auto;
+			margin-right: auto;
+		}
+
 	</style>
-</head>
-<body>
+
+
+<jsp:include page="../comm/header.jsp"/>
 <%
 	List<Service_Board_DTO> board_list = (List<Service_Board_DTO>)request.getAttribute("board_list");
 %>
-<h1>게시판 목록</h1>
+<h2>게시판 목록</h2>
 
+<div id="table">
 <table border="1">
 	<tr>
 		<td>글번호</td>
@@ -49,6 +49,8 @@
 		<tr>
 			<td>${dto.getBoard_seq()}</td>
 			<td>${dto.getService_id()}</td>
+
+			<td>${dto.getTitle()}</td>
 			<td><a href="/board/${dto.board_seq}">${dto.getTitle()}</a></td>
 			<td><a href="/board/${dto.board_seq}">${dto.getContent()}</a></td>
 			<td><fmt:formatDate value="${dto.getRegdate()}" pattern="yyyy-MM-dd"/></td>
@@ -57,6 +59,5 @@
 	</c:forEach>
 
 </table>
-
-</body>
-</html>
+</div>
+<jsp:include page="../comm/footer.jsp"/>

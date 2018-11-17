@@ -3,6 +3,7 @@ package com.pos.system.service.impl;
 import com.pos.system.dto.Service_Account_DTO;
 import com.pos.system.mapper.*;
 import com.pos.system.service.IService_Account_Service;
+import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -34,13 +35,19 @@ public class IService_Account_Service_Impl implements IService_Account_Service {
 		return mapper_Read.idDuplicate(id);
 	}
 
+	public int emailDuplicate(String service_email){
+		return mapper_Read.emailDuplicate(service_email);
+	}
+
 	public Service_Account_DTO login(Service_Account_DTO dto){
 		return mapper_Read.login(dto);
 	}
 
-	public  int modify(Service_Account_DTO dto){
-		return mapper_Update.modify(dto);
+	public  int modifyEmail(Service_Account_DTO dto){
+		return mapper_Update.modifyEmail(dto);
 	}
+
+	public int modifyPw(Service_Account_DTO dto){ return mapper_Update.modifyPw(dto);}
 
 	public Service_Account_DTO signUp(Service_Account_DTO dto){
 		int n  = mapper_Create.signUp(dto);
@@ -59,5 +66,9 @@ public class IService_Account_Service_Impl implements IService_Account_Service {
 
 		return mapper_Read.accountDetail(service_id);
 	};
+
+	public String pwCheck(@Param("service_id")String service_id, @Param("service_pw")String service_pw){
+		return mapper_Read.pwCheck(service_id,service_pw);
+	}
 
 }

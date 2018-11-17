@@ -1,16 +1,15 @@
 h1 {
-	font-size: 60px;
+	font-size: 100px;
 	text-align: center;
-	padding-top: 10px;
-	margin: 0px 10px 50px auto;
+	padding-top: 0px;
+	margin: 0px 10px 30px auto;
+	color: black;
 }
 
 a {
 	text-decoration: none;
 	color: black;
 }
-
-
 
 
 nav ul {
@@ -20,7 +19,7 @@ nav ul {
 nav ul li {
 	display:inline;
 	border-left:1px solid #999;
-	font:bold 12px Dotum;
+	font:bold 18px Dotum;
 	padding:0 10px;
 }
 nav ul li:first-child{
@@ -30,8 +29,8 @@ nav ul li:first-child{
 
 nav{
 	position: absolute;
-	top:42px;
-	right: 10px ;
+	top:95px;
+	right: 15px ;
 }
 
 #main{
@@ -40,6 +39,8 @@ nav{
 
 	bottom: 50px;
 	background-color: gainsboro;
+	padding-bottom: 1px;
+	margin-bottom: 20px;
 }
 
 
@@ -48,6 +49,25 @@ h2{
 }
 
 
-#container{
+#container {
 	text-align: center;
+}
+
+#modifyaccountdiv{
+	text-align : center;
+	width: 400px;
+	height : 280px;
+	background-color: gainsboro;
+	margin : 10px auto;
+	padding-top: 10px;
+}
+
+#accountdiv{
+	text-align : center;
+	width: 400px;
+	height : 250px;
+	background-color: gainsboro;
+	margin : 10px auto;
+	padding: auto;
+	padding-top: 10px;
 }
