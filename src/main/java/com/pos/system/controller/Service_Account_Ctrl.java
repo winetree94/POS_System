@@ -2,7 +2,6 @@ package com.pos.system.controller;
 
 import com.pos.system.dto.Service_Account_DTO;
 import com.pos.system.service.IService_Account_Service;
-import com.sun.deploy.net.HttpResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpRequest;
 import org.springframework.stereotype.Controller;
@@ -40,8 +39,7 @@ public class Service_Account_Ctrl {
      */
     @GetMapping("/signupform")
     public String signUpForm() {
-
-        return "./view/account/register";
+        return "/WEB-INF/view/account/register.jsp";
     }
 
     @PostMapping("/register")
@@ -98,7 +96,7 @@ public class Service_Account_Ctrl {
     public String loginForm(HttpSession session) {
         Service_Account_DTO user = (Service_Account_DTO) session.getAttribute("user");
         if (user == null) {
-            return "./view/account/loginform";
+            return "/WEB-INF/view/account/loginform.jsp";
         }
         return "redirect:./";
     }
@@ -162,14 +160,14 @@ public class Service_Account_Ctrl {
         Service_Account_DTO userDetail = service.accountDetail(service_id);
         System.out.println("유저 디테일 : " + userDetail);
         request.setAttribute("userDetail", userDetail);
-        return "./view/account/account-detail";
+        return "/WEB-INF/view/account/account-detail.jsp";
     }
 
     @PostMapping("/{service_id}/pwpage")
     public String pwPage(@PathVariable("service_id") String service_id, HttpSession session, HttpServletRequest request, HttpServletResponse response) {
         Service_Account_DTO user = (Service_Account_DTO) session.getAttribute("user");
         service_id = user.getService_id();
-        return "./view/account/password-check";
+        return "/WEB-INF/view/account/password-check.jsp";
     }
 
     @PostMapping("/{service_id}/edit")
@@ -183,7 +181,7 @@ public class Service_Account_Ctrl {
              userDetail= service.accountDetail(service_id);
             request.setAttribute("userDetail",userDetail);
 
-            return "./view/account/modify-account";
+            return "/WEB-INF/view/account/modify-account.jsp";
         } else {
             return "redirect:/errorpage";
         }
@@ -218,7 +216,7 @@ public class Service_Account_Ctrl {
         int n = service.modifyPw(user);
         System.out.println(n);
 
-        return (n>0)?"redirect:/account/{service_id}":"/errorpage";
+        return (n>0)?"redirect:/account/{service_id}":"redirect:/errorpage";
     }
 
 
