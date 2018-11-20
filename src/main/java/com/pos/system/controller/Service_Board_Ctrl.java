@@ -1,7 +1,7 @@
 package com.pos.system.controller;
 
-import java.util.Date;
 import java.util.List;
+import java.util.UUID;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -9,6 +9,7 @@ import javax.servlet.http.HttpSession;
 
 import com.pos.system.dto.Service_File_DTO;
 import com.pos.system.service.IService_File_Service;
+import org.apache.tomcat.util.http.fileupload.FileUpload;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.stereotype.Service;
@@ -17,24 +18,22 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.pos.system.dto.Service_Board_DTO;
-import com.pos.system.mapper.*;
 import com.pos.system.service.IService_Board_Service;
+import org.springframework.web.multipart.MultipartHttpServletRequest;
+import org.springframework.web.multipart.MultipartRequest;
 
 @RequestMapping("/board")
 @Controller
 public class Service_Board_Ctrl {
 
-    private final IService_Board_Service service;
-
-
-
+    private final IService_Board_Service service_Board;
+    private final IService_File_Service service_File;
 
     @Autowired
-    public Service_Board_Ctrl(IService_Board_Service service) {
-        this.service = service;
+    public Service_Board_Ctrl(IService_Board_Service service_Board, IService_File_Service service_File) {
+        this.service_Board = service_Board;
+        this.service_File = service_File;
     }
-
-
 
     /**
      * 게시판 목록 출력
@@ -48,7 +47,7 @@ public class Service_Board_Ctrl {
     public String board_List(HttpServletRequest request, HttpServletResponse response, HttpSession session, MultipartFile image) {
 
         //String service_id = (String) session.getAttribute("id"); service_id 필요성에 의문20181110
-        List<Service_Board_DTO> board_list = (List<Service_Board_DTO>) service.selectAllBoard();
+        List<Service_Board_DTO> board_list = (List<Service_Board_DTO>) service_Board.selectAllBoard();
         request.setAttribute("board_list", board_list);
 
         return "./view/board/board-list";
@@ -79,7 +78,7 @@ public class Service_Board_Ctrl {
             HttpServletRequest request,
             HttpServletResponse response,
             HttpSession session,
-            @RequestParam("file") MultipartFile file
+            MultipartFile file
     ) {
         session.setAttribute("id", "winetree"); // for test
 
@@ -88,23 +87,50 @@ public class Service_Board_Ctrl {
         String content = request.getParameter("content");
 
         Service_Board_DTO dto = new Service_Board_DTO();
-        //Service_File_DTO fdto = new Service_File_DTO();
+
 
         dto.setService_id(writer);
         dto.setTitle(title);
         dto.setContent(content);
 
-        service.insertBoard(dto);
+        service_Board.insertBoard(dto);
 
-        int seq = service.selectRecentBoard();
-        System.out.println(seq);
-
-
+        int seq = service_Board.selectRecentBoard();
 
         if(!file.isEmpty()) {
-            //String filename = file.getOriginalFilename();
 
-//            System.out.println(filename);
+            String filepath = "C:\\upload";
+
+            String uuid = UUID.randomUUID().toString();
+
+            String origin_fname =  file.getOriginalFilename();
+            String stored_fname = uuid+origin_fname.substring(origin_fname.lastIndexOf("."));
+
+
+
+            Long fSize = file.getSize();
+            int s = (int)(long)fSize;
+
+
+            Service_File_DTO fdto = new Service_File_DTO();
+
+            fdto.setBoard_seq(seq);
+            fdto.setOrigin_fname(origin_fname);
+            fdto.setStored_fname(stored_fname);
+            fdto.setFile_size(s);
+
+
+            service_File.uploadFile(fdto);
+
+
+            System.out.println(fdto);
+
+
+
+
+
+
+
         }
 
         return "redirect:/board";
@@ -113,36 +139,49 @@ public class Service_Board_Ctrl {
 
     /**
      * 특정 글 상세 조회 기능
-     * @param board_seq / 게시글 고유 번호
+     * @param seq/ 게시글 고유 번호
      * @param request
      * @param response
      * @param session
-     * @param file
      * @return
      */
     @GetMapping("/{board_seq}")
     public String boardDetail(
-            @PathVariable("board_seq") String board_seq,
+            @PathVariable("board_seq") String seq,
             HttpServletRequest request,
             HttpServletResponse response,
             HttpSession session,
             MultipartFile file
-    ){
 
+    ){
         Service_Board_DTO board_detail;
-        board_detail = service.selectOneBoard(Integer.parseInt(board_seq));
+
+        int board_seq = Integer.parseInt(seq);
+
+        board_detail = service_Board.selectOneBoard(board_seq);
 
         request.setAttribute("board_detail", board_detail);
 
-        System.out.println(board_seq);
+        Service_File_DTO file_dto;
+        file_dto = service_File.selectOneFile(board_seq);
+
+        if (file_dto!=null){
+            Service_File_DTO fileDto = service_File.selectOneFile(board_seq);
+
+            request.setAttribute("fileDto",fileDto);
+
+            System.out.println(file_dto);
+
+        }
 
         return "./view/board/board-detail";
+
     }
 
 
     /**
      * 특정 게시글 삭제
-     * @param board_seq
+     * @param seq
      * @param request
      * @param response
      * @param session
@@ -151,20 +190,32 @@ public class Service_Board_Ctrl {
      */
     @PostMapping("/{board_seq}/delete")
     public String boardDelete(
-            @PathVariable("board_seq") String board_seq,
+            @PathVariable("board_seq") String seq,
             HttpServletRequest request,
             HttpServletResponse response,
             HttpSession session,
             MultipartFile file
     ){
-        int board_delete = service.deleteOneBoard(Integer.parseInt(board_seq));
+        int board_seq = Integer.parseInt(seq);
+        int board_delete = service_Board.deleteOneBoard(board_seq);
+
+        request.setAttribute("board_delete",board_delete);
 
         if (board_delete == 0){
             System.out.println("no");
         }else{
-            System.out.println("성공");
+            System.out.println("게시글 삭제 성공");
+
+            Service_File_DTO fileDto = service_File.selectOneFile(board_seq);
+
+            if (fileDto != null){
+
+                service_File.deleteFile(board_seq);
+                System.out.println("파일 삭제 성공");
+
+            }
+
         }
-        request.setAttribute("board_delete",board_delete);
 
 
         return "redirect:/board";
@@ -173,24 +224,40 @@ public class Service_Board_Ctrl {
 
     /**
      * 게시글 수정 GetMapping
-     * @param board_seq
+     * @param seq
      * @param request
      * @param response
      * @param session
-     * @param file
      * @return
      */
     @GetMapping("/{board_seq}/edit")
     public String boardEditForm(
-            @PathVariable("board_seq") String board_seq,
+            @PathVariable("board_seq") String seq,
             HttpServletRequest request,
             HttpServletResponse response,
             HttpSession session,
-            MultipartFile file){
+            MultipartFile file
+            ){
 
-        Service_Board_DTO board_edit = service.selectOneBoard(Integer.parseInt(board_seq));
+        int board_seq = Integer.parseInt(seq);
+
+        Service_Board_DTO board_edit = service_Board.selectOneBoard(board_seq);
+
+
+        Service_File_DTO file_edit = service_File.selectOneFile(board_seq);
 
         request.setAttribute("board_edit",board_edit);
+
+
+        if (file_edit != null){
+
+            request.setAttribute("file_edit", file_edit);
+
+            System.out.println(file_edit.getOrigin_fname());
+        }
+
+
+
 
         return "./view/board/board-edit";
     }
@@ -213,7 +280,7 @@ public class Service_Board_Ctrl {
             MultipartFile file
     ){
 
-        Service_Board_DTO dto = service.selectOneBoard(Integer.parseInt(board_seq));
+        Service_Board_DTO dto = service_Board.selectOneBoard(Integer.parseInt(board_seq));
 
         session.setAttribute("id", "winetree"); // for test
 
@@ -226,15 +293,35 @@ public class Service_Board_Ctrl {
         dto.setContent(content);
 
 
-        int result = service.modifyBoard(dto);
+        int result = service_Board.modifyBoard(dto);
 
         if (result > 0){
+
+
+
             return "redirect:/board";
         }else{
             return "./view/comm/error";
         }
 
 
+    }
+
+
+    @PostMapping("/{board_seq}/download")
+    public String download(
+            @PathVariable("board_seq") String board_seq,
+            HttpServletRequest request,
+            HttpServletResponse response,
+            HttpSession session,
+            MultipartFile file){
+
+
+
+
+
+
+        return "redirect:/board";
     }
 
 

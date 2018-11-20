@@ -36,6 +36,7 @@
 
 		if (use_file) {
 			document.querySelector('div.file').innerHTML = "<input type='file' id='filechk' name='file'>";
+
 		}
 
         if(title != null && title != undefined) {
@@ -44,14 +45,24 @@
             document.querySelector(".ql-editor").innerHTML = content;
             document.querySelector(".content").value = content;
         }
+
+        if(file != null || file != "") {
+            document.querySelector("div.file").innerHTML += "<p>"+file+"</p>";
+		}
+
 	}
 
 
+ /*   if(file != null	){
+        document.querySelector(".file > input").value = file;
+    }*/
 
 	function sizeChk() {
-		//		if (document.getElementById("filechk").value != "") {
+        //		if (document.getElementById("filechk").value != "") {
 		// var fileSize = document.querySelector('input[type=file]').files[0].size;
 
+        var data = document.querySelector('.ql-editor').innerHTML;
+        document.querySelector('.content').value = data;
 			var maxSize = 2 * 1024 * 1024;
 
 		if (document.getElementById('filechk').files[0] != undefined){
@@ -65,10 +76,7 @@
 			}
         }
 
-        var data = document.querySelector('.ql-editor').innerHTML;
-        document.querySelector('.content').value = data;
-
         return true;
-	}
+    }
 
 </script>
