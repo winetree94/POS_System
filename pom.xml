@@ -128,6 +128,11 @@
 			<version>0.16</version>
 		</dependency>
 
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-devtools</artifactId>
+		</dependency>
+
 	</dependencies>
 
 	<!-- java source 디렉토리의 xml 파일들을 컴파일된 폴더로 포함시킴. -->

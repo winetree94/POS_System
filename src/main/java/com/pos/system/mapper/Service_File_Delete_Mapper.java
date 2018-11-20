@@ -10,10 +10,10 @@ public interface Service_File_Delete_Mapper {
 
 	/**
 	 * 업로드 된 파일 삭제
-	 * @param file_seq
+	 * @param board_seq
 	 * @return int
 	 */
-	@Update(" UPDATE SERVICE_FILE SET DELFLAG = 'Y' WHERE FILE_SEQ = #{file_seq} ")
-	int deleteFile(int file_seq);
+	@Update(" UPDATE SERVICE_FILE SET DELFLAG = 'Y' WHERE BOARD_SEQ = #{board_seq} ")
+	int deleteFile(int board_seq);
 	
 }
