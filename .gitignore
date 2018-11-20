@@ -99,7 +99,6 @@ hs_err_pid*
 
 # Maven
 target/
-.mvn/
 
 # Eclipse
 .classpath
