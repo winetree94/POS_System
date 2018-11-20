@@ -42,7 +42,7 @@ public class Service_Store_Ctrl {
 		List<Service_Store_DTO> stores_list = service.selectAllStore(user.getService_id());
 		request.setAttribute("stores_list", stores_list);
 
-		return "./view/stores/stores-list";
+		return "/WEB-INF/view/stores/stores-list.jsp";
 	}
 	
 	
@@ -61,7 +61,7 @@ public class Service_Store_Ctrl {
 	@GetMapping("new")
 	public String store_new_form(){
 		System.out.println("Stores_new_Form");
-		return "./view/stores/stores-new";
+		return "/WEB-INF/view/stores/stores-new.jsp";
 	}
 	
 	
@@ -136,7 +136,7 @@ public class Service_Store_Ctrl {
 			request.setAttribute("stores_detail", stores_detail);
 		}
 		
-		return "./view/stores/stores-detail";
+		return "/WEB-INF/view/stores/stores-detail.jsp";
 	}
 	
 	
@@ -163,7 +163,7 @@ public class Service_Store_Ctrl {
 		} else {
 			request.setAttribute("stores_detail", stores_detail);
 		}
-		return "./view/stores/stores-edit";
+		return "/WEB-INF/view/stores/stores-edit.jsp";
 	}
 	
 	

@@ -18,13 +18,13 @@ public class Service_Comm_Ctrl {
 		// 개발용 세션 저장
 		session.setAttribute("id", "winetree");
 		
-		return "./index";
+		return "/WEB-INF/index.jsp";
 	}
 	
 	@GetMapping("/errorpage")
 	public String errorPage(){
 		System.out.println("error 페이지 redirect");
 		
-		return "./view/comm/error";
+		return "/WEB-INF/view/comm/error.jsp";
 	}
 }

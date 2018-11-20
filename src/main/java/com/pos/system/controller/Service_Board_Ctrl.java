@@ -11,6 +11,7 @@ import com.pos.system.dto.Service_File_DTO;
 import com.pos.system.service.IService_File_Service;
 import org.apache.tomcat.util.http.fileupload.FileUpload;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.codec.multipart.Part;
 import org.springframework.stereotype.Controller;
 import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.*;
@@ -45,12 +46,11 @@ public class Service_Board_Ctrl {
      */
     @GetMapping("")
     public String board_List(HttpServletRequest request, HttpServletResponse response, HttpSession session, MultipartFile image) {
-
         //String service_id = (String) session.getAttribute("id"); service_id 필요성에 의문20181110
         List<Service_Board_DTO> board_list = (List<Service_Board_DTO>) service_Board.selectAllBoard();
         request.setAttribute("board_list", board_list);
 
-        return "./view/board/board-list";
+        return "/WEB-INF/view/board/board-list.jsp";
     }
 
 
@@ -61,7 +61,7 @@ public class Service_Board_Ctrl {
     @GetMapping("/new")
     public String uploadForm(
     ) {
-        return "./view/board/board-new";
+        return "/WEB-INF/view/board/board-new.jsp";
     }
 
 
@@ -174,8 +174,7 @@ public class Service_Board_Ctrl {
 
         }
 
-        return "./view/board/board-detail";
-
+        return "/WEB-INF/view/board/board-detail.jsp";
     }
 
 
@@ -248,18 +247,13 @@ public class Service_Board_Ctrl {
 
         request.setAttribute("board_edit",board_edit);
 
-
         if (file_edit != null){
 
             request.setAttribute("file_edit", file_edit);
 
             System.out.println(file_edit.getOrigin_fname());
         }
-
-
-
-
-        return "./view/board/board-edit";
+        return "/WEB-INF/view/board/board-edit.jsp";
     }
 
     /**
@@ -301,7 +295,7 @@ public class Service_Board_Ctrl {
 
             return "redirect:/board";
         }else{
-            return "./view/comm/error";
+            return "/WEB-INF/view/comm/error.jsp";
         }
 
 
