@@ -1,0 +1,182 @@
+package com.pos.system.util;
+
+import com.pos.system.dto.Service_File_DTO;
+import com.pos.system.service.IService_Board_Service;
+import com.pos.system.service.IService_File_Service;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Repository;
+import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
+
+import javax.servlet.ServletContext;
+import javax.servlet.ServletOutputStream;
+import javax.servlet.http.HttpServletRequest;
+import java.io.File;
+import java.io.FileInputStream;
+import java.util.UUID;
+
+@Service
+public class FileManager {
+
+
+    private IService_File_Service service_File;
+    private IService_Board_Service service_Board;
+
+    @Autowired
+    public FileManager(IService_File_Service service_File, IService_Board_Service service_Board) {
+        this.service_File = service_File;
+        this.service_Board = service_Board;
+    }
+
+//    상대경로
+//    public int upload(MultipartFile file, HttpServletRequest request) {
+
+//    절대경로
+        public int upload(MultipartFile file){
+
+
+//경로설정(절대경로)
+        String PATH = "C:\\Users\\jaei\\Documents\\GitHub\\POS_System\\src\\main\\webapp\\WEB-INF\\uploadFiles";
+
+
+
+//배포시 상대경로
+//        String PATH =
+//        ServletContext context = request.getServletContext();
+//		String PATH= context.getRealPath("upload");
+//		String filepath2 = request.getServletContext() +"/"+"upload";
+
+
+
+        File path = new File(PATH);
+
+
+
+//폴더위치 없을시 생성
+       if (path.exists() == false) {
+            path.mkdirs();
+        }
+
+
+        try {
+
+            //uuid 는 파일명의 중복을 피하기 위한 설정
+            String uuid;
+            uuid = UUID.randomUUID().toString();
+
+            //원본파일명
+            String origin_fname = file.getOriginalFilename();
+            //저장될 파일명(uuid+원본파일명)
+            String stored_fname = uuid + origin_fname.substring(origin_fname.lastIndexOf("."));
+
+            //파일 사이즈 .getSize()는 Long
+            //int로 바꿔줌
+            Long fSize = file.getSize();
+            int s = (int) (long) fSize;
+
+            //file dto 객체 불러오기
+            Service_File_DTO fdto = new Service_File_DTO();
+
+            //board_seq 가져옴
+            int seq = service_Board.selectRecentBoard();
+
+            //값 넣기
+            fdto.setBoard_seq(seq);
+            fdto.setOrigin_fname(origin_fname);
+            fdto.setStored_fname(stored_fname);
+            fdto.setFile_size(s);
+
+            //File 객체 활용 저장될 파일의 경로와 파일명 지정
+            File stored_file = new File(PATH + "\\" + stored_fname);
+            //fdto 정보 입력
+            service_File.uploadFile(fdto);
+
+
+            //받아온 file을 stored_file로 바꿔줌
+            file.transferTo(stored_file);
+
+
+        } catch (Exception e) {
+
+            e.printStackTrace();
+            return 0;
+
+        }
+
+        return 1;
+    }
+
+
+    public int download(int board_seq){
+
+
+        Service_File_DTO fileDto = service_File.selectOneFile(board_seq);
+
+        String realFolder = "C:\\Users\\jaei\\Documents\\GitHub\\POS_System\\src\\main\\webapp\\WEB-INF\\uploadFiles";
+        String filePath = realFolder +"/"+ fileDto.getStored_fname();
+
+        FileInputStream in = null;
+        ServletOutputStream out = null;
+
+        try{
+
+            File file = new File(filePath);
+//            byte[] b = new byte[(int)file.]; 20181121
+
+        }catch(Exception e){
+            e.printStackTrace();
+            return 0;
+        }
+
+        /**
+         * 	String realFolder = "E:\\Next\\workspace_jsp\\Next_Board_M2\\src\\main\\webapp\\upload";
+         * 			String filePath =realFolder+"/"+dto.getStored_fname();
+         *
+         * 			logger.info(realFolder);
+         * 			logger.info(filePath);
+         *
+         * 			FileInputStream in  = null;
+         * 			ServletOutputStream out = null;
+         *
+         * 			try {
+         * 				File file = new File(filePath); // 파일은 다운 받은 객체
+         * 				byte[] b = new byte[(int)file.length()]; // 파일의 크기만큼 배열의 길이를 선언
+         *
+         * 				response.reset(); //브라우저로 응답할때 값들을 초기화
+         * 				// 다운로드 파일 형식을 모른다면 octet-stream, 워드 application/msword
+         * 				response.setContentType("application/octet-stream");
+         *
+         * 				// 한글 인코딩 : 한글파일 이름이 깨지는 것을 방지
+         * 				String encoding = new String(dto.getOrigin_fname().getBytes("utf-8"),
+         * 														"8859_1");
+         *
+         * 				// 파일 버튼을 클릭했을 때 다운로드 저장화면이 출력되게 처리
+         * 				response.setHeader("Content-Disposition", "attachment;  filename="+encoding);
+         *
+         * 				in = new FileInputStream(file);
+         * 				out = response.getOutputStream();
+         *
+         * 				int numRead = 0;
+         * 				while((numRead = in.read(b, 0, b.length))!=-1) {
+         * 					out.write(b, 0, numRead);
+         *                                }
+         ** 			} catch (Exception e) {
+         * 				e.printStackTrace();
+         * 			}            finally {
+         * 				out.flush();
+         * 				out.close();
+         * 				in.close();
+         *            }
+         *
+         *
+         *
+         *
+         *        }
+         */
+
+
+
+        return 0;
+    }
+
+}

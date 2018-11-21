@@ -9,19 +9,15 @@ import javax.servlet.http.HttpSession;
 
 import com.pos.system.dto.Service_File_DTO;
 import com.pos.system.service.IService_File_Service;
-import org.apache.tomcat.util.http.fileupload.FileUpload;
+import com.pos.system.util.FileManager;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.codec.multipart.Part;
 import org.springframework.stereotype.Controller;
-import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.pos.system.dto.Service_Board_DTO;
 import com.pos.system.service.IService_Board_Service;
-import org.springframework.web.multipart.MultipartHttpServletRequest;
-import org.springframework.web.multipart.MultipartRequest;
 
 @RequestMapping("/board")
 @Controller
@@ -29,11 +25,13 @@ public class Service_Board_Ctrl {
 
     private final IService_Board_Service service_Board;
     private final IService_File_Service service_File;
+    private final FileManager fileManager;
 
     @Autowired
-    public Service_Board_Ctrl(IService_Board_Service service_Board, IService_File_Service service_File) {
+    public Service_Board_Ctrl(IService_Board_Service service_Board, IService_File_Service service_File, FileManager fileManager) {
         this.service_Board = service_Board;
         this.service_File = service_File;
+        this.fileManager = fileManager;
     }
 
     /**
@@ -99,37 +97,11 @@ public class Service_Board_Ctrl {
 
         if(!file.isEmpty()) {
 
-            String filepath = "C:\\upload";
+            //test 절대경로
+            fileManager.upload(file);
 
-            String uuid = UUID.randomUUID().toString();
-
-            String origin_fname =  file.getOriginalFilename();
-            String stored_fname = uuid+origin_fname.substring(origin_fname.lastIndexOf("."));
-
-
-
-            Long fSize = file.getSize();
-            int s = (int)(long)fSize;
-
-
-            Service_File_DTO fdto = new Service_File_DTO();
-
-            fdto.setBoard_seq(seq);
-            fdto.setOrigin_fname(origin_fname);
-            fdto.setStored_fname(stored_fname);
-            fdto.setFile_size(s);
-
-
-            service_File.uploadFile(fdto);
-
-
-            System.out.println(fdto);
-
-
-
-
-
-
+            //상대경로 사용시
+//            fileManager.upload(file,request);
 
         }
 
@@ -304,11 +276,16 @@ public class Service_Board_Ctrl {
 
     @PostMapping("/{board_seq}/download")
     public String download(
-            @PathVariable("board_seq") String board_seq,
+            @PathVariable("board_seq") String seq,
             HttpServletRequest request,
             HttpServletResponse response,
             HttpSession session,
             MultipartFile file){
+
+
+        int board_seq = Integer.parseInt(seq);
+
+        fileManager.download(board_seq);
 
 
 
