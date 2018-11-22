@@ -74,10 +74,8 @@
 <c:if test="${(user.service_id)==null}">
 
     <div class="headerWrap">
-        <nav class="navbar navbar-expand-lg navbar-light bg-light" style="width:76%;margin:0 auto">
-
-            <%--<div style="width:1080px;margin:0 auto">--%>
-
+        <nav class="navbar navbar-expand-lg navbar-light bg-light">
+            <div style="width:1080px;margin:0 auto">
                 <a class="navbar-brand">POS SYSTEM</a>
 
                 <button class="navbar-toggler" type="button" data-toggle="collapse"
@@ -86,7 +84,7 @@
                     <span class="navbar-toggler-icon"></span>
                 </button>
 
-                <div class="collapse navbar-collapse" id="navbarSupportedContent" style="margin-left:56%">
+                <div class="collapse navbar-collapse" id="navbarSupportedContent">
 
                     <ul class="navbar-nav mr-auto">
                         <li class="nav-item active">
@@ -106,7 +104,7 @@
                         </li>
                     </ul>
                 </div>
-            <%--</div>--%>
+            </div>
         </nav>
     </div>
 </c:if>

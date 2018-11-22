@@ -5,31 +5,15 @@
 <%@taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
 
 
-	<style type="text/css">
-		/*table{
-			width:600px;
-			border-collapse: collapse;
-			text-align : center;
-			align-content: center;
-			margin-left: auto;
-			margin-right: auto;
-		}
-		.content{
-			color: hotpink;
-		}
 
-		#table{
-			text-align: center;
-			align-content: center;
-			width: 1200px;
-			margin-left: auto;
-			margin-right: auto;
-		}*/
-
-	</style>
 
 
 <jsp:include page="../comm/header.jsp"/>
+
+<script type="text/javascript">
+	// document.querySelector("ul:eq(1) li").removeClass
+
+</script>
 <%
 	List<Service_Board_DTO> board_list = (List<Service_Board_DTO>)request.getAttribute("board_list");
 %>

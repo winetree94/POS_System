@@ -8,6 +8,11 @@
     background: #f8f9fa;
     margin:0 auto;
 }
+.headerWrap:after{
+    content:"";
+    display:block;
+    clear:both;
+}
 
 h4, h2{
     margin-top:40px;
@@ -30,6 +35,13 @@ form{
 .marginLo{
     margin-left:4px;
 }
+.navbar-expand-lg .navbar-collapse{
+    float:right;
+}
+.navbar-toggler{
+    float:right;
+}
+
 /*!**/
 /*h1 {*/
 	/*font-size: 100px;*/
