@@ -1,73 +1,109 @@
-h1 {
-	font-size: 100px;
-	text-align: center;
-	padding-top: 0px;
-	margin: 0px 10px 30px auto;
-	color: black;
+.wrap{
+    width:76%;
+    margin: 0 auto ;
+    /*background: gold;*/
+}
+.headerWrap{
+    width:100%;
+    background: #f8f9fa;
+    margin:0 auto;
 }
 
-a {
-	text-decoration: none;
-	color: black;
+h4, h2{
+    margin-top:40px;
+    margin-bottom:40px;
+    text-align:center;
 }
-
-
-nav ul {
-	padding-top:10px;
+.container{
+    width:400px;
+    margin:0 auto;
 }
-
-nav ul li {
-	display:inline;
-	border-left:1px solid #999;
-	font:bold 18px Dotum;
-	padding:0 10px;
+form{
+    display:inline;
 }
-nav ul li:first-child{
-	border-left:none;
-
+.marginB{
+    margin-bottom:30px;
 }
-
-nav{
-	position: absolute;
-	top:95px;
-	right: 15px ;
+.marginR{
+    margin-right:4px;
 }
-
-#main{
-	position: relative;
-	top:0px;
-
-	bottom: 50px;
-	background-color: gainsboro;
-	padding-bottom: 1px;
-	margin-bottom: 20px;
+.marginLo{
+    margin-left:4px;
 }
+/*!**/
+/*h1 {*/
+	/*font-size: 100px;*/
+	/*text-align: center;*/
+	/*padding-top: 0px;*/
+	/*margin: 0px 10px 30px auto;*/
+	/*color: black;*/
+/*}*/
+
+/*a {*/
+	/*text-decoration: none;*/
+	/*color: black;*/
+/*}*/
 
 
-h2{
-	text-align: center;
-}
+/*nav ul {*/
+	/*padding-top:10px;*/
+/*}*/
+
+/*nav ul li {*/
+	/*display:inline;*/
+	/*border-left:1px solid #999;*/
+	/*font:bold 18px Dotum;*/
+	/*padding:0 10px;*/
+/*}*/
+/*nav ul li:first-child{*/
+	/*border-left:none;*/
+
+/*}*/
+
+/*nav{*/
+	/*position: absolute;*/
+	/*top:95px;*/
+	/*right: 15px ;*/
+/*}*/
+
+/*#main{*/
+	/*position: relative;*/
+	/*top:0px;*/
+
+	/*bottom: 50px;*/
+	/*background-color: gainsboro;*/
+	/*padding-bottom: 1px;*/
+	/*margin-bottom: 20px;*/
+/*}*/
 
 
-#container {
-	text-align: center;
-}
+/*h2{*/
+	/*text-align: center;*/
+/*}*/
 
-#modifyaccountdiv{
-	text-align : center;
-	width: 400px;
-	height : 280px;
-	background-color: gainsboro;
-	margin : 10px auto;
-	padding-top: 10px;
-}
 
-#accountdiv{
-	text-align : center;
-	width: 400px;
-	height : 250px;
-	background-color: gainsboro;
-	margin : 10px auto;
-	padding: auto;
-	padding-top: 10px;
-}
+/*#container {*/
+	/*text-align: center;*/
+/*}*/
+
+/*#modifyaccountdiv{*/
+	/*text-align : center;*/
+	/*width: 400px;*/
+	/*height : 280px;*/
+	/*background-color: gainsboro;*/
+	/*margin : 10px auto;*/
+	/*padding-top: 10px;*/
+/*}*/
+
+/*#accountdiv{*/
+	/*text-align : center;*/
+	/*width: 400px;*/
+	/*height : 250px;*/
+	/*background-color: gainsboro;*/
+	/*margin : 10px auto;*/
+	/*padding: auto;*/
+	/*padding-top: 10px;*/
+/*}*/
+/**!*/
+
+

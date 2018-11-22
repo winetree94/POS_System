@@ -6,8 +6,10 @@
 
 <jsp:include page="./view/comm/header.jsp"/>
 
-
-
-<h2>한솔,재이,성현 콜라보</h2>
+<div class="wrap">
+    <div id="containerWrap">
+        <h4>한솔,재이,성현 콜라보</h4>
+    </div>
+</div>
 <jsp:include page="./view/comm/footer.jsp"/>
 

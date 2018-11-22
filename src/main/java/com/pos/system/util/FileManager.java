@@ -1,5 +1,6 @@
 package com.pos.system.util;
 
+import com.pos.system.dto.Service_Board_DTO;
 import com.pos.system.dto.Service_File_DTO;
 import com.pos.system.service.IService_Board_Service;
 import com.pos.system.service.IService_File_Service;
@@ -11,6 +12,7 @@ import org.springframework.web.multipart.MultipartFile;
 import javax.servlet.ServletContext;
 import javax.servlet.ServletOutputStream;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import java.io.File;
 import java.io.FileInputStream;
 import java.util.UUID;
@@ -31,13 +33,12 @@ public class FileManager {
 //    상대경로
 //    public int upload(MultipartFile file, HttpServletRequest request) {
 
-//    절대경로
-        public int upload(MultipartFile file){
+    //    절대경로
+    public int upload(MultipartFile file) {
 
 
 //경로설정(절대경로)
         String PATH = "C:\\Users\\jaei\\Documents\\GitHub\\POS_System\\src\\main\\webapp\\WEB-INF\\uploadFiles";
-
 
 
 //배포시 상대경로
@@ -47,13 +48,11 @@ public class FileManager {
 //		String filepath2 = request.getServletContext() +"/"+"upload";
 
 
-
         File path = new File(PATH);
 
 
-
 //폴더위치 없을시 생성
-       if (path.exists() == false) {
+        if (path.exists() == false) {
             path.mkdirs();
         }
 
@@ -107,76 +106,92 @@ public class FileManager {
     }
 
 
-    public int download(int board_seq){
+    public HttpServletResponse download(int board_seq, HttpServletResponse response) {
 
-
+        //수정할 파일 정보 가져오기
         Service_File_DTO fileDto = service_File.selectOneFile(board_seq);
 
+        //파일이 있는 실제 폴더경로
         String realFolder = "C:\\Users\\jaei\\Documents\\GitHub\\POS_System\\src\\main\\webapp\\WEB-INF\\uploadFiles";
-        String filePath = realFolder +"/"+ fileDto.getStored_fname();
 
+        //파일경로
+        String filePath = realFolder + "/" + fileDto.getStored_fname();
+
+        //입력받을 파일 초기화
+        //FileInputStream : 출발지점과 도착지점을 연결하는 통로 생성 클래스
         FileInputStream in = null;
+
+        //출력할 파일 초기화
+        //ServletOutputStream : 파일로 바이트 단위의 출력을 내보내는 클래스
         ServletOutputStream out = null;
 
-        try{
+        try {
 
-            File file = new File(filePath);
-//            byte[] b = new byte[(int)file.]; 20181121
+        //파일경로에서 파일 객체 불러오기
+        File file = new File(filePath);
 
-        }catch(Exception e){
+        //// 파일의 크기만큼 배열의 길이를 선언
+        byte[] b = new byte[(int) file.length()];
+
+        //response 초기화
+        response.reset();
+
+        // 다운로드 파일 형식을 모른다면 octet-stream, 워드 application/msword
+        response.setContentType("application/octet-stream");
+
+        //한글 인코딩 : 한글파일 이름이 깨지는 것을 방지
+        String encoding = new String(fileDto.getOrigin_fname().getBytes("utf-8"),"8859_1");
+
+        String origin_fname = service_File.selectOneFile(board_seq).getOrigin_fname();
+
+        // 파일 버튼을 클릭했을 때 다운로드 저장화면이 출력되게 처리
+//        response.setHeader("Content-Disposition", "attachment;  filename=aaa");
+        response.setHeader("Content-Disposition", "attachment;  filename=\""+encoding);
+
+
+            in = new FileInputStream(file);
+            out = response.getOutputStream();
+
+            int numRead = 0;
+
+            while ((numRead = in.read(b, 0, b.length)) != -1) {
+                out.write(b, 0, numRead);
+            }
+
+        } catch (Exception e) {
             e.printStackTrace();
-            return 0;
+        } finally {
+            try {
+                out.flush();
+                out.close();
+                in.close();
+            } catch(Exception e) {
+                e.printStackTrace();
+            }
         }
 
-        /**
-         * 	String realFolder = "E:\\Next\\workspace_jsp\\Next_Board_M2\\src\\main\\webapp\\upload";
-         * 			String filePath =realFolder+"/"+dto.getStored_fname();
-         *
-         * 			logger.info(realFolder);
-         * 			logger.info(filePath);
-         *
-         * 			FileInputStream in  = null;
-         * 			ServletOutputStream out = null;
-         *
-         * 			try {
-         * 				File file = new File(filePath); // 파일은 다운 받은 객체
-         * 				byte[] b = new byte[(int)file.length()]; // 파일의 크기만큼 배열의 길이를 선언
-         *
-         * 				response.reset(); //브라우저로 응답할때 값들을 초기화
-         * 				// 다운로드 파일 형식을 모른다면 octet-stream, 워드 application/msword
-         * 				response.setContentType("application/octet-stream");
-         *
-         * 				// 한글 인코딩 : 한글파일 이름이 깨지는 것을 방지
-         * 				String encoding = new String(dto.getOrigin_fname().getBytes("utf-8"),
-         * 														"8859_1");
-         *
-         * 				// 파일 버튼을 클릭했을 때 다운로드 저장화면이 출력되게 처리
-         * 				response.setHeader("Content-Disposition", "attachment;  filename="+encoding);
-         *
-         * 				in = new FileInputStream(file);
-         * 				out = response.getOutputStream();
-         *
-         * 				int numRead = 0;
-         * 				while((numRead = in.read(b, 0, b.length))!=-1) {
-         * 					out.write(b, 0, numRead);
-         *                                }
-         ** 			} catch (Exception e) {
-         * 				e.printStackTrace();
-         * 			}            finally {
-         * 				out.flush();
-         * 				out.close();
-         * 				in.close();
-         *            }
-         *
-         *
-         *
-         *
-         *        }
-         */
+
+        return response;
+    }
+
+
+
+    public int fileEdit(MultipartFile file,int board_seq){
+
+
 
 
 
         return 0;
     }
 
+
+
+    public int fileDelete(MultipartFile file, int board_seq){
+
+        return 0;
+    }
+
 }
+
+

@@ -3,36 +3,52 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 
 <jsp:include page="../comm/header.jsp"/>
-<h2>POS LOGIN PAGE </h2>
-<!-- ajax -->
-<!-- ajax처리떄문에 one quotation으로 처리해준다. -->
-<div id='container'>
+<div class='wrap container'>
+    <h4 class='text-center'>POS LOGIN PAGE </h4>
+    <!-- ajax -->
+    <!-- ajax처리떄문에 one quotation으로 처리해준다. -->
 
-    <div id='id'>아이디</div>
 
-    <form method='post' id='frm'>
-        <input type='hidden' id='loginChk' name='service_type' value='0'/>
-        <input type='text' name='service_id' id='inputId' required='required'>
-        <br/>
-        <br/>
-        <div id='pw'>비밀번호</div>
+        <form method='post' id='frm'>
 
-        <input type='password' name='service_pw' id='inputPw' required='required'>
-        <br/>
-        <br/>
-        <input type='button' id='login' name='login' value='로그인' onclick='loginCheck()'/>
+            <div class='form-group'>
+
+                <input type='hidden' id='loginChk' name='service_type' value='0'/>
+
+
+                <label id='id'>아이디</label>
+
+                <input class='form-control' type='text' name='service_id' id='inputId' required='required'>
+
+            </div>
+
+
+            <%--<div class='form-group'>--%>
+                <label id='pw'>비밀번호</label>
+
+                <input class='form-control marginB' type='password' name='service_pw' id='inputPw' required='required'>
+
+            <%--</div>--%>
+
+
+            <input class='btn btn-primary marginR marginLo' type='button' id='login' name='login' value='로그인' onclick='loginCheck()'/>
+
 
             <a href='#' onclick='signUp()'>
-                <input type='button' id='SignUp' name='signup' value='회원가입'/>
+                <input class='btn btn-primary marginR' type='button' id='SignUp' name='signup' value='회원가입'/>
             </a>
 
+        </form>
 
-    </form>
+        <form method='get'>
+            <%--<div class='form-group'>--%>
+                <input class='btn btn-primary marginR' type='button' id='SearchId' name='SearchId' value='FIND ID'
+                       onclick='idSearch()'/>
+                <input class='btn btn-primary marginR' type='button' id='SearchPw' name='SearchPw' value='FIND PW'
+                       onclick='pwSearch()'/>
+            <%--</div>--%>
+        </form>
 
-    <form method="get">
-    <input type='button' id='SearchId' name='SearchId' value='FIND ID' onclick='idSearch()' />
-    <input type='button' id='SearchPw' name='SearchPw' value='FIND PW' onclick='pwSearch()' />
-    </form>
 
 </div>
 

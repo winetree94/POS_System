@@ -6,7 +6,7 @@
 
 
 	<style type="text/css">
-		table{
+		/*table{
 			width:600px;
 			border-collapse: collapse;
 			text-align : center;
@@ -24,7 +24,7 @@
 			width: 1200px;
 			margin-left: auto;
 			margin-right: auto;
-		}
+		}*/
 
 	</style>
 
@@ -33,28 +33,31 @@
 <%
 	List<Service_Board_DTO> board_list = (List<Service_Board_DTO>)request.getAttribute("board_list");
 %>
-<h2>게시판 목록</h2>
+<div class="wrap">
+<h4 class="text-center">게시판 목록</h4>
 
-<div id="table">
-<table border="1">
-	<tr>
-		<td>글번호</td>
-		<td>작성자</td>
-		<td>제목</td>
-		<td>내용</td>
-		<td>작성일</td>
-		<td>조회수</td>
-	</tr>
-	<c:forEach items="${board_list}" var="dto">
+<table class="table w-75 p-3 mx-auto table-hover text-center">
+	<thead class="thead-dark">
 		<tr>
-			<td>${dto.getBoard_seq()}</td>
-			<td>${dto.getService_id()}</td>
-
-			<td><a href="/board/${dto.board_seq}">${dto.getTitle()}</a></td>
-			<td><a href="/board/${dto.board_seq}">${dto.getContent()}</a></td>
-			<td><fmt:formatDate value="${dto.getRegdate()}" pattern="yyyy-MM-dd"/></td>
-			<td>${dto.getReadcount()}</td>
+			<th scope="col">글번호</th>
+			<th scope="col">작성자</th>
+			<th scope="col">제목</th>
+			<th scope="col">내용</th>
+			<th scope="col">작성일</th>
+			<th scope="col">조회수</th>
 		</tr>
+	</thead>
+	<c:forEach items="${board_list}" var="dto">
+		<tbody>
+			<tr>
+				<th scope="row">${dto.getBoard_seq()}</th>
+				<td>${dto.getService_id()}</td>
+				<td><a href="/board/${dto.board_seq}">${dto.getTitle()}</a></td>
+				<td><a href="/board/${dto.board_seq}">${dto.getContent()}</a></td>
+				<td><fmt:formatDate value="${dto.getRegdate()}" pattern="yyyy-MM-dd"/></td>
+				<td>${dto.getReadcount()}</td>
+			</tr>
+		</tbody>
 	</c:forEach>
 
 </table>

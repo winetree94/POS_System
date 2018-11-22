@@ -167,6 +167,7 @@ public class Service_Board_Ctrl {
             HttpSession session,
             MultipartFile file
     ){
+
         int board_seq = Integer.parseInt(seq);
         int board_delete = service_Board.deleteOneBoard(board_seq);
 
@@ -230,7 +231,7 @@ public class Service_Board_Ctrl {
 
     /**
      * 게시글 수정 PostMapping
-     * @param board_seq
+     * @param seq
      * @param request
      * @param response
      * @param session
@@ -239,14 +240,15 @@ public class Service_Board_Ctrl {
      */
     @PostMapping("/{board_seq}/edit")
     public String boardEdit(
-            @PathVariable("board_seq") String board_seq,
+            @PathVariable("board_seq") String seq,
             HttpServletRequest request,
             HttpServletResponse response,
             HttpSession session,
             MultipartFile file
     ){
 
-        Service_Board_DTO dto = service_Board.selectOneBoard(Integer.parseInt(board_seq));
+        int board_seq = Integer.parseInt(seq);
+        Service_Board_DTO dto = service_Board.selectOneBoard(board_seq);
 
         session.setAttribute("id", "winetree"); // for test
 
@@ -261,6 +263,12 @@ public class Service_Board_Ctrl {
 
         int result = service_Board.modifyBoard(dto);
 
+        if (!file.isEmpty()){
+
+            fileManager.fileEdit(file,board_seq);
+
+        }
+
         if (result > 0){
 
 
@@ -274,6 +282,15 @@ public class Service_Board_Ctrl {
     }
 
 
+    /**
+     * 파일 다운로드 기능
+     * @param seq
+     * @param request
+     * @param response
+     * @param session
+     * @param file
+     * @return
+     */
     @PostMapping("/{board_seq}/download")
     public String download(
             @PathVariable("board_seq") String seq,
@@ -282,17 +299,11 @@ public class Service_Board_Ctrl {
             HttpSession session,
             MultipartFile file){
 
-
         int board_seq = Integer.parseInt(seq);
 
-        fileManager.download(board_seq);
+        response = fileManager.download(board_seq, response);
 
-
-
-
-
-
-        return "redirect:/board";
+        return "";
     }
 
 

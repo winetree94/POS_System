@@ -48,6 +48,16 @@
 
         if(file != null || file != "") {
             document.querySelector("div.file").innerHTML += "<p>"+file+"</p>";
+
+
+            var createBtn = document.createElement('input');
+            document.querySelector("div.file p").appendChild(createBtn);
+
+			document.querySelector("div.file p input").setAttribute("class","deleteFile");
+			document.querySelector(".deleteFile").setAttribute("type","submit");
+			// document.querySelector(".deleteFile").setAttribute("type","submit");
+			//폼태그 만들어서 파일삭제 기능 만들기 20181121 22:52
+
 		}
 
 	}
