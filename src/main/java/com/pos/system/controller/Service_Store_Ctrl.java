@@ -36,7 +36,6 @@ public class Service_Store_Ctrl {
 	 */
 	@GetMapping("")
 	public String store_List(HttpServletRequest request, HttpServletResponse response, HttpSession session){
-		System.out.println("---------------------------store_list form------------------------------");
 		
 		Service_Account_DTO user = (Service_Account_DTO)session.getAttribute("user");
 		List<Service_Store_DTO> stores_list = service.selectAllStore(user.getService_id());
@@ -74,12 +73,15 @@ public class Service_Store_Ctrl {
 	 * @return
 	 */
 	@PostMapping("")
-	public String store_new(HttpServletRequest request, HttpServletResponse response, HttpSession session){
+	public String store_new(
+		HttpServletRequest request, HttpServletResponse response, HttpSession session
+	){
 		System.out.println("---------------------------store_new_logic------------------------------");
-
+		
+		Service_Account_DTO user = (Service_Account_DTO)session.getAttribute("user");
 		Service_Store_DTO dto = new Service_Store_DTO();
 		
-		String service_id = (String)session.getAttribute("id");
+		String service_id = user.getService_id();
 		String store_name = request.getParameter("store_name");
 		String store_detail = request.getParameter("store_detail");
 		String store_type = request.getParameter("store_type");
@@ -94,6 +96,8 @@ public class Service_Store_Ctrl {
 		dto.setStore_address(store_address);
 		dto.setStore_tel(store_tel);
 		dto.setStore_hour(store_hour);
+		
+		System.out.println(dto);
 		
 		try {
 			service.createStore(dto);
@@ -155,15 +159,11 @@ public class Service_Store_Ctrl {
 	){
 		System.out.println("---------------------------store_edit form------------------------------");
 		
-		String service_id = (String)session.getAttribute("id");
 		Service_Store_DTO stores_detail = service.selectStore(Integer.parseInt(store_seq));
 		
-		if(!stores_detail.getService_id().equalsIgnoreCase(service_id)) {
-			return "redirect:/errorpage";
-		} else {
-			request.setAttribute("stores_detail", stores_detail);
-		}
-		return "/WEB-INF/view/stores/stores-edit.jsp";
+		request.setAttribute("store", stores_detail);
+		
+		return "/WEB-INF/view/stores/stores-new.jsp";
 	}
 	
 	
@@ -185,13 +185,10 @@ public class Service_Store_Ctrl {
 		HttpSession session,
 		@PathVariable("store_seq") String store_seq
 	) {
-		System.out.println("---------------------------store_edit_confirm------------------------------");
-
 		Service_Store_DTO stores_detail = new Service_Store_DTO();
 		
 		stores_detail.setStore_seq(Integer.parseInt(store_seq));
 		
-		stores_detail.setService_id((String)session.getAttribute("id"));
 		stores_detail.setStore_name(request.getParameter("store_name"));
 		stores_detail.setStore_detail(request.getParameter("store_detail"));
 		stores_detail.setStore_type(request.getParameter("store_type"));
@@ -199,10 +196,13 @@ public class Service_Store_Ctrl {
 		stores_detail.setStore_tel(request.getParameter("store_tel"));
 		stores_detail.setStore_hour(request.getParameter("store_hour"));
 		
+		System.out.println("sdflsdkfjsdklffsdfsdfsdfsdfsd");
+		System.out.println(stores_detail);
+		
 		int result = service.modifyStore(stores_detail);
 		System.out.println(result);
 		
-		return result>0?"redirect:/stores/"+store_seq:"redirect:/errorpage";
+		return result>0?"redirect:/stores/"+store_seq+"/edit":"redirect:/errorpage";
 	}
 	
 	
@@ -222,7 +222,6 @@ public class Service_Store_Ctrl {
 	@PostMapping("{store_seq}/delete")
 	public String store_delete(@PathVariable("store_seq") String store_seq){
 		System.out.println("---------------------------store_delete_logic------------------------------");
-		
 		int result = service.deleteStore(Integer.parseInt(store_seq));
 		if(result>0) {
 			return "redirect:/stores";

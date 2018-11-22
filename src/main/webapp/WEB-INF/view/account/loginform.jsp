@@ -3,7 +3,7 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 
 <jsp:include page="../comm/header.jsp"/>
-<div class='wrap container'>
+<div class='wrap container' style="width: 400px;">
     <h4 class='text-center'>POS LOGIN PAGE </h4>
     <!-- ajax -->
     <!-- ajax처리떄문에 one quotation으로 처리해준다. -->

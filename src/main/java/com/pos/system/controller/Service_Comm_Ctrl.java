@@ -15,9 +15,6 @@ public class Service_Comm_Ctrl {
 	public String home(HttpSession session){
 		System.out.println("index 리다이렉트");
 		
-		// 개발용 세션 저장
-		session.setAttribute("id", "winetree");
-		
 		return "/WEB-INF/index.jsp";
 	}
 	

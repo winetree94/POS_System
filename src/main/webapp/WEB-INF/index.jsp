@@ -6,10 +6,19 @@
 
 <jsp:include page="./view/comm/header.jsp"/>
 
-<div class="wrap">
-    <div id="containerWrap">
-        <h4>한솔,재이,성현 콜라보</h4>
-    </div>
+<div class="jumbotron jumbotron-fluid">
+	<div class="container">
+		<h1 class="display-4 text-center"><b>P</b>oint <b>O</b>f <b>S</b>ale</h1>
+		<hr class="my-4">
+		<p class="lead">This is a modified jumbotron that occupies the entire horizontal space of its parent. This is a modified jumbotron that occupies the entire horizontal space of its parent. This is a modified jumbotron that occupies the entire horizontal space of its parent.</p>
+	</div>
 </div>
+
+<div class="container">
+
+
+
+</div>
+
 <jsp:include page="./view/comm/footer.jsp"/>
 
