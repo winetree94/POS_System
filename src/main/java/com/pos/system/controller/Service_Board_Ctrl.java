@@ -98,10 +98,10 @@ public class Service_Board_Ctrl {
         if(!file.isEmpty()) {
 
             //test 절대경로
-            fileManager.upload(file);
+//            fileManager.upload(file);
 
             //상대경로 사용시
-//            fileManager.upload(file,request);
+            fileManager.upload(file,request);
 
         }
 
@@ -301,7 +301,7 @@ public class Service_Board_Ctrl {
 
         int board_seq = Integer.parseInt(seq);
 
-        response = fileManager.download(board_seq, response);
+        response = fileManager.download(board_seq, response, request);
 
         return "";
     }
