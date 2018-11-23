@@ -202,7 +202,7 @@ public class Service_Store_Ctrl {
 		int result = service.modifyStore(stores_detail);
 		System.out.println(result);
 		
-		return result>0?"redirect:/stores/"+store_seq+"/edit":"redirect:/errorpage";
+		return result>0?"redirect:/stores":"redirect:/errorpage";
 	}
 	
 	
