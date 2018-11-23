@@ -20,8 +20,15 @@
 <div class="wrap">
 <h4 class="text-center">게시판 목록</h4>
 
+
+	<a href="board/new" class="btn btn-primary writeNew" >새글작성</a>
 <table class="table w-75 p-3 mx-auto table-hover text-center">
+	<%--<form action="/board/new" method="get" class="text-right">--%>
+		<%--<input type="submit" value="새글작성" class="btn btn-primary">--%>
+	<%--</form>--%>
+
 	<thead class="thead-dark">
+
 		<tr>
 			<th scope="col">글번호</th>
 			<th scope="col">작성자</th>

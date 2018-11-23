@@ -31,14 +31,14 @@ public class FileManager {
     }
 
 //    상대경로
-//    public int upload(MultipartFile file, HttpServletRequest request) {
+    public int upload(MultipartFile file, HttpServletRequest request) {
 
     //    절대경로
-    public int upload(MultipartFile file) {
+//    public int upload(MultipartFile file) {
 
 
 //경로설정(절대경로)
-        String PATH = "C:\\Users\\jaei\\Documents\\GitHub\\POS_System\\src\\main\\webapp\\WEB-INF\\uploadFiles";
+//        String PATH = "C:\\Users\\jaei\\Documents\\GitHub\\POS_System\\src\\main\\webapp\\WEB-INF\\uploadFiles";
 
 
 //배포시 상대경로
@@ -46,6 +46,7 @@ public class FileManager {
 //        ServletContext context = request.getServletContext();
 //		String PATH= context.getRealPath("upload");
 //		String filepath2 = request.getServletContext() +"/"+"upload";
+        String PATH = request.getSession().getServletContext().getRealPath("/")+"upload\\";
 
 
         File path = new File(PATH);
@@ -106,13 +107,16 @@ public class FileManager {
     }
 
 
-    public HttpServletResponse download(int board_seq, HttpServletResponse response) {
+    public HttpServletResponse download(int board_seq, HttpServletResponse response,HttpServletRequest request) {
 
         //수정할 파일 정보 가져오기
         Service_File_DTO fileDto = service_File.selectOneFile(board_seq);
 
-        //파일이 있는 실제 폴더경로
-        String realFolder = "C:\\Users\\jaei\\Documents\\GitHub\\POS_System\\src\\main\\webapp\\WEB-INF\\uploadFiles";
+        //파일이 있는 실제 폴더경로 (절대경로)
+        //String realFolder = "C:\\Users\\jaei\\Documents\\GitHub\\POS_System\\src\\main\\webapp\\WEB-INF\\uploadFiles";
+
+        //파일이 있는 실제 폴더 경로(상대경로)
+        String realFolder = request.getSession().getServletContext().getRealPath("/")+"upload\\";
 
         //파일경로
         String filePath = realFolder + "/" + fileDto.getStored_fname();

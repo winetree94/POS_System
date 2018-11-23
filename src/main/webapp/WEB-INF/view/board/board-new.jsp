@@ -2,13 +2,8 @@
     pageEncoding="UTF-8"%>
     <%request.setCharacterEncoding("UTF-8"); %>
     <%response.setContentType("text/html; charset=UTF-8"); %>
-<!DOCTYPE html >
-<html>
-	<head>
-		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-		<title>Insert title here</title>
-	</head>
-	<body>
+
+	<jsp:include page="../comm/header.jsp"/>
 	
 	<script type="text/javascript">
 		var form_action = "/board"; // form 의 action 위치
@@ -20,6 +15,5 @@
 	</script>
 
 <jsp:include page="../util/editor.jsp"/>
-		
-	</body>
-</html>
+
+<jsp:include page="../comm/footer.jsp"/>
