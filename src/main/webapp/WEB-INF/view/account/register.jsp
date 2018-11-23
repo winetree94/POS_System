@@ -131,57 +131,64 @@
 	});
 </script>
 
+<div class="jumbotron jumbotron-fluid">
+	<div class="container">
+		<h1 class="display-4 text-center">회원가입</h1>
+	</div>
+</div>
+
 
 <div class="container" style="width: 500px;">
-
-	<h2>회원가입 페이지</h2>
-
-
-	<!-- 이번에는 onsubmit -->
-	<input type="hidden" id="chkval" value="0">
-
 	<form action="/account/register" method="post" id="frm" onsubmit="return check()">
-		<div id="info">
-			<div id="leftinfo">정보입력</div>
+		<div id="centerinfo">
+			<input type="hidden" id="chkval" value="0">
 
-			<div id="centerinfo">
-				<input class="form-control" type="text" id="service_id" name="service_id" placeholder="아이디" required="required"><br/>
+			<div class="form-group">
+				<label for="service_id">사용할 아이디를 입력하세요.</label>
+				<input class="form-control" type="text" id="service_id" name="service_id" placeholder="아이디"
+				       required="required">
+
 				<input type="hidden" id="idchk" value="false">
-				<span id="result"></span><br/>
-				<input class="form-control" type="text" id="service_email" name="service_email" placeholder="이메일" required="required"> <br/>
-				<input type="hidden" id="emailchk" value="false">
-				<span id="resultemail"></span><br/>
-				<input class="form-control" type="password" id="service_pw" name="service_pw" placeholder="비밀번호" required="required">
-
-				<div>
-					<input class="form-control" id="passOk" type="password" required="required"
-					       placeholder="비밀번호 확인"/>
-				</div>
-
+				<p class="p-2" id="result"></p>
 			</div>
-			<div id="rightinfo"></div>
-		</div>        <!-- id="info" -->
 
-		<div id="line"></div>
+			<div class="form-group">
+				<label for="service_email">이메일을 입력하세요.</label>
+				<input class="form-control" type="text" id="service_email" name="service_email" placeholder="이메일"
+				       required="required">
+				<input type="hidden" id="emailchk" value="false">
+				<p class="p-2" id="resultemail"></p>
+			</div>
 
 
-		<div id="bottom">        <!-- 약관사항 넣을 것 -->
-			<br>
-			*만 14세 미만은 법정대리인의 동의 후에 회원 서비스 이용이 가능합니다.<br>
+			<div class="form-group">
+				<label for="service_pw">비밀번호를 입력하세요.</label>
+				<input class="form-control" type="password" id="service_pw" name="service_pw" placeholder="비밀번호"
+				       required="required">
+				<input class="form-control" id="passOk" type="password" required="required"
+				       placeholder="비밀번호 확인"/>
+			</div>
 
-			<strong id="bottomstrong">
-				약관과 개인정보 수집에 대해서 확인하였으며 이에 동의하십니까?
-			</strong><br>
-
-			<div id="button">
-				<input class="btn btn-success" type="submit" value="동의하고 회원가입"/>
-				<input class="btn btn-sm btn-primary btn-center" type="button" value="돌아가기"
-				       onclick="javascript:history.back(-1);"/>
+			<div class="form-group">
+				<p class="p-2">* 만 14세 미만은 법정대리인의 동의 후에 회원 서비스 이용이 가능합니다. 약관과 개인정보 수집에 대해서 확인하였으며 이에 동의하십니까?</p>
 			</div>
 
 		</div>
 
+
+		<div class="g-recaptcha form-group"
+		     data-sitekey="6LeIxAcTAAAAAJcZVRqyHh71UMIEGNQ_MXjiZKhI">
+		</div>
+
+		<div id="button" class="form-group">
+			<input class="btn btn-success" type="submit" value="동의하고 회원가입"/>
+			<input class="btn btn-primary btn-center" type="button" value="돌아가기"
+			       onclick="javascript:history.back(-1);"/>
+		</div>
+
+
 	</form>
 </div>
 
+<script src="https://www.google.com/recaptcha/api.js" async defer></script>
 <jsp:include page="../comm/footer.jsp"/>
