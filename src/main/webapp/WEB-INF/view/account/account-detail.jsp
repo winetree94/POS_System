@@ -12,16 +12,58 @@
 	Service_Account_DTO userDetail = (Service_Account_DTO) request.getAttribute("userDetail");
 %>
 
-<div class="container">
+<div class="jumbotron">
+	<div class="container">
+		<h1 class="display-4 text-center"> 계정 정보 </h1>
+		<p class="p-2 text-center">계정의 상세정보 페이지입니다.</p>
+	</div>
+</div>
+
+<div class="container" style="max-width: 500px;">
 	<div id="accountdiv">
-		<h2>ACCOUNT DETAIL</h2>
-		<b>아이디</b> : ${userDetail.service_id}<br>
-		<b>유저 타입</b> : ${userDetail.service_type}<br>
-		<b>이메일 주소</b> : ${userDetail.service_email}<br>
-		<b>가입일</b> : ${userDetail.regdate}<br>
-		<br>
-		<form method="post">
-			<input type="button" value="회원정보수정" onclick="modifyAccount()"/>
+
+		<div class="row">
+			<div class="col">
+				<p class="p-2 text-right"><b>아이디</b> :</p>
+			</div>
+			<div class="col">
+				<p class="p-2 text-left">${userDetail.service_id}</p>
+			</div>
+		</div>
+
+		<div class="row">
+
+
+			<div class="col">
+				<p class="p-2 text-right"><b>유저 타입</b> : </p>
+			</div>
+			<div class="col">
+				<p class="p-2 text-left">${userDetail.service_type}</p>
+			</div>
+		</div>
+
+		<div class="row">
+			<div class="col">
+		<p class="p-2 text-right"><b>이메일 주소</b> : </p>
+			</div>
+			<div class="col">
+				<p class="p-2 text-left">${userDetail.service_email}</p>
+			</div>
+		</div>
+
+		<div class="row">
+			<div class="col">
+				<p class="p-2 text-right"><b>가입일</b> : </p>
+			</div>
+			<div class="col">
+				<p class="p-2 text-left">${userDetail.regdate}</p>
+			</div>
+		</div>
+
+		<form method="post" class="text-center">
+			<div class="form-group">
+				<input class="btn btn-primary" type="button" value="회원정보수정" onclick="modifyAccount()"/>
+			</div>
 		</form>
 	</div>
 </div>
