@@ -116,7 +116,7 @@ public class FileManager {
 //        String realFolder = "C:\\Users\\jaei\\Documents\\GitHub\\POS_System\\src\\main\\webapp\\WEB-INF\\uploadFiles";
 
         //파일경로이 있는 실제 폴더경로(t상대경로)
-        String realFolder = request.getSession().getServletContext().getRealPath("/")+"upload/";
+        String realFolder = request.getSession().getServletContext().getRealPath("/")+"upload\\";
         String filePath = realFolder + fileDto.getStored_fname();
 
         System.out.println(realFolder);
