@@ -43,7 +43,11 @@ h4, h2{
 .navbar-toggler{
     float:right;
 }
-
+.writeNew{
+    /*display:inline;*/
+    margin-left:80%;
+    margin-bottom:10px;
+}
 /*!**/
 /*h1 {*/
 	/*font-size: 100px;*/
