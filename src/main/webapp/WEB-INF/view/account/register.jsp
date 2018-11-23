@@ -22,9 +22,10 @@
 			return false;
 		} else if (idchk != "true" || emailchk != "true") {
 			return false;
-		} else {
-			return true;
-		}
+		}else if (grecaptcha.getResponse() == ""){ alert("리캡챠를 체크해야 합니다."); return false; } else { return true; }
+
+
+
 
 	}
 
