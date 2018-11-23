@@ -10,7 +10,7 @@
 	</div>
 </div>
 
-<div class='container'>
+<div class='container' style="max-width: 500px">
 
 	<form method='post' id='frm'>
 

@@ -138,7 +138,7 @@
 </div>
 
 
-<div class="container" style="width: 500px;">
+<div class="container" style="max-width: 500px;">
 	<form action="/account/register" method="post" id="frm" onsubmit="return check()">
 		<div id="centerinfo">
 			<input type="hidden" id="chkval" value="0">
