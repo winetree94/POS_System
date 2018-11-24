@@ -1,5 +1,4 @@
 package com.pos.system.service.impl;
-
 import com.pos.system.dto.Service_Account_DTO;
 import com.pos.system.mapper.*;
 import com.pos.system.service.IService_Account_Service;
@@ -70,5 +69,23 @@ public class IService_Account_Service_Impl implements IService_Account_Service {
 	public String pwCheck(@Param("service_id")String service_id, @Param("service_pw")String service_pw){
 		return mapper_Read.pwCheck(service_id,service_pw);
 	}
+
+	public String idFind(String service_email){
+		return mapper_Read.idFind(service_email);
+	}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 }

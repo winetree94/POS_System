@@ -29,8 +29,13 @@
 		<div class="form-group">
 		<input class='btn btn-primary' type='button' id='login' name='login' value='로그인'
 		       onclick='loginCheck()'/>
-			<input class='btn btn-secondary' type='button' id='SignUp' name='signup' value='회원가입' onclick='signUp()'/>
 		</div>
+	</form>
+			<form>
+
+			<input class='btn btn-secondary' type='button' id='SignUp' name='signup' value='회원가입' onclick='signUp()'/>
+			<input class='btn btn-secondary' type='button' id='IdFind' name='idfind' value='아이디찾기' onclick='idFindForm()'/>
+
 
 	</form>
 
