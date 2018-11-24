@@ -72,4 +72,7 @@ public interface IService_Account_Service {
 	//비밀번호 체크
 	public String pwCheck(@Param("service_id")String service_id, @Param("service_pw")String service_pw);
 
+	//아이디 찾기
+	public String idFind(String service_email);
+
 }
