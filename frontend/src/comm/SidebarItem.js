@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {Fragment} from 'react';
 
 export default class SidebarItem extends React.Component {
 	
@@ -8,9 +8,9 @@ export default class SidebarItem extends React.Component {
 	
 	render(){
 		return (
-			<div>
+			<Fragment>
 				<p>{this.props.name}</p>
-			</div>
+			</Fragment>
 		)
 	}
 }
