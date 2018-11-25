@@ -1,5 +1,6 @@
 <%@ page import="com.pos.system.dto.Service_Board_DTO" %>
 <%@ page import="java.util.List" %>
+<%@ page import="com.pos.system.dto.Service_Account_DTO" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@taglib uri="http://java.sun.com/jsp/jstl/core"  prefix="c"%>
 <%@taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
@@ -16,12 +17,22 @@
 </script>
 <%
 	List<Service_Board_DTO> board_list = (List<Service_Board_DTO>)request.getAttribute("board_list");
+
+	Service_Account_DTO user = (Service_Account_DTO)session.getAttribute("user");
+	String service_id = "";
+	if(user != null) {
+		service_id = user.getService_id();
+	}
+
 %>
 <div class="wrap">
 <h4 class="text-center">게시판 목록</h4>
 
 
+<% if (user!=null ){%>
 	<a href="board/new" class="btn btn-primary writeNew" >새글작성</a>
+<%}%>
+
 <table class="table w-75 p-3 mx-auto table-hover text-center">
 	<%--<form action="/board/new" method="get" class="text-right">--%>
 		<%--<input type="submit" value="새글작성" class="btn btn-primary">--%>
