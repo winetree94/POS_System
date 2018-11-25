@@ -47,6 +47,11 @@ public class Service_Account_Ctrl {
         return "/WEB-INF/view/account/id-find.jsp";
     }
 
+    @GetMapping("/pwfindform")
+    public String pwFindForm(){
+        return "/WEB-INF/view/account/pw-find.jsp";
+    }
+
 
     @PostMapping("/register")
     public String register(Service_Account_DTO dto) {

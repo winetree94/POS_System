@@ -1,6 +1,7 @@
 package com.pos.system.mapper;
 
 import com.pos.system.dto.Service_Account_DTO;
+import com.pos.system.dto.Service_Email_DTO;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.annotations.Select;
@@ -68,6 +69,7 @@ public interface Service_Account_Read_Mapper {
     @Select(" SELECT SERVICE_ID FROM SERVICE_ACCOUNT WHERE SERVICE_ID=#{service_id} AND SERVICE_PW=#{service_pw} ")
     String pwCheck(@Param("service_id") String service_id, @Param("service_pw") String service_pw);
 
-
+    @Select(" SELECT NVL(AUTHSTATUS,'N') as AUTHSTATUS FROM AUTH WHERE AUTH_KEY=#{auth_key} AND SERVICE_EMAIL=#{service_email} ")
+    String selectAuthStatus(Service_Email_DTO dto);
 
 }

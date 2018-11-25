@@ -1,5 +1,6 @@
 package com.pos.system.mapper;
 import com.pos.system.dto.Service_Account_DTO;
+import com.pos.system.dto.Service_Email_DTO;
 import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Update;
@@ -26,6 +27,16 @@ public interface Service_Account_Update_Mapper {
      */
     @Update(" UPDATE SERVICE_ACCOUNT SET SERVICE_PW=#{service_pw} WHERE SERVICE_ID=#{service_id} ")
     int modifyPw(Service_Account_DTO dto);
+
+
+    @Update(" UPDATE AUTH SET AUTHSTATUS='Y' WHERE AUTH_KEY=#{auth_key} AND SERVICE_EMAIL=#{service_email} ")
+    int updateAuthStatus(Service_Email_DTO dto);
+
+    @Update(" UPDATE SERVICE_ACCOUNT SET SERVICE_PW=#{service_pw} WHERE SERVICE_EMAIL=#{service_email}; ")
+    int pwFind(Service_Account_DTO dto);
+
+
+
 
 
 }

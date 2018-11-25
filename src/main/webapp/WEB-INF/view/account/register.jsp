@@ -155,7 +155,17 @@
 				<input class="form-control" type="text" id="service_email" name="service_email" placeholder="이메일"
 				       required="required">
 				<input type="hidden" id="emailchk" value="false">
+				<p><input class="btn btn-primary btn-center" type="button" value="이메일 인증"
+					   onclick="sendEmail()"/></p>
 				<p class="p-2" id="resultemail"></p>
+				<p class="p-2" id="resultemail2"></p>
+				<input class="form-control" type="text" id="auth_key" name="auth_key" placeholder="인증번호"
+					   required="required">
+				<p><input class="btn btn-primary btn-center" type="button" value="인증확인"
+						  onclick="confirmAuth()"/></p>
+				<p class="p-2" id="resultemail3"></p>
+
+
 			</div>
 
 

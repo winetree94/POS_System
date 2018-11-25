@@ -35,6 +35,7 @@
 
 			<input class='btn btn-secondary' type='button' id='SignUp' name='signup' value='회원가입' onclick='signUp()'/>
 			<input class='btn btn-secondary' type='button' id='IdFind' name='idfind' value='아이디찾기' onclick='idFindForm()'/>
+			<input class='btn btn-secondary' type='button' id='pwFind' name='pwfind' value='비밀번호찾기' onclick='pwFindForm()'/>
 
 
 	</form>

@@ -132,6 +132,15 @@
 			<artifactId>spring-boot-devtools</artifactId>
 		</dependency>
 
+		<!-- 이메일-->
+
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-mail</artifactId>
+			<version>1.4.3.RELEASE</version>
+		</dependency>
+
+
 	</dependencies>
 
 	<!-- java source 디렉토리의 xml 파일들을 컴파일된 폴더로 포함시킴. -->

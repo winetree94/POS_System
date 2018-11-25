@@ -65,6 +65,12 @@ function idFindForm() {
     frm.submit();
 }
 
+function pwFindForm(){
+    var frm = document.forms[1];
+    frm.action = '/account/pwfindform';
+    frm.submit();
+}
+
 
 
 //로그인을 ajax를 통해 처리함
@@ -122,13 +128,6 @@ function loginCheck() {
     }
 }
 
-function idSearch() {
-    alert( '준비중입니다.');
-}
-
-function pwSearch() {
-    alert( '준비중입니다.');
-}
 
 
 // email check function
@@ -160,9 +159,34 @@ function idFind(){
     });
 
 
+}
+function pwFind(){
+    var service_email = document.getElementById("inputemail").value;
+    var frm = document.forms[0];
 
+    frm.action="/email/pwfind";
+
+    $.ajax({
+        type:"post",
+        url:"/email/pwfindcheck",
+        data:"service_email="+service_email,
+        async:true,
+        success: function(msg){
+            if(msg=="없음") {
+
+                $("#pwfindresult").text('선택하신 이메일이 존재하지 않습니다');
+            }else if ("성공"){
+                $("#pwfindresult").text('이메일을 보냈습니다.');
+                frm.submit();
+            }else{
+                $("#pwfindresult").text('이메일 전송이 실패했습니다. 다시 확인해주세요.');
+            }
+        }
+    });
 
 }
+
+
 
 // check when email input lost foucus
 function editEmail() {
@@ -224,6 +248,41 @@ function editPw() {
 
     }
 }
+
+
+function sendEmail(){
+    var service_email = document.getElementById("service_email").value;
+    $.ajax({
+        type:"post",
+        url:"/email/sendemail",
+        data:"service_email="+service_email,
+        async:true,
+        success: function(msg){
+            $("#resultemail2").text('이메일 보냈어요');
+        }
+    });
+};
+
+function confirmAuth(){
+    var auth_key = document.getElementById("auth_key").value;
+    var service_email = document.getElementById("service_email").value;
+    $.ajax({
+        type:"post",
+        url:"/email/confirmemail",
+        data:"auth_key="+auth_key+"&"+"service_email="+service_email,
+
+        async:true,
+        success: function(msg){
+            if(msg=="실패"){
+                $("#resultemail3").text('인증실패, 다시 시도해주세요.');
+            }else {
+                $("#resultemail3").text('인증완료');
+            }
+        }
+
+    });
+}
+
 
 
 
