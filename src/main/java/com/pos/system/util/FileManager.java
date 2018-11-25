@@ -46,12 +46,12 @@ public class FileManager {
 //        ServletContext context = request.getServletContext();
 //		String PATH= context.getRealPath("upload");
 //		String filepath2 = request.getServletContext() +"/"+"upload";
-        String PATH = request.getSession().getServletContext().getRealPath("/")+"upload\\";
+        String PATH = request.getSession().getServletContext().getRealPath("/")+"upload/";
 
 
         File path = new File(PATH);
 
-
+        System.out.println(PATH);
 //폴더위치 없을시 생성
         if (path.exists() == false) {
             path.mkdirs();
@@ -116,7 +116,9 @@ public class FileManager {
         //String realFolder = "C:\\Users\\jaei\\Documents\\GitHub\\POS_System\\src\\main\\webapp\\WEB-INF\\uploadFiles";
 
         //파일이 있는 실제 폴더 경로(상대경로)
-        String realFolder = request.getSession().getServletContext().getRealPath("/")+"upload\\";
+        String realFolder = request.getSession().getServletContext().getRealPath("/")+"upload/";
+
+        System.out.println(realFolder);
 
         //파일경로
         String filePath = realFolder + "/" + fileDto.getStored_fname();
