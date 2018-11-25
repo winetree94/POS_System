@@ -7,13 +7,21 @@
 	List<Service_Store_DTO> stores_list = (List<Service_Store_DTO>) request.getAttribute("stores_list");
 %>
 
+<script>
 
-	<div class="jumbotron">
-		<div class="container">
+	function submitbtn() {
+
+	}
+
+</script>
+
+
+<div class="jumbotron">
+	<div class="container">
 		<h1 class="display-4 text-center">대시보드</h1>
 		<a class="btn btn-primary" href="/stores/new">매장 생성하기</a>
-		</div>
 	</div>
+</div>
 <div class="container">
 	<div class="row">
 		<% for (int i = 1; i < stores_list.size() + 1; i++) { %>
@@ -24,8 +32,15 @@
 				<div class="card-body">
 					<p class="card-text"><%=stores_list.get(i - 1).getStore_detail()%>
 					</p>
-					<a href="/pos" class="btn btn-primary btn-sm">매장 접속</a>
-					<a href="/stores/<%=stores_list.get(i - 1).getStore_seq()%>/edit" class="btn btn-secondary btn-sm">수정</a>
+
+					<form id="id" action="/pos" method="get">
+						<div class="form-group">
+							<input type="hidden" name="store_seq" value="<%=stores_list.get(i - 1).getStore_seq()%>">
+							<input class="btn btn-primary btn-sm" type="submit" value="접속">
+							<a href="/stores/<%=stores_list.get(i - 1).getStore_seq()%>/edit" class="btn btn-secondary btn-sm">수정</a>
+						</div>
+					</form>
+
 				</div>
 			</div>
 		</div>

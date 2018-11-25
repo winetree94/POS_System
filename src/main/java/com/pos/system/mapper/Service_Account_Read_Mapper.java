@@ -46,6 +46,10 @@ public interface Service_Account_Read_Mapper {
     @Select(" SELECT COUNT(*) FROM SERVICE_ACCOUNT WHERE SERVICE_EMAIL= #{service_email} ")
     int emailDuplicate(String service_email);
 
+    @Select(" SELECT SERVICE_ID FROM SERVICE_ACCOUNT WHERE SERVICE_EMAIL =#{service_email} ")
+    String idFind(String service_email);
+
+
 
     /**
      * 회원 가입 완료한 사용자가 로그인 하는 기능입니다.
@@ -63,5 +67,7 @@ public interface Service_Account_Read_Mapper {
     //비번 체크
     @Select(" SELECT SERVICE_ID FROM SERVICE_ACCOUNT WHERE SERVICE_ID=#{service_id} AND SERVICE_PW=#{service_pw} ")
     String pwCheck(@Param("service_id") String service_id, @Param("service_pw") String service_pw);
+
+
 
 }

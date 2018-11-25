@@ -42,6 +42,12 @@ public class Service_Account_Ctrl {
         return "/WEB-INF/view/account/register.jsp";
     }
 
+    @GetMapping("/idfindform")
+    public String idFindForm(){
+        return "/WEB-INF/view/account/id-find.jsp";
+    }
+
+
     @PostMapping("/register")
     public String register(Service_Account_DTO dto) {
         Service_Account_DTO udto = service.signUp(dto);
@@ -83,6 +89,13 @@ public class Service_Account_Ctrl {
             int n = service.emailDuplicate(service_email);
             System.out.println("이메일중복검사"+n);
         return (n == 0)? "가능":"중복";
+    }
+
+    @PostMapping("/idfind")
+    @ResponseBody
+    public String idFindCheck(String service_email){
+            String email = service.idFind(service_email);
+        return (email==null)? "실패" : "" + email;
     }
 
 
@@ -218,6 +231,8 @@ public class Service_Account_Ctrl {
 
         return (n>0)?"redirect:/account/{service_id}":"redirect:/errorpage";
     }
+
+
 
 
 

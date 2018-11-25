@@ -59,6 +59,14 @@ function signUp() {
     frm.submit();
 }
 
+function idFindForm() {
+    var frm = document.forms[1];
+    frm.action = '/account/idfindform';
+    frm.submit();
+}
+
+
+
 //로그인을 ajax를 통해 처리함
 function loginCheck() {
     var service_id = document.getElementById("inputId").value;//$("#inputId").val()과 똑같다.
@@ -129,6 +137,33 @@ function email_check( service_email ) {
     return (service_email != '' && service_email != 'undefined' && regex.test(service_email));
 }
 
+function idFind(){
+    var service_email = document.getElementById("email").value;
+
+    $.ajax({
+        type: 'POST' ,
+        url: "/account/idfind",
+        data: "service_email=" + service_email,
+        success: function(msg) {
+            console.log(msg);
+            if(msg=="실패"){
+                $("#idfindresult").text('아이디가 없습니다. 이메일을 다시 확인해주세요');
+
+            }else{
+                $("#idfindresult").text(" 찾으시는 아이디 : "+msg);
+            }
+
+
+        }
+
+
+    });
+
+
+
+
+}
+
 // check when email input lost foucus
 function editEmail() {
     var service_email = document.getElementById("service_email").value;
@@ -168,6 +203,9 @@ function editEmail() {
     }
 }
 
+
+
+
 function editPw() {
     var service_pw = document.getElementById("new_pw").value;
     var re_pw = document.getElementById("re_pw").value;
@@ -186,6 +224,8 @@ function editPw() {
 
     }
 }
+
+
 
 
 
