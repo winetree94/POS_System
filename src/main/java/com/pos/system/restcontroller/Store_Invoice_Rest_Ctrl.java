@@ -7,7 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
-@RequestMapping("/pos")
+@RequestMapping("/api")
 public class Store_Invoice_Rest_Ctrl {
 	
 	private final IStore_Order_Service service_Order;

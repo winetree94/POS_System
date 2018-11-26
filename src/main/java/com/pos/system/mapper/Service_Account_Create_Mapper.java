@@ -20,7 +20,7 @@ public interface Service_Account_Create_Mapper {
     int signUp(Service_Account_DTO dto);
 
 
-    @Insert(" INSERT INTO AUTH(AUTH_KEY,AUTHSTATUS,SERVICE_EMAIL) VALUES(#{auth_key},'N',#{service_email}) ")
+    @Insert(" INSERT INTO AUTH(AUTH_KEY,AUTHSTATUS,SERVICE_EMAIL, REGDATE ) VALUES(#{auth_key},'N',#{service_email},NOW()) ")
     int insertAuthKey(Service_Email_DTO dto);
 
 

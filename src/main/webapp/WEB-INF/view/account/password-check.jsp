@@ -19,6 +19,7 @@
 		</div>
 		<div class="form-group">
 			<input class="btn btn-primary" type='button' id='login' name='login' value='확인' onclick='pwCheck()'/>
+			<button class="btn btn-secondary" style="display: inline" id="cancel" type="button" onclick="history.go(-1);">Cancel</button>
 		</div>
 	</form>
 </div>
