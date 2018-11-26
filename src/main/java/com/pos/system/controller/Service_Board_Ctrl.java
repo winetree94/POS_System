@@ -7,6 +7,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import com.pos.system.dto.Service_Account_DTO;
 import com.pos.system.dto.Service_File_DTO;
 import com.pos.system.service.IService_File_Service;
 import com.pos.system.util.FileManager;
@@ -43,7 +44,7 @@ public class Service_Board_Ctrl {
      * @return
      */
     @GetMapping("")
-    public String board_List(HttpServletRequest request, HttpServletResponse response, HttpSession session, MultipartFile image) {
+    public String board_List(HttpServletRequest request, HttpServletResponse response, HttpSession session, MultipartFile file) {
         //String service_id = (String) session.getAttribute("id"); service_id 필요성에 의문20181110
         List<Service_Board_DTO> board_list = (List<Service_Board_DTO>) service_Board.selectAllBoard();
         request.setAttribute("board_list", board_list);
@@ -53,7 +54,6 @@ public class Service_Board_Ctrl {
 
 
     /**
-     *
      * @return
      */
     @GetMapping("/new")
@@ -65,6 +65,7 @@ public class Service_Board_Ctrl {
 
     /**
      * 새글 등록 기능
+     *
      * @param request
      * @param response
      * @param session
@@ -78,9 +79,12 @@ public class Service_Board_Ctrl {
             HttpSession session,
             MultipartFile file
     ) {
-        session.setAttribute("id", "winetree"); // for test
+//        session.setAttribute("id", "winetree"); // for test
+        Service_Account_DTO user = (Service_Account_DTO) session.getAttribute("user");
 
-        String writer = (String)session.getAttribute("id");
+        String writer = user.getService_id();
+//        String writer = (String) session.getAttribute("user");
+
         String title = request.getParameter("title");
         String content = request.getParameter("content");
 
@@ -95,13 +99,13 @@ public class Service_Board_Ctrl {
 
         int seq = service_Board.selectRecentBoard();
 
-        if(!file.isEmpty()) {
+        if (!file.isEmpty()) {
 
             //test 절대경로
 //            fileManager.upload(file);
 
             //상대경로 사용시
-            fileManager.upload(file,request);
+            fileManager.upload(file, request);
 
         }
 
@@ -111,7 +115,8 @@ public class Service_Board_Ctrl {
 
     /**
      * 특정 글 상세 조회 기능
-     * @param seq/ 게시글 고유 번호
+     *
+     * @param seq
      * @param request
      * @param response
      * @param session
@@ -124,12 +129,14 @@ public class Service_Board_Ctrl {
             HttpServletResponse response,
             HttpSession session,
             MultipartFile file
+    ) {
 
-    ){
+
         Service_Board_DTO board_detail;
 
         int board_seq = Integer.parseInt(seq);
 
+        service_Board.readcountBoard(board_seq);
         board_detail = service_Board.selectOneBoard(board_seq);
 
         request.setAttribute("board_detail", board_detail);
@@ -137,10 +144,14 @@ public class Service_Board_Ctrl {
         Service_File_DTO file_dto;
         file_dto = service_File.selectOneFile(board_seq);
 
-        if (file_dto!=null){
+        if (session == null){
+
+        }
+
+        if (file_dto != null) {
             Service_File_DTO fileDto = service_File.selectOneFile(board_seq);
 
-            request.setAttribute("fileDto",fileDto);
+            request.setAttribute("fileDto", fileDto);
 
             System.out.println(file_dto);
 
@@ -209,7 +220,7 @@ public class Service_Board_Ctrl {
             HttpServletResponse response,
             HttpSession session,
             MultipartFile file
-            ){
+    ) {
 
         int board_seq = Integer.parseInt(seq);
 
@@ -245,14 +256,15 @@ public class Service_Board_Ctrl {
             HttpServletResponse response,
             HttpSession session,
             MultipartFile file
-    ){
+    ) {
 
         int board_seq = Integer.parseInt(seq);
         Service_Board_DTO dto = service_Board.selectOneBoard(board_seq);
 
-        session.setAttribute("id", "winetree"); // for test
 
-        String writer = (String)session.getAttribute("id");
+        Service_Account_DTO user = (Service_Account_DTO) session.getAttribute("user");
+
+        String writer = user.getService_id();
         String title = request.getParameter("title");
         String content = request.getParameter("content");
 
@@ -263,18 +275,18 @@ public class Service_Board_Ctrl {
 
         int result = service_Board.modifyBoard(dto);
 
-        if (!file.isEmpty()){
 
-            fileManager.fileEdit(file,board_seq);
+        if (!file.isEmpty()) {
+
+            fileManager.fileEdit(file, board_seq);
 
         }
 
-        if (result > 0){
-
+        if (result > 0) {
 
 
             return "redirect:/board";
-        }else{
+        } else {
             return "/WEB-INF/view/comm/error.jsp";
         }
 
@@ -297,14 +309,15 @@ public class Service_Board_Ctrl {
             HttpServletRequest request,
             HttpServletResponse response,
             HttpSession session,
-            MultipartFile file){
+            MultipartFile file) {
 
         int board_seq = Integer.parseInt(seq);
 
-        response = fileManager.download(board_seq, response,request);
+        response = fileManager.download(board_seq, response, request);
 
         return "";
     }
+
 
 
 
