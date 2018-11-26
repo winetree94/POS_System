@@ -7,7 +7,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("/pos")
+@RequestMapping("/api")
 public class Store_Order_Rest_Ctrl {
 	
 	private final IStore_Order_Service service;

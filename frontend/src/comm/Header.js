@@ -12,9 +12,12 @@ import '../css/style.css';
 
 export default class Header extends React.Component {
 	
+	static defaultProps = {
+		service_id : "null"
+	}
+	
 	constructor(props) {
 		super(props);
-		
 		this.toggle = this.toggle.bind(this);
 		this.state = {
 			isOpen: false
@@ -37,10 +40,10 @@ export default class Header extends React.Component {
 						<Collapse isOpen={this.state.isOpen} navbar>
 							<Nav className="ml-auto" navbar>
 								<NavItem>
-									<NavLink href="/components/">winetree</NavLink>
+									<NavLink href="#">{this.props.service_id}</NavLink>
 								</NavItem>
 								<NavItem>
-									<NavLink href="https://github.com/reactstrap/reactstrap">로그아웃</NavLink>
+									<NavLink href="#">로그아웃</NavLink>
 								</NavItem>
 							</Nav>
 						</Collapse>

@@ -10,26 +10,23 @@
 <div class='container' style="max-width: 500px">
 
 
-
-           <div>
                 <form method="post">
-                    <div >
-                        <h3>아이디 찾기</h3>
-                    </div>
-                    <div>
-                        <p>
-                            <label>Email</label>
-                            <input type="text" id="email" name="email" required="required">
-                        </p>
-                     <span id="idfindresult"></span>
 
-                        <p>
-                         <input type="button" value="아이디찾기" id="idfind" onclick="idFind()">
-                            <button type="button" onclick="history.go(-1);">Cancel</button>
-                        </p>
+                    <div class="form-group">
+                            <label for="email">이메일을 입력해주세요.</label>
+                            <input class="form-control" type="text" id="email" name="email" required="required" placeholder="이메일">
+                     <span id="idfindresult"></span>
+                    </div>
+
+
+                        <div class="form-group">
+                            <input class="btn btn-primary" style="display: none" value="확인" id="idfindconfirm" onclick="history.go(-1);"/>
+                         <input class="btn btn-primary" style="display: inline"  type="button" value="아이디찾기" id="idfind" onclick="idFind()"/>
+                            <button class="btn btn-secondary" style="display: inline" id="cancel" type="button" onclick="history.go(-1);">Cancel</button>
+
                     </div>
                 </form>
-            </div>
+
 
         </div>
 

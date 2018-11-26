@@ -6,7 +6,6 @@ import {
 	Col
 } from 'reactstrap';
 import Axios from 'axios';
-import {getOrder} from './js/PosData.js';
 import SaleMain from './sale/SaleMain.js';
 
 export default class App extends React.Component {
@@ -14,6 +13,7 @@ export default class App extends React.Component {
 	state = {
 		error: null,
 		isLoaded: false,
+		auth: [],
 		orderList: [],
 		cashBook: [],
 		menu: [],
@@ -24,114 +24,52 @@ export default class App extends React.Component {
 	
 	constructor(props) {
 		super(props);
-		
-		Axios.get('/pos/1/order').then((response) => {
-			this.setState({
-				orderList: this.state.orderList.concat(response.data)
-			})
-			
-		});
-		Axios.get('/pos/1/cashbook').then((response) => {
-			this.setState({
-				cashBook: this.state.cashBook.concat(response.data)
-			})
-		});
-		
-		Axios.get('/pos/1/menu').then((response) => {
-			this.setState({
-				menu: this.state.cashBook.concat(response.data)
-			})
-		});
-		
-		Axios.get('/pos/1/invoice').then((response) => {
-			this.setState({
-				invoice: this.state.cashBook.concat(response.data)
-			})
-		});
-		
-		Axios.get('/pos/1/reservation').then((response) => {
-			this.setState({
-				reservation: this.state.cashBook.concat(response.data)
-			})
-		});
-		
-		Axios.get('/pos/1/table').then((response) => {
-			this.setState({
-				table: this.state.cashBook.concat(response.data)
-			})
+		Axios.get('/api/auth').then(response => {
+			if (response.data === "" || response.data === null || response.data === undefined) {
+				window.location.href = "/errorpage";
+				console.log("fail");
+			} else {
+				this.setState({
+					auth: this.state.auth.concat(response.data)
+				})
+			}
 		});
 	}
 	
 	componentDidMount() {
 		
 		setInterval(() => {
-			
-			Axios.get('/pos/1/order').then((response) => {
-				this.setState({
-					orderList: []
-				})
-				this.setState({
-					orderList: this.state.orderList.concat(response.data)
-				})
+			Axios.all([
+				Axios.get('/pos/' + this.state.auth[0].store_seq + '/order'),
+				Axios.get('/pos/' + this.state.auth[0].store_seq + '/cashbook'),
+				Axios.get('/pos/' + this.state.auth[0].store_seq + '/menu'),
+				Axios.get('/pos/' + this.state.auth[0].store_seq + '/invoice'),
+				Axios.get('/pos/' + this.state.auth[0].store_seq + '/reservation'),
+				Axios.get('/pos/' + this.state.auth[0].store_seq + '/table'),
+			]).then(Axios.spread((orderRes, cashbookRes, menuRes, invoiceRes, reservationRes, tableRes) => {
+				console.log(orderRes.data, cashbookRes.data, menuRes.data, invoiceRes.data, reservationRes.data, tableRes.data);
 				
-			});
-			Axios.get('/pos/1/cashbook').then((response) => {
 				this.setState({
-					cashBook: []
-				})
-				this.setState({
-					cashBook: this.state.cashBook.concat(response.data)
-				})
-			});
-			
-			Axios.get('/pos/1/menu').then((response) => {
-				this.setState({
-					menu: []
-				})
-				this.setState({
-					menu: this.state.cashBook.concat(response.data)
-				})
-			});
-			
-			Axios.get('/pos/1/invoice').then((response) => {
-				this.setState({
-					invoice: []
-				})
-				this.setState({
-					invoice: this.state.cashBook.concat(response.data)
-				})
-			});
-			
-			Axios.get('/pos/1/reservation').then((response) => {
-				this.setState({
-					reservation: []
-				})
-				this.setState({
-					reservation: this.state.cashBook.concat(response.data)
-				})
-			});
-			
-			Axios.get('/pos/1/table').then((response) => {
-				this.setState({
-					table: this.state.cashBook.concat(response.data)
-				})
-			});
-			
-			const {error, isLoaded} = this.state;
-			
-			this.setState({
-				isLoaded: true
-			})
+					orderList: orderRes.data,
+					cashBook: cashbookRes.data,
+					menu: menuRes.data,
+					invoice: invoiceRes.data,
+					reservation: reservationRes.data,
+					table: tableRes.data,
+				}, () => {
+					this.setState({
+						isLoaded: true
+					});
+				});
+				
+			}));
 			
 		}, 3000)
+		
 	};
 	
-	getData = () => {
-		console.log(this.state);
-	}
-	
 	render() {
-		const {error, isLoaded, orderList} = this.state;
+		const {isLoaded} = this.state;
 		
 		if (!isLoaded) {
 			return (
@@ -147,16 +85,14 @@ export default class App extends React.Component {
 			
 			return (
 				<Fragment>
-					<Header></Header>
+					<Header service_id={this.state.auth[0].service_id}></Header>
 					<div className={"container"} style={{maxWidth: "1280px"}}>
 						<Row>
 							<Col md={2} style={{padding: "0", maxWidth: "193px"}}>
 								<SideBar></SideBar>
 							</Col>
 							<Col style={{maxWidth: "1083px", padding: "0"}}>
-								<SaleMain></SaleMain>
-								<input type="button" onClick={this.getData} value={"누르세요."}/>
-								<p>{JSON.stringify(this.state)}</p>
+								<SaleMain {...this.state}></SaleMain>
 							</Col>
 						</Row>
 					</div>

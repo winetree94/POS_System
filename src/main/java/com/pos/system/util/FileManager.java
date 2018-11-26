@@ -95,6 +95,8 @@ public class FileManager {
             //받아온 file을 stored_file로 바꿔줌
             file.transferTo(stored_file);
 
+            System.out.println(fdto);
+
 
         } catch (Exception e) {
 
@@ -183,6 +185,9 @@ public class FileManager {
 
 
     public int fileEdit(MultipartFile file,int board_seq){
+
+        Service_File_DTO file_dto = service_File.selectOneFile(board_seq);
+        System.out.println("asl;dfja;sdifjlkasdj;f;oiawejklfjdklg[g[g[g===================");
 
 
 

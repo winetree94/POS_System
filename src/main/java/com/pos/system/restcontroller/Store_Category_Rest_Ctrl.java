@@ -13,7 +13,7 @@ import java.util.List;
  * @author DEADxFOOL
  */
 @RestController
-@RequestMapping("/pos")
+@RequestMapping("/api")
 public class Store_Category_Rest_Ctrl {
 
     private IStore_Category_Service service;

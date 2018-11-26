@@ -52,7 +52,8 @@ public class Store_POS_Ctrl {
 				Integer.parseInt(store_seq) == store.getStore_seq() &&
 				store.getService_id().equalsIgnoreCase(user.getService_id())
 		) {
-			return "index.html";
+			System.out.println("수정됨");
+			return "/index.html";
 		} else {
 			return "redirect:/errorpage";
 		}

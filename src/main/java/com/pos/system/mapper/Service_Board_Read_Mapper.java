@@ -16,7 +16,7 @@ public interface Service_Board_Read_Mapper {
 	 * 모든 게시물 조회 
 	 * @return List<Service_Board_DTO> 
 	 */
-	@Select(" SELECT BOARD_SEQ, SERVICE_ID ,READCOUNT, REGDATE, TITLE, CONTENT, REF, STEP, DEPTH, TYPE, DELFLAG FROM SERVICE_BOARD WHERE DELFLAG = 'N' ")
+	@Select(" SELECT BOARD_SEQ, SERVICE_ID ,READCOUNT, REGDATE, TITLE, CONTENT, REF, STEP, DEPTH, TYPE, DELFLAG FROM SERVICE_BOARD WHERE DELFLAG = 'N' ORDER BY BOARD_SEQ DESC")
 	List<Service_Board_DTO> selectAllBoard();
 	
 	/**
@@ -42,5 +42,6 @@ public interface Service_Board_Read_Mapper {
 	 */
 	@Select(" SELECT MAX(BOARD_SEQ) FROM SERVICE_BOARD ")
 	int selectRecentBoard();
-	
+
+
 }

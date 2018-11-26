@@ -66,15 +66,6 @@ public class Service_Email_Ctrl {
 
     }
 
-    @PostMapping("/pwfind")
-    public String pwFind(Service_Account_DTO dto){
-
-
-            return "/WEB-INF/view/account/loginform.jsp";
-
-
-    }
-
 
 
 

@@ -17,26 +17,26 @@
 		<div class='form-group'>
 			<label for="inputId">아이디</label>
 			<input type='hidden' id='loginChk' name='service_type' value='0'/>
-			<input class='form-control' type='text' name='service_id' id='inputId' required='required'>
+			<input class='form-control' type='text' name='service_id' id='inputId' required='required' placeholder="아이디">
 		</div>
 
 		<div class="form-group">
-			<label id='pw'>비밀번호</label>
-			<input class='form-control' type='password' name='service_pw' id='inputPw' required='required'>
+			<label for="inputPw">비밀번호</label>
+			<input class='form-control' type='password' name='service_pw' id='inputPw' required='required' placeholder="비밀번호">
 		</div>
 
 
-		<div class="form-group">
-		<input class='btn btn-primary' type='button' id='login' name='login' value='로그인'
-		       onclick='loginCheck()'/>
-		</div>
+
+
 	</form>
 			<form>
-
+				<div class="form-group">
+				<input class='btn btn-primary' type='button' id='login' name='login' value='로그인'
+					   onclick='loginCheck()'/>
 			<input class='btn btn-secondary' type='button' id='SignUp' name='signup' value='회원가입' onclick='signUp()'/>
 			<input class='btn btn-secondary' type='button' id='IdFind' name='idfind' value='아이디찾기' onclick='idFindForm()'/>
 			<input class='btn btn-secondary' type='button' id='pwFind' name='pwfind' value='비밀번호찾기' onclick='pwFindForm()'/>
-
+				</div>
 
 	</form>
 
