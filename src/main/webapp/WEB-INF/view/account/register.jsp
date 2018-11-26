@@ -43,7 +43,6 @@
 			if (!email_check(service_email)) {
 				$("#resultemail").text('부적합한 이메일 주소 양식입니다.');
 				document.querySelector("#emailchk").value = "false";
-				service_email.focus();
 				return false;
 			}
 			else {
@@ -57,10 +56,19 @@
 							$("#resultemail").text('가능한 이메일 주소입니다.');
 							console.log("success");
 							document.querySelector("#emailchk").value = "true";
+                            document.querySelector("#email_auth").style = "display : block";
+                            document.querySelector("#auth_key").style = "display : block";
+                            document.querySelector("#auth_confirm").style = "display : block";
+                            document.querySelector("#auth_result").style = "display : block";
+
 						} else {
 							$("#resultemail").text('중복된 이메일 주소입니다.');
 							console.log("failed");
 							document.querySelector("#emailchk").value = "false";
+                            document.querySelector("#email_auth").style = "display : none";
+                            document.querySelector("#auth_key").style = "display : none";
+                            document.querySelector("#auth_confirm").style = "display : none";
+                            document.querySelector("#auth_result").style = "display : none";
 						}
 
 
@@ -155,17 +163,20 @@
 				<input class="form-control" type="text" id="service_email" name="service_email" placeholder="이메일"
 				       required="required">
 				<input type="hidden" id="emailchk" value="false">
-				<p><input class="btn btn-primary btn-center" type="button" value="이메일 인증"
-					   onclick="sendEmail()"/></p>
+			</div>
+			<div class="form-group">
+				<p><input id="email_auth" class="btn btn-primary btn-center" type="button" value="이메일 인증"
+					   onclick="sendEmail()" style="display: none" /></p>
 				<p class="p-2" id="resultemail"></p>
-				<p class="p-2" id="resultemail2"></p>
+			</div>
+			<div class="form-group">
 				<input class="form-control" type="text" id="auth_key" name="auth_key" placeholder="인증번호"
-					   required="required">
-				<p><input class="btn btn-primary btn-center" type="button" value="인증확인"
-						  onclick="confirmAuth()"/></p>
-				<p class="p-2" id="resultemail3"></p>
-
-
+					   required="required" style="display: none">
+				</div>
+				<div class="form-group">
+				<p><input class="btn btn-primary btn-center" id="auth_confirm" type="button" value="인증확인"
+						  onclick="confirmAuth()" style="display: none"/></p>
+				<p class="p-2" id="auth_result" style="display: none"></p>
 			</div>
 
 

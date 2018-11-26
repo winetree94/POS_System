@@ -7,7 +7,7 @@ window.onload = function() {
 
 function loginForm(){
  var frm = document.forms[0];
- frm.action = './account';
+ frm.action = '/account';
  frm.submit();
 }
 
@@ -149,7 +149,12 @@ function idFind(){
                 $("#idfindresult").text('아이디가 없습니다. 이메일을 다시 확인해주세요');
 
             }else{
-                $("#idfindresult").text(" 찾으시는 아이디 : "+msg);
+                document.querySelector("#idfindconfirm").style = "display : inline";
+                document.querySelector("#idfind").style = "display : none";
+                document.querySelector("#cancel").style = "display : none";
+                $("#idfindresult").text(" 찾으시는 아이디 : "+ msg);
+
+
             }
 
 
@@ -163,8 +168,7 @@ function idFind(){
 function pwFind(){
     var service_email = document.getElementById("inputemail").value;
     var frm = document.forms[0];
-
-    frm.action="/email/pwfind";
+    document.getElementById("pwfind").onclick=null;
 
     $.ajax({
         type:"post",
@@ -175,11 +179,17 @@ function pwFind(){
             if(msg=="없음") {
 
                 $("#pwfindresult").text('선택하신 이메일이 존재하지 않습니다');
+                document.getElementById("pwfind").onclick=pwFind;
             }else if ("성공"){
-                $("#pwfindresult").text('이메일을 보냈습니다.');
-                frm.submit();
+                $("#pwfindresult").text('선택하신 이메일로 새로운 비밀번호를 보냈습니다');
+                document.querySelector("#pwfindconfirm").style ="display : inline";
+                document.querySelector("#pwfind").style ="display : none";
+                document.querySelector("#cancel2").style ="display : none";
+
+
             }else{
                 $("#pwfindresult").text('이메일 전송이 실패했습니다. 다시 확인해주세요.');
+                document.getElementById("pwfind").onclick=pwFind;
             }
         }
     });
@@ -202,7 +212,6 @@ function editEmail() {
     // valid check
     if (!email_check(service_email)) {
         $("#result").text('부적합한 이메일 주소 양식입니다.');
-        service_email.focus();
         return false;
     }
     else {
@@ -213,6 +222,8 @@ function editEmail() {
             success: function(msg) {
                 console.log(msg);
                 if(msg=="가능"){
+
+
                     frm.submit();
 
                 }else{
@@ -252,13 +263,22 @@ function editPw() {
 
 function sendEmail(){
     var service_email = document.getElementById("service_email").value;
+    document.getElementById("email_auth").onclick = null;
+
     $.ajax({
         type:"post",
         url:"/email/sendemail",
         data:"service_email="+service_email,
         async:true,
         success: function(msg){
-            $("#resultemail2").text('이메일 보냈어요');
+            $("#resultemail").text('이메일 보냈어요 확인해주세요');
+
+            document.querySelector("#service_email").setAttribute("readonly", "readonly");
+            document.querySelector("#email_auth").setAttribute("onclick","false");
+            document.querySelector("#email_auth").removeAttribute("onclick");
+
+            // document.querySelector("#email_auth").style = "display : none";
+
         }
     });
 };
@@ -274,9 +294,12 @@ function confirmAuth(){
         async:true,
         success: function(msg){
             if(msg=="실패"){
-                $("#resultemail3").text('인증실패, 다시 시도해주세요.');
+                $("#auth_result").text('인증실패, 다시 시도해주세요.');
             }else {
-                $("#resultemail3").text('인증완료');
+                $("#auth_result").text('인증완료');
+                document.querySelector("#auth_key").setAttribute("readonly", "readonly");
+                document.querySelector("#auth_confirm").removeAttribute("onclick");
+
             }
         }
 

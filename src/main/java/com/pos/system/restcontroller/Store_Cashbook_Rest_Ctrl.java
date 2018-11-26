@@ -9,7 +9,7 @@ import javax.servlet.http.HttpServletRequest;
 import java.util.List;
 
 @RestController
-@RequestMapping("/pos")
+@RequestMapping("/api")
 public class Store_Cashbook_Rest_Ctrl {
 	
 	private final IStore_Cashbook_Service service;

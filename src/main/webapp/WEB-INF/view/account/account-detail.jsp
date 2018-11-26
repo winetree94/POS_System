@@ -19,48 +19,40 @@
 	</div>
 </div>
 
-<div class="container" style="max-width: 500px;">
-	<div id="accountdiv">
-
-		<div class="row">
-			<div class="col">
-				<p class="p-2 text-right"><b>아이디</b> :</p>
-			</div>
-			<div class="col">
-				<p class="p-2 text-left">${userDetail.service_id}</p>
-			</div>
-		</div>
-
-		<div class="row">
 
 
-			<div class="col">
-				<p class="p-2 text-right"><b>유저 타입</b> : </p>
-			</div>
-			<div class="col">
-				<p class="p-2 text-left">${userDetail.service_type}</p>
-			</div>
-		</div>
 
-		<div class="row">
-			<div class="col">
-		<p class="p-2 text-right"><b>이메일 주소</b> : </p>
-			</div>
-			<div class="col">
-				<p class="p-2 text-left">${userDetail.service_email}</p>
-			</div>
-		</div>
+<div class="container" style="min-width: 450px; max-width: 450px;">
+	<table class="table table table-bordered shadow">
+		<tbody>
+		<tr>
+			<td class="table-default " scope="col" colspan="2"> <p class="h4 display-4 text-center font-weight-light" style="font-size: 40px">${userDetail.service_id}님의 상세정보</p></td>
+		</tr>
+		</tbody>
+		<tbody>
+		<tr>
+			<td class="table-light " scope="row" class="table-active"><p class=" text-center">아이디 :</p></td>
+			<td class="table-light"><p class=" text-center">${userDetail.service_id}</p></td>
+		</tr>
+		<tr>
+			<td class="table-light" scope="row"><p class=" text-center">계정 타입 : </p></td>
+			<td class="table-light"><p class=" text-center">${userDetail.service_type}</p></td>
+		</tr>
+		<tr>
+			<td class="table-light" scope="row"><p class=" text-center">이메일 주소 : </p></td>
+			<td class="table-light"><p class=" text-center">${userDetail.service_email}</p></td>
+		</tr>
+		<tr>
+			<td class="table-light" scope="row"><p class=" text-center">가입일 : </p></td>
+			<td class="table-light"><p class=" text-center">${userDetail.regdate}</p></td>
+		</tr>
+		</tbody>
+	</table>
+</div>
 
-		<div class="row">
-			<div class="col">
-				<p class="p-2 text-right"><b>가입일</b> : </p>
-			</div>
-			<div class="col">
-				<p class="p-2 text-left">${userDetail.regdate}</p>
-			</div>
-		</div>
 
 		<form method="post" class="text-center">
+			<p class="p-1"></p>
 			<div class="form-group">
 				<input class="btn btn-primary" type="button" value="회원정보수정" onclick="modifyAccount()"/>
 			</div>

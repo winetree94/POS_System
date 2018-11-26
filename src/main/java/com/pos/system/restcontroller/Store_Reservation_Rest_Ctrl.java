@@ -12,7 +12,7 @@ import java.util.List;
  * @author DEADxFOOL
  */
 @RestController
-@RequestMapping("/pos")
+@RequestMapping("/api")
 public class Store_Reservation_Rest_Ctrl {
     private IStore_Reservation_Service service;
 
