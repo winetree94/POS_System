@@ -165,7 +165,7 @@
 				<input type="hidden" id="emailchk" value="false">
 			</div>
 			<div class="form-group">
-				<p><input id="email_auth" class="btn btn-primary btn-center" type="button" value="이메일 인증"
+				<p><input  id="email_auth" name="email_auth" class="btn btn-primary btn-center" type="button" value="이메일 인증"
 					   onclick="sendEmail()" style="display: none" /></p>
 				<p class="p-2" id="resultemail"></p>
 			</div>
@@ -174,9 +174,9 @@
 					   required="required" style="display: none">
 				</div>
 				<div class="form-group">
-				<p><input class="btn btn-primary btn-center" id="auth_confirm" type="button" value="인증확인"
+				<p><input class="btn btn-primary btn-center" id="auth_confirm" name="auth_confirm" type="button" value="인증확인"
 						  onclick="confirmAuth()" style="display: none"/></p>
-				<p class="p-2" id="auth_result" style="display: none"></p>
+				<p class="p-2" id="auth_result" name="auth_result" style="display: none"></p>
 			</div>
 
 

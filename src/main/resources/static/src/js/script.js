@@ -198,12 +198,14 @@ function pwFind(){
 
 
 
+
+
+
 // check when email input lost foucus
-function editEmail() {
+function editEmailDuplicate() {
     var service_email = document.getElementById("service_email").value;
-    var frm = document.forms[0];
-    frm.action = './edit/email';
-    // if value is empty then exit
+
+
         if (service_email == '' || service_email == 'undefined') {
             $("#result").text('이메일 주소를 입력해주세요');
             return;
@@ -215,6 +217,7 @@ function editEmail() {
         return false;
     }
     else {
+
         $.ajax({
             type: 'POST' ,
             url: "/account/emailduplicate",
@@ -222,9 +225,10 @@ function editEmail() {
             success: function(msg) {
                 console.log(msg);
                 if(msg=="가능"){
-
-
-                    frm.submit();
+                    $("#result").text('사용가능한 이메일 주소입니다.');
+                    document.querySelector("#email_auth2").style = "display : inline";
+                    document.querySelector("#auth_key2").style = "display : block";
+                    document.querySelector("#auth_confirm2").style = "display : inline";
 
                 }else{
                     $("#result").text('중복된 이메일 주소입니다.');
@@ -237,6 +241,52 @@ function editEmail() {
         });
     }
 }
+
+function editSendEmail(){
+    var service_email = document.getElementById("service_email").value;
+    document.getElementById("email_auth2").onclick = null;
+
+    $.ajax({
+        type:"post",
+        url:"/email/sendemail",
+        data:"service_email="+service_email,
+        async:true,
+        success: function(msg){
+            $("#resultemail2").text('이메일 보냈어요 확인해주세요');
+
+            document.querySelector("#service_email").setAttribute("readonly", "readonly");
+            document.querySelector("#email_auth2").setAttribute("onclick","false");
+            document.querySelector("#email_auth2").removeAttribute("onclick");
+
+            // document.querySelector("#email_auth").style = "display : none";
+
+        }
+    });
+};
+
+function editConfirmAuth(){
+    var auth_key = document.getElementById("auth_key2").value;
+    var service_email = document.getElementById("service_email").value;
+    var frm = document.forms[0];
+    frm.action = './edit/email';
+    $.ajax({
+        type:"post",
+        url:"/email/confirmemail",
+        data:"auth_key="+auth_key+"&"+"service_email="+service_email,
+
+        async:true,
+        success: function(msg){
+            if(msg=="실패"){
+                $("#auth_result").text('인증실패, 다시 시도해주세요.');
+            }else {
+                frm.submit();
+
+            }
+        }
+
+    });
+}
+
 
 
 

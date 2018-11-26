@@ -47,12 +47,69 @@
                 <p class="text-center"> <span id="result"></span></p>
             </div>
         </div>
+
             <div class="row">
                 <div class="col">
-                    <p class="text-center"> <input class="btn btn-primary" type="button" value="이메일변경" onclick="editEmail()"></p>
+                    <p class="text-center"> <input class="btn btn-primary" type="button" value="이메일 중복검사" onclick="editEmailDuplicate()"></p>
                 </div>
             </div>
+
+
+
+
+
+
+
+            <div class="row">
+                <div class="col">
+                    <p class="text-center">
+                        <input class="form-control" type="text" id="auth_key2" name="auth_key" placeholder="인증번호"
+                               required="required" style="display: none">
+                    </p>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col">
+                    <p class="text-center" id="resultemail"></p>
+                    </p>
+                </div>
+            </div>
+
+
+
+            <div class="row">
+                <div class="col">
+                    <p class="text-center">
+                        <input id="email_auth2" name="email_auth" class="btn btn-primary btn-center" type="button" value="이메일 인증"
+                               onclick="editSendEmail()" style="display: none" />
+                    </p>
+                </div>
+
+                <div class="col">
+                    <p class="text-center"><input class="btn btn-primary btn-center" id="auth_confirm2" name="auth_confirm" type="button" value="인증확인"
+                              onclick="editConfirmAuth()" style="display: none"/></p>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col">
+                    <p class="text-center" name="auth_result"></p>
+                </div>
+            </div>
+
+
+
         </div>
+
+
+
+
+
+
+
+
+
 
 
         <div class="col" style="min-width: 450px; max-width: 600px; margin: 0px auto;">
