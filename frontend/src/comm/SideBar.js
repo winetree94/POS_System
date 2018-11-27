@@ -1,5 +1,6 @@
 import React, {Fragment} from 'react';
 import {Collapse, Button, CardBody, Card, UncontrolledCollapse} from 'reactstrap';
+import { Link } from 'react-router-dom';
 
 export default class SideBar extends React.Component {
 	
@@ -37,7 +38,7 @@ export default class SideBar extends React.Component {
 			<div className="sidebar">
 				<ul className="nav flex-column">
 					<li className="nav-item">
-						<a className="nav-link" href="/sale" onClick={this.handleClick}>판매</a>
+						<Link className="nav-link" exact={"true"} to="/sale">판매</Link>
 					</li>
 					<li className="nav-item">
 						<a className="nav-link" href="#" id={"toggler"} onClick={this.toggleAnalyze}>분석</a>

@@ -11,7 +11,7 @@ import Loading from './comm/Loading';
 import ErrorPage from './comm/ErrorPage';
 import Analyze from './Analyze/Analyze';
 import {
-	Route,
+	Route
 } from 'react-router-dom'
 
 export default class App extends React.Component {
@@ -20,8 +20,7 @@ export default class App extends React.Component {
 		isLoaded: false,
 		isLogin: false,
 		auth: [],
-		data: {},
-		toggle: true
+		data: {}
 	};
 	
 	constructor(props) {
@@ -102,12 +101,6 @@ export default class App extends React.Component {
 		}));
 	};
 	
-	switch = () => {
-		this.setState({
-			toggle : !this.state.toggle
-		})
-	}
-	
 	render() {
 		const {isLogin, isLoaded} = this.state;
 		
@@ -138,9 +131,6 @@ export default class App extends React.Component {
 							</Col>
 							<Col>
 								<Route path="/sale" component={SaleMain}/>
-								{this.state.toggle?<SaleMain></SaleMain>:null}
-								{/*<Analyze></Analyze>*/}
-								{/*<Cashbook></Cashbook>*/}
 							</Col>
 						</Row>
 					</div>

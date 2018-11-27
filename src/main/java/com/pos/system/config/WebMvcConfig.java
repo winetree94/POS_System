@@ -24,9 +24,6 @@ public class WebMvcConfig implements WebMvcConfigurer {
 		registry.addInterceptor(service_Interceptor)
 			.addPathPatterns("/sdaf");
 		
-		
-		registry.addInterceptor(service_Store_interceptor)
-			.addPathPatterns("/pos/*");
 	}
 	
 }

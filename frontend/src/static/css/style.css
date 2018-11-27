@@ -1,3 +1,4 @@
+@import url('https://fonts.googleapis.com/css?family=Nanum+Gothic');
 /*   this is for Loading */
 
 .SideBar {
@@ -54,7 +55,7 @@
 /*   this is for Loading */
 
 body {
-	font-family: AppleSDGothicNeo;
+	font-family: 'Nanum Gothic', sans-serif;;
 }
 
 div.col {

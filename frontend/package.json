@@ -15,6 +15,7 @@
     "reactstrap": "^6.5.0",
     "redux": "^4.0.1"
   },
+  "homepage": "/pos",
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
