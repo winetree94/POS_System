@@ -4,6 +4,15 @@ import Table from './Table';
 
 export default class SaleMain extends React.Component {
 	
+	state = {
+		toggle : false
+	};
+	
+	constructor(props){
+		super(props);
+	}
+	
+	
 	static defaultProps = {
 		data : []
 	};
@@ -24,10 +33,6 @@ export default class SaleMain extends React.Component {
 						<h4 className={"content-header-4"}>추가 주문</h4>
 					</div>
 				</div>
-				
-
-				
-				
 			</div>
 		);
 	}

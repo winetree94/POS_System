@@ -10,8 +10,13 @@ export default class SideBar extends React.Component {
 		}
 	};
 	
+	static defaultProps = {
+	
+	};
+	
 	constructor(props) {
 		super(props);
+		console.log(this.props);
 	}
 	
 	toggleMmanagement = () => {
@@ -23,12 +28,16 @@ export default class SideBar extends React.Component {
 		this.setState({collapse: {analyze : !this.state.collapse.analyze}});
 	};
 	
+	handleClick = (e) => {
+		e.preventDefault();
+	}
+	
 	render() {
 		return (
 			<div className="sidebar">
 				<ul className="nav flex-column">
 					<li className="nav-item">
-						<a className="nav-link" href="#">판매</a>
+						<a className="nav-link" href="/sale" onClick={this.handleClick}>판매</a>
 					</li>
 					<li className="nav-item">
 						<a className="nav-link" href="#" id={"toggler"} onClick={this.toggleAnalyze}>분석</a>

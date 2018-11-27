@@ -9,6 +9,10 @@ import Axios from 'axios';
 import SaleMain from './Sale/SaleMain.js';
 import Loading from './comm/Loading';
 import ErrorPage from './comm/ErrorPage';
+import Analyze from './Analyze/Analyze';
+import {
+	Route,
+} from 'react-router-dom'
 
 export default class App extends React.Component {
 	
@@ -16,7 +20,8 @@ export default class App extends React.Component {
 		isLoaded: false,
 		isLogin: false,
 		auth: [],
-		data: {}
+		data: {},
+		toggle: true
 	};
 	
 	constructor(props) {
@@ -43,6 +48,10 @@ export default class App extends React.Component {
 									isLoaded: true
 								})
 							}, 100)
+							setInterval(() => {
+								this.updateStore(() => {
+								})
+							}, 3000);
 						})
 					})
 				});
@@ -93,6 +102,12 @@ export default class App extends React.Component {
 		}));
 	};
 	
+	switch = () => {
+		this.setState({
+			toggle : !this.state.toggle
+		})
+	}
+	
 	render() {
 		const {isLogin, isLoaded} = this.state;
 		
@@ -113,29 +128,23 @@ export default class App extends React.Component {
 		// 렌더링
 		else {
 			
-			setInterval(() => {
-				this.updateStore(() => {
-				})
-			}, 3000);
-			
 			return (
-				
 				<Fragment>
 					<Header service_id={this.state.auth.service_id}></Header>
 					<div className={"container"} style={{maxWidth: "1280px"}}>
 						<Row>
 							<Col style={{maxWidth:"193px"}}>
-								<SideBar></SideBar>
+								<SideBar toggle={this.switch}></SideBar>
 							</Col>
 							<Col>
-								<SaleMain data={this.state}></SaleMain>
+								<Route path="/sale" component={SaleMain}/>
+								{this.state.toggle?<SaleMain></SaleMain>:null}
 								{/*<Analyze></Analyze>*/}
 								{/*<Cashbook></Cashbook>*/}
 							</Col>
 						</Row>
 					</div>
 				</Fragment>
-			
 			)
 		}
 	}

@@ -61,10 +61,12 @@ div.col {
 	padding: 0;
 }
 
+/*SideBar Layout*/
 div.sidebar {
 	border-right: 1px solid #e6eaee;
 	border-collapse: collapse;
 	width: 193px;
+	height: 672px;
 }
 
 div.sidebar > ul {
@@ -99,7 +101,7 @@ a.nav-link {
 div.content {
 	padding: 22px;
 	background-color: #f3f7fd;
-	height: 500px;
+	height: 672px;
 }
 
 .content > .row > .col > .content-header-4 {
@@ -115,5 +117,7 @@ div.content {
 nav.navbar {
 	border-bottom: 1px solid #e6eaee;
 	border-collapse: collapse;
-	background-color: white;
+	background-color: white!important;
+	height: 48px;
 }
+
