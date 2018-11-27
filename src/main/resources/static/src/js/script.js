@@ -1,14 +1,14 @@
 
 
 window.onload = function() {
-	console.log("Hello World!");
+    console.log("Hello World!");
 }
 
 
 function loginForm(){
- var frm = document.forms[0];
- frm.action = '/account';
- frm.submit();
+    var frm = document.forms[0];
+    frm.action = '/account';
+    frm.submit();
 }
 
 function boardList(){
@@ -37,16 +37,16 @@ function pwCheck(){
         alert("비밀번호를 입력해주세요");
     } else {
         $.ajax({
-           type:'POST',
+            type:'POST',
             url:'./passwordcheck',
             data:"service_pw="+service_pw,
             success: function(msg){
                 var result= msg;
-               if(result=="성공"){
-                   frm.submit();
-               }else{
-                   alert("비밀번호를 다시 확인해주세요");
-               }
+                if(result=="성공"){
+                    frm.submit();
+                }else{
+                    alert("비밀번호를 다시 확인해주세요");
+                }
             }
         });
 
@@ -206,9 +206,9 @@ function editEmailDuplicate() {
     var service_email = document.getElementById("service_email").value;
 
 
-        if (service_email == '' || service_email == 'undefined') {
-            $("#result").text('이메일 주소를 입력해주세요');
-            return;
+    if (service_email == '' || service_email == 'undefined') {
+        $("#result").text('이메일 주소를 입력해주세요');
+        return;
     }
 
     // valid check
@@ -227,11 +227,13 @@ function editEmailDuplicate() {
                 if(msg=="가능"){
                     $("#result").text('사용가능한 이메일 주소입니다.');
                     document.querySelector("#email_auth2").style = "display : inline";
-                    document.querySelector("#auth_key2").style = "display : block";
-                    document.querySelector("#auth_confirm2").style = "display : inline";
+                    document.querySelector("#emailDupBtn").style = "display : none";
+                    document.querySelector("#service_email").setAttribute("readonly", "readonly");
+                    document.querySelector("#reEmail").style = "display : inline";
 
                 }else{
                     $("#result").text('중복된 이메일 주소입니다.');
+
                 }
 
 
@@ -245,24 +247,52 @@ function editEmailDuplicate() {
 function editSendEmail(){
     var service_email = document.getElementById("service_email").value;
     document.getElementById("email_auth2").onclick = null;
-
+    $("#result").text('이메일로 인증번호를 보내는 중입니다.');
     $.ajax({
         type:"post",
         url:"/email/sendemail",
         data:"service_email="+service_email,
         async:true,
         success: function(msg){
-            $("#resultemail2").text('이메일 보냈어요 확인해주세요');
-
-            document.querySelector("#service_email").setAttribute("readonly", "readonly");
+            $("#result").text('이메일로 인증번호를 보냈습니다. 확인해주세요');
+            document.querySelector("#email_auth2").style = "display : none";
+            document.querySelector("#auth_key2").style = "display : block";
+            document.querySelector("#auth_confirm2").style = "display : inline";
             document.querySelector("#email_auth2").setAttribute("onclick","false");
             document.querySelector("#email_auth2").removeAttribute("onclick");
+            document.querySelector("#reEmail").style = "display : none";
+
 
             // document.querySelector("#email_auth").style = "display : none";
 
         }
     });
 };
+
+function editReEmail(){
+    document.querySelector("#service_email").removeAttribute("readonly");
+    document.querySelector("#emailDupBtn").style = "display : inline";
+    document.querySelector("#reEmail").style = "display : none";
+    document.querySelector("#email_auth2").style = "display : none";
+
+}
+
+function reTypeEmail(){
+    document.querySelector("#service_email").value="";
+    document.querySelector("#service_email").removeAttribute("readonly");
+    document.querySelector("#emailchk").value = "false";
+    document.querySelector("#email_auth").style = "display : none";
+    document.querySelector("#auth_key").style = "display : none";
+    document.querySelector("#auth_confirm").style = "display : none";
+    document.querySelector("#auth_result").style = "display : none";
+    document.querySelector("#reEmail1").style = "display : none";
+    $("#resultemail").text('이메일 주소를 다시 입력해주세요');
+
+
+}
+
+
+
 
 function editConfirmAuth(){
     var auth_key = document.getElementById("auth_key2").value;
@@ -277,7 +307,7 @@ function editConfirmAuth(){
         async:true,
         success: function(msg){
             if(msg=="실패"){
-                $("#auth_result").text('인증실패, 다시 시도해주세요.');
+                $("#result").text('인증실패, 다시 시도해주세요.');
             }else {
                 frm.submit();
 
@@ -313,7 +343,10 @@ function editPw() {
 
 function sendEmail(){
     var service_email = document.getElementById("service_email").value;
+    document.querySelector("#service_email").setAttribute("readonly", "readonly");
     document.getElementById("email_auth").onclick = null;
+    document.getElementById("reEmail1").onclick = null;
+    $("#resultemail").text('이메일로 인증키를 보내는 중입니다.');
 
     $.ajax({
         type:"post",
@@ -322,9 +355,8 @@ function sendEmail(){
         async:true,
         success: function(msg){
             $("#resultemail").text('이메일 보냈어요 확인해주세요');
-
-            document.querySelector("#service_email").setAttribute("readonly", "readonly");
             document.querySelector("#email_auth").setAttribute("onclick","false");
+
             document.querySelector("#email_auth").removeAttribute("onclick");
 
             // document.querySelector("#email_auth").style = "display : none";
