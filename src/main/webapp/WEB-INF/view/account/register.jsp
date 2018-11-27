@@ -36,14 +36,27 @@
 
 			if (service_email == '' || service_email == 'undefined') {
 				$("#resultemail").text('이메일 주소를 입력해주세요');
-				return;
+                document.querySelector("#emailchk").value = "false";
+                document.querySelector("#email_auth").style = "display : none";
+                document.querySelector("#auth_key").style = "display : none";
+                document.querySelector("#auth_confirm").style = "display : none";
+                document.querySelector("#auth_result").style = "display : none";
+                document.querySelector("#reEmail1").style = "display : none";
+
+                return;
 			}
 
 			// valid check
 			if (!email_check(service_email)) {
 				$("#resultemail").text('부적합한 이메일 주소 양식입니다.');
 				document.querySelector("#emailchk").value = "false";
-				return false;
+                document.querySelector("#email_auth").style = "display : none";
+                document.querySelector("#auth_key").style = "display : none";
+                document.querySelector("#auth_confirm").style = "display : none";
+                document.querySelector("#auth_result").style = "display : none";
+                document.querySelector("#reEmail1").style = "display : none";
+
+                return false;
 			}
 			else {
 				$.ajax({
@@ -56,12 +69,14 @@
 							$("#resultemail").text('가능한 이메일 주소입니다.');
 							console.log("success");
 							document.querySelector("#emailchk").value = "true";
-                            document.querySelector("#email_auth").style = "display : block";
+                            document.querySelector("#email_auth").style = "display : inline";
                             document.querySelector("#auth_key").style = "display : block";
                             document.querySelector("#auth_confirm").style = "display : block";
                             document.querySelector("#auth_result").style = "display : block";
+                            document.querySelector("#reEmail1").style = "display : inline";
 
-						} else {
+
+                        } else {
 							$("#resultemail").text('중복된 이메일 주소입니다.');
 							console.log("failed");
 							document.querySelector("#emailchk").value = "false";
@@ -165,9 +180,13 @@
 				<input type="hidden" id="emailchk" value="false">
 			</div>
 			<div class="form-group">
-				<p><input  id="email_auth" name="email_auth" class="btn btn-primary btn-center" type="button" value="이메일 인증"
-					   onclick="sendEmail()" style="display: none" /></p>
 				<p class="p-2" id="resultemail"></p>
+				<p><input  id="email_auth" name="email_auth" class="btn btn-primary btn-center" type="button" value="이메일 인증"
+					   onclick="sendEmail()" style="display: none" />
+					<input  id="reEmail1" name="email_auth" class="btn btn-primary btn-center" type="button" value="이메일 재입력"
+							onclick="reTypeEmail()" style="display: none" />
+				</p>
+
 			</div>
 			<div class="form-group">
 				<input class="form-control" type="text" id="auth_key" name="auth_key" placeholder="인증번호"

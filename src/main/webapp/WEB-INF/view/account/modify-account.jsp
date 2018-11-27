@@ -50,53 +50,50 @@
 
             <div class="row">
                 <div class="col">
-                    <p class="text-center"> <input class="btn btn-primary" type="button" value="이메일 중복검사" onclick="editEmailDuplicate()"></p>
-                </div>
-            </div>
-
-
-
-
-
-
-
-            <div class="row">
-                <div class="col">
-                    <p class="text-center">
-                        <input class="form-control" type="text" id="auth_key2" name="auth_key" placeholder="인증번호"
+                    <div class="input-group">
+                        <input class="form-control" type="text" id="auth_key2" name="auth_key" placeholder="인증번호를 입력해주세요"
                                required="required" style="display: none">
-                    </p>
+                        <div class="input-group-append">
+                            <input class="form-control btn btn-outline-secondary " id="auth_confirm2" name="auth_confirm" type="button" value="인증확인"
+                                   onclick="editConfirmAuth()" style="display: none"/>
+                        </div>
+                    </div>
                 </div>
-            </div>
 
-            <div class="row">
-                <div class="col">
-                    <p class="text-center" id="resultemail"></p>
-                    </p>
-                </div>
             </div>
-
 
 
             <div class="row">
                 <div class="col">
-                    <p class="text-center">
+                    <p class="text-center"> <input class="btn btn-primary" id="emailDupBtn" style="display: inline" type="button" value="이메일 중복검사" onclick="editEmailDuplicate()"></p>
+                </div>
+            </div>
+
+
+            <div class="row">
+                <div class="col">
+                    <p class="p-1 text-right">
                         <input id="email_auth2" name="email_auth" class="btn btn-primary btn-center" type="button" value="이메일 인증"
                                onclick="editSendEmail()" style="display: none" />
                     </p>
                 </div>
 
                 <div class="col">
-                    <p class="text-center"><input class="btn btn-primary btn-center" id="auth_confirm2" name="auth_confirm" type="button" value="인증확인"
-                              onclick="editConfirmAuth()" style="display: none"/></p>
+                    <p class="p-1 text-left">
+                        <input id="reEmail" class="btn btn-primary btn-center" type="button" value="이메일 재작성"
+                               onclick="editReEmail()" style="display: none" />
+                    </p>
                 </div>
+
+
             </div>
 
-            <div class="row">
-                <div class="col">
-                    <p class="text-center" name="auth_result"></p>
-                </div>
-            </div>
+
+
+
+
+
+
 
 
 
