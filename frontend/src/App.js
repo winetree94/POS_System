@@ -6,94 +6,136 @@ import {
 	Col
 } from 'reactstrap';
 import Axios from 'axios';
-import SaleMain from './sale/SaleMain.js';
+import SaleMain from './Sale/SaleMain.js';
+import Loading from './comm/Loading';
+import ErrorPage from './comm/ErrorPage';
 
 export default class App extends React.Component {
 	
 	state = {
-		error: null,
 		isLoaded: false,
+		isLogin: false,
 		auth: [],
-		orderList: [],
-		cashBook: [],
-		menu: [],
-		invoice: [],
-		reservation: [],
-		table: []
+		data: {}
 	};
 	
 	constructor(props) {
 		super(props);
-		Axios.get('/api/auth').then(response => {
-			if (response.data === "" || response.data === null || response.data === undefined) {
-				window.location.href = "/errorpage";
-				console.log("fail");
+		
+		this.getAuth((response) => {
+			
+			// response 에서 계정정보를 수령
+			const {service_id, store_seq} = response.data;
+			
+			// response 의 계정정보를 state 에 반영
+			if (service_id && store_seq) {
+				this.setState({
+					auth: response.data,
+					isLogin: true
+					// 계정 정보를 받은 후
+				}, () => {
+					this.updateStore((response) => {
+						this.setState({
+							data: response
+						}, () => {
+							setTimeout(() => {
+								this.setState({
+									isLoaded: true
+								})
+							}, 100)
+						})
+					})
+				});
 			} else {
 				this.setState({
-					auth: this.state.auth.concat(response.data)
+					isLoaded: false,
+					isLogin: false
 				})
 			}
-		});
+		})
 	}
 	
-	componentDidMount() {
+	componentDidMount = () => {
+	
+	};
+	
+	// 계정 정보를 수령 후 callback 함수에 response 를 전달
+	getAuth = (callback) => {
+		Axios.get('/api/auth').then(response => {
+			callback(response);
+		});
+	};
+	
+	// 매장 정보를 수령 후 callback 함수에 response 를 전달
+	updateStore = (callback) => {
 		
-		setInterval(() => {
-			Axios.all([
-				Axios.get('/api/' + this.state.auth[0].store_seq + '/order'),
-				Axios.get('/api/' + this.state.auth[0].store_seq + '/cashbook'),
-				Axios.get('/api/' + this.state.auth[0].store_seq + '/menu'),
-				Axios.get('/api/' + this.state.auth[0].store_seq + '/invoice'),
-				Axios.get('/api/' + this.state.auth[0].store_seq + '/reservation'),
-				Axios.get('/api/' + this.state.auth[0].store_seq + '/table'),
-			]).then(Axios.spread((orderRes, cashbookRes, menuRes, invoiceRes, reservationRes, tableRes) => {
-				console.log(orderRes.data, cashbookRes.data, menuRes.data, invoiceRes.data, reservationRes.data, tableRes.data);
-				
-				this.setState({
-					orderList: orderRes.data,
-					cashBook: cashbookRes.data,
-					menu: menuRes.data,
-					invoice: invoiceRes.data,
-					reservation: reservationRes.data,
-					table: tableRes.data,
-				}, () => {
-					this.setState({
-						isLoaded: true
-					});
-				});
-			}));
-		}, 3000)
+		Axios.all([
+			Axios.get('/api/' + this.state.auth.store_seq + '/order'),
+			Axios.get('/api/' + this.state.auth.store_seq + '/cashbook'),
+			Axios.get('/api/' + this.state.auth.store_seq + '/menu'),
+			Axios.get('/api/' + this.state.auth.store_seq + '/invoice'),
+			Axios.get('/api/' + this.state.auth.store_seq + '/reservation'),
+			Axios.get('/api/' + this.state.auth.store_seq + '/table'),
+		]).then(Axios.spread((orderRes, cashbookRes, menuRes, invoiceRes, reservationRes, tableRes) => {
+			
+			const response = {
+				orderList: orderRes.data,
+				cashbook: cashbookRes.data,
+				menu: menuRes.data,
+				invoice: invoiceRes.data,
+				reservation: reservationRes.data,
+				table: tableRes.data
+			};
+			
+			console.log("render");
+			
+			callback(response);
+		}));
 	};
 	
 	render() {
-		const {isLoaded} = this.state;
+		const {isLogin, isLoaded} = this.state;
 		
-		if (!isLoaded) {
+		// 로그인하지 않았을 경우 , 잘못된 접근
+		if (!isLogin) {
 			return (
-				<Fragment>
-					<div className="spinner">
-						<div className="double-bounce1"></div>
-						<div className="double-bounce2"></div>
-					</div>
-					<h1 className={"display-5 text-center"}>POS 로딩중입니다.</h1>
-				</Fragment>
+				<ErrorPage msg={"로그인을 먼저 해주세요."}></ErrorPage>
 			)
-		} else {
+		}
+		
+		// 로딩 창을 띄움과 동시에 데이터 로딩
+		else if (!isLoaded) {
+			return (
+				<Loading msg={" POS 로딩중입니다. "}></Loading>
+			)
+		}
+		
+		// 렌더링
+		else {
+			
+			setInterval(() => {
+				this.updateStore(() => {
+				})
+			}, 3000);
 			
 			return (
+				
 				<Fragment>
-					<Header service_id={this.state.auth[0].service_id}></Header>
+					<Header service_id={this.state.auth.service_id}></Header>
 					<div className={"container"} style={{maxWidth: "1280px"}}>
 						<Row>
-							<Col md={2} style={{padding: "0", maxWidth: "193px"}}>
+							<Col style={{maxWidth:"193px"}}>
 								<SideBar></SideBar>
 							</Col>
-							<Col style={{maxWidth: "1083px", padding: "0"}}>
-								<SaleMain {...this.state}></SaleMain>
+							<Col>
+								<SaleMain data={this.state}></SaleMain>
+								{/*<Analyze></Analyze>*/}
+								{/*<Cashbook></Cashbook>*/}
 							</Col>
 						</Row>
 					</div>
 				</Fragment>
+			
 			)
 		}
 	}
