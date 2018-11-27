@@ -20,7 +20,7 @@ export default class App extends React.Component {
 		invoice: [],
 		reservation: [],
 		table: []
-	}
+	};
 	
 	constructor(props) {
 		super(props);
@@ -40,12 +40,12 @@ export default class App extends React.Component {
 		
 		setInterval(() => {
 			Axios.all([
-				Axios.get('/pos/' + this.state.auth[0].store_seq + '/order'),
-				Axios.get('/pos/' + this.state.auth[0].store_seq + '/cashbook'),
-				Axios.get('/pos/' + this.state.auth[0].store_seq + '/menu'),
-				Axios.get('/pos/' + this.state.auth[0].store_seq + '/invoice'),
-				Axios.get('/pos/' + this.state.auth[0].store_seq + '/reservation'),
-				Axios.get('/pos/' + this.state.auth[0].store_seq + '/table'),
+				Axios.get('/api/' + this.state.auth[0].store_seq + '/order'),
+				Axios.get('/api/' + this.state.auth[0].store_seq + '/cashbook'),
+				Axios.get('/api/' + this.state.auth[0].store_seq + '/menu'),
+				Axios.get('/api/' + this.state.auth[0].store_seq + '/invoice'),
+				Axios.get('/api/' + this.state.auth[0].store_seq + '/reservation'),
+				Axios.get('/api/' + this.state.auth[0].store_seq + '/table'),
 			]).then(Axios.spread((orderRes, cashbookRes, menuRes, invoiceRes, reservationRes, tableRes) => {
 				console.log(orderRes.data, cashbookRes.data, menuRes.data, invoiceRes.data, reservationRes.data, tableRes.data);
 				
@@ -61,11 +61,8 @@ export default class App extends React.Component {
 						isLoaded: true
 					});
 				});
-				
 			}));
-			
 		}, 3000)
-		
 	};
 	
 	render() {
