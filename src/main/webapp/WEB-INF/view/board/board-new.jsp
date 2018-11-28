@@ -4,7 +4,7 @@
     <%response.setContentType("text/html; charset=UTF-8"); %>
 
 	<jsp:include page="../comm/header.jsp"/>
-<div class="jumbotron jumbotron-fluid">
+<div class="jumbotron jumbotron-fluid" style="margin-top:56px">
 	<div class="container">
 		<h4 class="display-4 text-center">게시판</h4>
 		<hr class="my-4">
@@ -18,12 +18,13 @@
 		var form_enctype = "multipart/form-data"; // form 의 enctype 방식
 		var use_file = true; // 파일 업로드 기능 사용 여부
 		var title;
+		console.log(title);
 	</script>
 
 <jsp:include page="../util/editor.jsp"/>
 <script type="text/javascript">
 
-    document.querySelector("#submitB").innerHTML += "<input onclick=\"back()\" class=\"btn\" value=\"취소\"type=\"button\"/>"
+    document.querySelector(".submitB").innerHTML += "<input onclick=\"back()\" class=\"btn\" value=\"취소\"type=\"button\"/>"
 
     function back() {
         history.back();

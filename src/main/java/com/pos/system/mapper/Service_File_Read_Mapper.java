@@ -17,6 +17,6 @@ public interface Service_File_Read_Mapper {
      * @param board_seq
      * @return Service_File_DTO
      */
-    @Select(" SELECT FILE_SEQ, BOARD_SEQ, ORIGIN_FNAME, STORED_FNAME, FILE_SIZE, REGDATE, DELFLAG FROM SERVICE_FILE WHERE BOARD_SEQ = #{board_seq} ")
+    @Select(" SELECT FILE_SEQ, BOARD_SEQ, ORIGIN_FNAME, STORED_FNAME, FILE_SIZE, REGDATE, DELFLAG FROM SERVICE_FILE WHERE BOARD_SEQ = #{board_seq} AND DELFLAG = 'N' ")
     Service_File_DTO selectOneFile(int board_seq);
 }

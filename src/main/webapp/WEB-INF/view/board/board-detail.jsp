@@ -12,6 +12,7 @@
 
 
 <%
+
     //Service_Board_DTO board_detail = request.getAttribute("board_list");
     Object obj = request.getAttribute("board_detail");
     Object objF = request.getAttribute("fileDto");
@@ -19,15 +20,19 @@
     Service_File_DTO fileDto = (Service_File_DTO) objF;
 
     Service_Account_DTO user = (Service_Account_DTO) session.getAttribute("user");
+
+    System.out.println(user+"과아아아아아아연!!");
     String service_id = "";
+    String service_type = "";
     if (user != null) {
         service_id = user.getService_id();
+        service_type = user.getService_type();
     }
 
 %>
-<div class="jumbotron jumbotron-fluid">
-    <div class="container">
 
+<div class="jumbotron jumbotron-fluid" style="margin-top:56px">
+    <div class="container">
 
         <h2 class="display-4 text-center">게시판</h2>
         <hr class="my-4">
@@ -35,6 +40,38 @@
     </div>
 </div>
 <div class="container">
+    <div class="input-group">
+        <input type="text" class="form-control" aria-label="Dollar amount (with dot and two decimal places)">
+        <div class="input-group-append">
+            <span class="input-group-text">$</span>
+            <span class="input-group-text">0.00</span>
+        </div>
+    </div>
+
+
+    <div class="input-group mb-3">
+        <div class="input-group-prepend">
+            <span class="input-group-text" id="basic-addon1">작성자</span>
+        </div>
+        <div class="form-control" aria-label="With textarea">${board_detail.getService_id()}</div>
+    </div>
+
+
+    <div class="input-group mb-3">
+        <div class="input-group-prepend">
+            <span class="input-group-text">제목</span>
+        </div>
+        <div class="form-control" aria-label="With textarea">${board_detail.getTitle()}</div>
+    </div>
+
+
+    <div class="input-group">
+        <div class="input-group-prepend">
+            <span class="input-group-text">내용</span>
+        </div>
+        <div class="form-control" aria-label="With textarea">${board_detail.getContent()}</div>
+    </div>
+
     <table class="table mx-auto text-center">
         <thead class="thead-dark">
         <tr>
@@ -58,21 +95,12 @@
                 if (fileDto != null) {
             %>
                 <%=fileDto.getOrigin_fname()%>
-                <form action="./${board_detail.board_seq}/download" method="POST" id="fileChk"
+                <form action="./${board_detail.board_seq}/download" method="POST" class="fileChk"
                       enctype="multipart/form-data">
                     <%--<input type="button" onclick="editFile()" value="파일수정">--%>
                     <%--<input type="button" onclick="delFile()" value="파일삭제">--%>
                     <input type="submit" value="다운로드">
                 </form>
-                <script type="text/javascript">
-
-                    <%--function editFile(){--%>
-                    <%--var editF = document.querySelector("#fileChk")--%>
-                    <%--editF.action =  "./${board_detail.board_seq}/edit/file";--%>
-                    <%--editF.method = ""--%>
-                    <%--}--%>
-
-                </script>
 
                 <%
                 } else {
@@ -87,7 +115,7 @@
     </table>
 
     <div class="container text-right">
-        <form action="" method="" id="boardChk">
+        <form action="" method="" class="boardChk">
             <% if (service_id.equalsIgnoreCase(board_detail.getService_id())) {%>
             <input class="btn btn-primary" type="button" onclick="edit()" value="수정"/>
             <input class="btn btn-primary" type="button" onclick="del()" value="삭제"/>
@@ -100,12 +128,56 @@
     </div>
 </div>
 
+
+<% if (service_type.equalsIgnoreCase("M")) {%>
+<script type="text/javascript">
+    var form_action = "./${board_detail.board_seq}/reply"; // form 의 action 위치
+    var form_class = ""; // form 의 클래스 선언
+    var form_method = "post"; // form request 방식
+    var form_enctype = "multipart/form-data"; // form 의 enctype 방식
+    var use_file = true; // 파일 업로드 기능 사용 여부
+    var title;
+
+    console.log("jaei");
+
+
+</script>
+<div></div>
+<jsp:include page="../util/editor.jsp"/>
+
+
+<%}%>
+
+
+<%--<div class="container">--%>
+
+<%--<div class="row">--%>
+<%--<div class="col">--%>
+<%--<h1 class="display-2">--%>
+<%--${board_detail.getTitle()}sadfsfdaasfdafdsfasdafsdasdfafssfdsfdasfd--%>
+<%--</h1>--%>
+<%--</div>--%>
+<%--</div>--%>
+
+<%--<div class="row">--%>
+<%--${board_detail.getContent()}--%>
+<%--</div>--%>
+
+
+<%--<div class="row">--%>
+
+
+<%--</div>--%>
+
+
+<%--</div>--%>
+
 <script type="text/javascript">
 
     function edit() {
 
         // var edit = document.forms[0];
-        var edit = document.querySelector("#boardChk");
+        var edit = document.querySelector(".boardChk");
         edit.action = "./${board_detail.board_seq}/edit";
         edit.method = "get";
         edit.submit();
@@ -114,7 +186,7 @@
     }
 
     function del() {
-        var del = document.querySelector("#boardChk");
+        var del = document.querySelector(".boardChk");
         del.action = "./${board_detail.board_seq}/delete";
         del.method = "post";
         del.submit();

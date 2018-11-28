@@ -10,6 +10,7 @@ import javax.servlet.http.HttpSession;
 import com.pos.system.dto.Service_Account_DTO;
 import com.pos.system.dto.Service_File_DTO;
 import com.pos.system.service.IService_File_Service;
+import com.pos.system.service.IService_Reply_Service;
 import com.pos.system.util.FileManager;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -26,14 +27,17 @@ public class Service_Board_Ctrl {
 
     private final IService_Board_Service service_Board;
     private final IService_File_Service service_File;
+    private final IService_Reply_Service service_Reply;
     private final FileManager fileManager;
 
     @Autowired
-    public Service_Board_Ctrl(IService_Board_Service service_Board, IService_File_Service service_File, FileManager fileManager) {
+    public Service_Board_Ctrl(IService_Board_Service service_Board, IService_File_Service service_File, IService_Reply_Service service_Reply, FileManager fileManager) {
         this.service_Board = service_Board;
         this.service_File = service_File;
+        this.service_Reply = service_Reply;
         this.fileManager = fileManager;
     }
+
 
     /**
      * 게시판 목록 출력
@@ -58,8 +62,12 @@ public class Service_Board_Ctrl {
      */
     @GetMapping("/new")
     public String uploadForm(
+            HttpServletRequest request
     ) {
-        return "/WEB-INF/view/board/board-new.jsp";
+//        return "/WEB-INF/view/board/board-new.jsp";
+        request.setAttribute("command",1);
+        return "/WEB-INF/view/board/board-neww.jsp";
+
     }
 
 
@@ -99,6 +107,8 @@ public class Service_Board_Ctrl {
 
         int seq = service_Board.selectRecentBoard();
 
+
+
         if (!file.isEmpty()) {
 
             //test 절대경로
@@ -108,6 +118,7 @@ public class Service_Board_Ctrl {
             fileManager.upload(file, request);
 
         }
+
 
         return "redirect:/board";
     }
@@ -193,8 +204,8 @@ public class Service_Board_Ctrl {
 
             if (fileDto != null){
 
-                service_File.deleteFile(board_seq);
-                System.out.println("파일 삭제 성공");
+                fileManager.fileDelete(board_seq);
+
 
             }
 
@@ -275,10 +286,26 @@ public class Service_Board_Ctrl {
 
         int result = service_Board.modifyBoard(dto);
 
+        System.out.println("파일 수정1");
+
+        String filedelete = request.getParameter("filedelete");
+
+        if (file.isEmpty() && filedelete.equalsIgnoreCase("true")){
+           fileManager.fileDelete(board_seq);
+        }
+
+//        System.out.println(file.isEmpty());
 
         if (!file.isEmpty()) {
 
-            fileManager.fileEdit(file, board_seq);
+            System.out.println("파일 수정2");
+            fileManager.fileEdit(file, board_seq,request);
+            System.out.println("파일 수정3");
+
+
+        }else{
+
+            request.getParameter("file_edit");
 
         }
 
@@ -286,8 +313,11 @@ public class Service_Board_Ctrl {
 
 
             return "redirect:/board";
+
         } else {
+
             return "/WEB-INF/view/comm/error.jsp";
+
         }
 
 
@@ -313,12 +343,54 @@ public class Service_Board_Ctrl {
 
         int board_seq = Integer.parseInt(seq);
 
-        response = fileManager.download(board_seq, response, request);
+        fileManager.download(board_seq, response, request);
 
         return "";
     }
 
+    /**
+     * 답글달기 기능
+     * @param seq
+     * @param request
+     * @param response
+     * @param session
+     * @return
+     */
+    @PostMapping("/{board_seq}/reply")
+    public String reply(@PathVariable("board_seq") String seq,
+                        HttpServletRequest request,
+                        HttpServletResponse response,
+                        HttpSession session,
+                        MultipartFile file
 
+    ){
+        int board_seq = Integer.parseInt(seq);
 
+        Service_Board_DTO Udto = service_Board.selectOneBoard(board_seq);
+        Service_Account_DTO user = (Service_Account_DTO) session.getAttribute("user");
+
+        String writer = user.getService_id();
+        String title = request.getParameter("title");
+        String content = request.getParameter("content");
+        int ref= board_seq;
+        int step = board_seq;
+        int depth =board_seq;
+
+        Udto.setService_id(writer);
+        Udto.setTitle(title);
+        Udto.setContent(content);
+        Udto.setRef(ref);
+        Udto.setStep(step);
+        Udto.setDepth(depth);
+
+        service_Reply.updateReply(board_seq);
+        service_Reply.insertReply(Udto);
+
+        if (!file.isEmpty()){
+            fileManager.upload(file,request);
+        }
+
+        return "redirect:/board/{board_seq}";
+    }
 
 }
