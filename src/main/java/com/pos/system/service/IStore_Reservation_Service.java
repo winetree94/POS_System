@@ -16,10 +16,10 @@ public interface IStore_Reservation_Service {
 
     /**
      * 예약 상세정보를 반환하는 기능
-     * @Param reserv_seq 테이블의 고유번호
+     * @Param dto
      * @return Store_Reservation_DTO
      */
-    public Store_Reservation_DTO selectOne(int reserv_seq);
+    public Store_Reservation_DTO selectOne(Store_Reservation_DTO dto);
 
     /**
      * 새로운 예약을 생성하는 기능
@@ -42,10 +42,10 @@ public interface IStore_Reservation_Service {
     /**
      * 예약 정보를 삭제하는 기능
      * 실제로 데이터베이스에서 삭제하지는 않습니다.
-     * @param int 예약 고유번호
+     * @param \dto
      * @return int 성공시 1, 실패시 0
      */
-    public int deleteReserv(int reserv_seq);
+    public int deleteReserv(Store_Reservation_DTO dto);
 
 
 }

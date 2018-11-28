@@ -20,10 +20,10 @@ public interface Store_Reservation_Read_Mapper {
 
     /**
      * 매장 상세보기
-     * @Param int 예약 고유번호
+     * @Param dto 예약 고유번호
      * @return Store_Reservation_DTO
      */
-    @Select(" SELECT RESERV_SEQ, STORE_SEQ, TABLE_SEQ, USER_ID, RESERV_TIME, RESERV_PEOPLE,DELFLAG FROM STORE_RESERVATION WHERE RESERV_SEQ=#{RESERV_SEQ} ")
-    public Store_Reservation_DTO selectOne(int reserv_seq);
+    @Select(" SELECT RESERV_SEQ, STORE_SEQ, TABLE_SEQ, USER_ID, RESERV_TIME, RESERV_PEOPLE,DELFLAG FROM STORE_RESERVATION WHERE RESERV_SEQ=#{RESERV_SEQ} AND STORE_SEQ=#{store_seq} ")
+    public Store_Reservation_DTO selectOne(Store_Reservation_DTO dto);
 
 }

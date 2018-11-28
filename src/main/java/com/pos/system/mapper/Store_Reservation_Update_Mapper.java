@@ -16,7 +16,7 @@ public interface Store_Reservation_Update_Mapper {
      * @param dto
      * @return int 0이면 실패를 의미, 1이면 성공
      */
-    @Update(" UPDATE STORE_RESERVATION SET TABLE_SEQ=#{table_seq},RESERV_TIME=#{reserv_time}, RESERV_PEOPLE=#{reserv_people} WHERE RESERV_SEQ=#{reserv_seq} ")
+    @Update(" UPDATE STORE_RESERVATION SET TABLE_SEQ=#{table_seq},RESERV_TIME=#{reserv_time}, RESERV_PEOPLE=#{reserv_people} WHERE RESERV_SEQ=#{reserv_seq} AND STORE_SEQ=#{store_seq} ")
     int updateReserv(Store_Reservation_DTO dto);
 
 }

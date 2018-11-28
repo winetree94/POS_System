@@ -1,5 +1,6 @@
 package com.pos.system.mapper;
 
+import com.pos.system.dto.Store_Reservation_DTO;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Update;
 import org.springframework.stereotype.Repository;
@@ -15,7 +16,7 @@ public interface Store_Reservation_Delete_Mapper {
      * @param \reserv_seq\
      * @return int
      */
-    @Update(" UPDATE STORE_RESERVATION SET DELFLAG ='Y' WHERE RESERV_SEQ=#{reserv_seq} ")
-    public int deleteReserv(int reserv_seq);
+    @Update(" UPDATE STORE_RESERVATION SET DELFLAG ='Y' WHERE RESERV_SEQ=#{reserv_seq} AND STORE_SEQ=#{store_seq} ")
+    public int deleteReserv(Store_Reservation_DTO dto);
 
 }

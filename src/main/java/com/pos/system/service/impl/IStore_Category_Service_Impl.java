@@ -43,22 +43,22 @@ public class IStore_Category_Service_Impl implements IStore_Category_Service {
     }
 
     //메뉴를 상세정보를 조회하는 기능
-    public Store_Category_DTO selectOne(int menu_seq){
-        return mapper_Read.selectOne(menu_seq);
+    public Store_Category_DTO selectOne(Store_Category_DTO dto){
+        return mapper_Read.selectOne(dto);
     }
 
     // 메뉴를 수정하는 기능
     public Store_Category_DTO modifyMenu(Store_Category_DTO dto){
         int n =  mapper_Update.modifyMenu(dto);
         if(n>0){
-            return mapper_Read.selectOne(dto.getMenu_seq());
+            return mapper_Read.selectOne(dto);
         }
             return null;
     }
 
     //메뉴 삭제 기능
-    public int deleteMenu(int menu_seq){
-        return mapper_Delete.deleteMenu(menu_seq);
+    public int deleteMenu(Store_Category_DTO dto){
+        return mapper_Delete.deleteMenu(dto);
     }
 
 
