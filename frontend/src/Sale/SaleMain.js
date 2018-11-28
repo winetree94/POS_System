@@ -1,25 +1,6 @@
-import React, {Fragment} from "react";
-import {Row, Col} from "reactstrap";
-import Table from './Table';
+import React from "react";
 
 export default class SaleMain extends React.Component {
-	
-	state = {
-		toggle : false
-	};
-	
-	constructor(props){
-		super(props);
-	}
-	
-	
-	static defaultProps = {
-		data : []
-	};
-	
-	getData = () => {
-		console.log(this.data);
-	};
 	
 	render() {
 		return (

@@ -10,6 +10,8 @@ import SaleMain from './Sale/SaleMain.js';
 import Loading from './comm/Loading';
 import ErrorPage from './comm/ErrorPage';
 import Analyze from './Analyze/Analyze';
+import Invoice from './Invoice/Invoice';
+import Cashbook from './Cashbook/Cashbook';
 import {
 	Route
 } from 'react-router-dom'
@@ -131,6 +133,10 @@ export default class App extends React.Component {
 							</Col>
 							<Col>
 								<Route path="/sale" component={SaleMain}/>
+								<Route path="/analyze" component={SaleMain}/>
+								<Route path="/management" component={SaleMain}/>
+								<Route path="/invoice" component={Invoice}/>
+								<Route path="/cashbook" component={Cashbook}/>
 							</Col>
 						</Row>
 					</div>

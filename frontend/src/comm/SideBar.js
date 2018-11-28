@@ -43,10 +43,10 @@ export default class SideBar extends React.Component {
 					<li className="nav-item">
 						<a className="nav-link" href="#" id={"toggler"} onClick={this.toggleAnalyze}>분석</a>
 						<Collapse isOpen={this.state.collapse.analyze}>
-							<a className="nav-link" href="#" >메뉴 관리</a>
-							<a className="nav-link" href="#" >테이블 관리</a>
-							<a className="nav-link" href="#" >직원 관리</a>
-							<a className="nav-link" href="#" >POS 관리</a>
+							<a className="nav-link" href="#" >일 단위 매출</a>
+							<a className="nav-link" href="#" >주 단위 매출</a>
+							<a className="nav-link" href="#" >월 단위 매출</a>
+							<a className="nav-link" href="#" >연 단위 매출</a>
 						</Collapse>
 					</li>
 					<li className="nav-item">
@@ -59,10 +59,10 @@ export default class SideBar extends React.Component {
 						</Collapse>
 					</li>
 					<li className="nav-item">
-						<a className="nav-link" href="#">판매 내역</a>
+						<Link className="nav-link" to="/invoice">판매 내역</Link>
 					</li>
 					<li className="nav-item">
-						<a className="nav-link" href="#">현금출납부</a>
+						<Link className="nav-link" to="/cashbook">현금출납부</Link>
 					</li>
 				</ul>
 			</div>
