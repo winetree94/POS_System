@@ -27,6 +27,10 @@ export default class App extends React.Component {
 	constructor(props) {
 		super(props);
 		
+		this.updateStore((response)=>{
+			console.log(response);
+		});
+		
 		this.getAuth((response) => {
 			
 			this.setState({
