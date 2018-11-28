@@ -13,6 +13,8 @@ import com.pos.system.service.IStore_Invoice_Service;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 public class IStore_Invoice_Service_Impl implements IStore_Invoice_Service {
 	
@@ -42,5 +44,8 @@ public class IStore_Invoice_Service_Impl implements IStore_Invoice_Service {
 	public int payment(Store_Invoice_DTO dto) {
 		return dao_Create.payment(dto);
 	}
+	
+	@Override
+	public List<Store_Invoice_DTO> invoiceList(int store_seq){return mapper_Read.invoiceList(store_seq);}
 	
 }

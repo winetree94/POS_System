@@ -9,6 +9,7 @@ import {
 	NavLink
 } from 'reactstrap';
 import '../static/css/style.css';
+import { Link } from 'react-router-dom';
 
 export default class Header extends React.Component {
 	
@@ -35,7 +36,7 @@ export default class Header extends React.Component {
 			<Fragment>
 				<Navbar color="light" light expand="md">
 					<div className={"container"} style={{maxWidth:"1280px"}}>
-						<NavbarBrand href="/">POS</NavbarBrand>
+						<Link className="nav-link navbar-brand" to="/">POS</Link>
 						<NavbarToggler onClick={this.toggle}/>
 						<Collapse isOpen={this.state.isOpen} navbar>
 							<Nav className="ml-auto" navbar>

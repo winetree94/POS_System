@@ -3,6 +3,27 @@
 	PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="mybatis.mapper.Store_Invoice">
+	
+	
+	<select id="">
+		SELECT
+			INVOICE_SEQ,
+			STORE_SEQ,
+			TABLE_SEQ,
+			REF,
+			MENU_AMOUNT,
+			TAX_AMOUNT,
+			TOTAL_AMOUNT,
+			DISCOUNT_AMOUNT,
+			FINAL_AMOUNT,
+			PAID_DATE,
+			PAYMENT_METHOD,
+			DELFLAG
+		FROM STORE_INVOICE
+		WHERE
+			STORE_SEQ = 1 AND
+			DELFLAG ='N';
+	</select>
 
 
 </mapper>

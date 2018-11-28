@@ -1,9 +1,12 @@
 package com.pos.system.restcontroller;
 
+import com.pos.system.dto.Service_Store_DTO;
 import com.pos.system.dto.Store_Order_DTO;
 import com.pos.system.service.IStore_Order_Service;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
+
+import javax.servlet.http.HttpSession;
 import java.util.List;
 
 @RestController
@@ -25,15 +28,16 @@ public class Store_Order_Rest_Ctrl {
 	 * @param delflag / 삭제 여부
 	 * @return
 	 */
-	@GetMapping("/{store_seq}/order")
+	@GetMapping("/order")
 	public List<Store_Order_DTO> orderList(
-		@PathVariable("store_seq") String store_seq,
+		HttpSession session,
 		@RequestParam(value = "make", required = false) String make,
 		@RequestParam(value = "ref", required = false) String ref,
 		@RequestParam(value = "delflag", required = false) String delflag
 	) {
+		Service_Store_DTO store = (Service_Store_DTO) session.getAttribute("store");
 		Store_Order_DTO dto = new Store_Order_DTO();
-		dto.setStore_seq(Integer.parseInt(store_seq));
+		dto.setStore_seq(store.getStore_seq());
 		
 		if (make != null) {
 			dto.setMake(make);
@@ -58,15 +62,16 @@ public class Store_Order_Rest_Ctrl {
 	 * @param ref / 주문의 묶음 고유번호
 	 * @return
 	 */
-	@PostMapping("/{store_seq}/order")
+	@PostMapping("/order")
 	public int addOrder(
-		@PathVariable("store_seq") String store_seq,
+		HttpSession session,
 		@RequestParam("table_seq") String table_seq,
 		@RequestParam("menu_seq") String menu_seq,
 		@RequestParam(value = "ref", required = false) String ref
 	) {
+		Service_Store_DTO store = (Service_Store_DTO) session.getAttribute("store");
 		Store_Order_DTO dto = new Store_Order_DTO();
-		dto.setStore_seq(Integer.parseInt(store_seq));
+		dto.setStore_seq(store.getStore_seq());
 		dto.setTable_seq(Integer.parseInt(table_seq));
 		dto.setMenu_seq(Integer.parseInt(menu_seq));
 		
@@ -82,9 +87,9 @@ public class Store_Order_Rest_Ctrl {
 	 * @param order_seq / 주문 고유 번호
 	 * @return Store_Order_DTO
 	 */
-	@GetMapping("/{store_seq}/order/{order_seq}")
+	@GetMapping("/order/{order_seq}")
 	public Store_Order_DTO orderDetail(
-		@PathVariable("store_seq") String store_seq,
+		HttpSession session,
 		@PathVariable("order_seq") String order_seq
 	){
 		return service.orderOne(Integer.parseInt(order_seq));
@@ -95,7 +100,7 @@ public class Store_Order_Rest_Ctrl {
 	 * @param order_seq / 주문 고유 번호
 	 * @return
 	 */
-	@PostMapping("/{store_seq}/order/{order_seq}")
+	@DeleteMapping("/order/{order_seq}")
 	public int orderUpdate(
 		@PathVariable("order_seq") String order_seq
 	){
