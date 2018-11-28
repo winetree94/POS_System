@@ -39,6 +39,7 @@ export default class App extends React.Component {
 				this.setState({
 					isLogin: true
 				});
+				
 				setTimeout(() => {
 					this.setState({
 						isLoaded: true

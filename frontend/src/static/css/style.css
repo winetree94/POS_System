@@ -8,7 +8,6 @@
 .spinner {
 	width: 80px;
 	height: 80px;
-	
 	position: relative;
 	margin: 100px auto;
 }
@@ -123,14 +122,15 @@ nav.navbar {
 }
 
 .content-box {
+	padding: 15px;
 	height: 512px;
 	background-color: white;
 	border: 1px solid #e6eaee;
 	border-collapse: collapse;
 	margin-right: 16px;
-}
-
-.box-fix {
 	overflow: auto;
 }
 
+.overflow {
+	overflow: auto;
+}

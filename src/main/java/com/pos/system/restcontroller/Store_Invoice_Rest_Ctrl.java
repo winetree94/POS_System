@@ -31,7 +31,6 @@ public class Store_Invoice_Rest_Ctrl {
 		return service_Invoice.invoiceList(store.getStore_seq());
 	}
 	
-	
 	/**
 	 * 영수증 출력 기능
 	 * @param store_seq / 매장 고유 번호
