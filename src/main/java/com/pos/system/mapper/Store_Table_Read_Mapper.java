@@ -23,11 +23,11 @@ public interface Store_Table_Read_Mapper {
 
     /**
      * 테이블 상세보기
-     * @Param int 테이블의 고유 번호
+     * @Param dto
      * @return Store_Table_DTO
      */
-    @Select(" SELECT TABLE_SEQ, STORE_SEQ, TABLE_NAME, RESERVATION, MIN_PEOPLE, MAX_PEOPLE, DELFLAG FROM STORE_TABLE WHERE TABLE_SEQ=#{table_seq} ")
-    public Store_Table_DTO selectOne(int table_seq);
+    @Select(" SELECT TABLE_SEQ, STORE_SEQ, TABLE_NAME, RESERVATION, MIN_PEOPLE, MAX_PEOPLE, DELFLAG FROM STORE_TABLE WHERE TABLE_SEQ=#{table_seq} AND STORE_SEQ=#{store_seq}")
+    public Store_Table_DTO selectOne(Store_Table_DTO dto);
 
 
 }

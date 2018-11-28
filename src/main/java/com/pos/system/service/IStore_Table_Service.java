@@ -16,10 +16,10 @@ public interface IStore_Table_Service {
 
     /**
      * 테이블의 상제정보를 반환하는 기능
-     * @Param table_seq 테이블의 고유번호
+     * @Param dto
      * @return Store_Table_DTO
      */
-    public Store_Table_DTO selectOne(int table_seq);
+    public Store_Table_DTO selectOne(Store_Table_DTO dto);
 
     /**
      * 테이블을 생성하는 기능
@@ -42,9 +42,9 @@ public interface IStore_Table_Service {
     /**
      * 서비스 매장의 테이블 하나를 삭제하는 기능
      * 실제로 데이터베이스에서 삭제하지는 않습니다.
-     * @param int 테이블의 고유번호
+     * @param \dto
      * @return int 성공시 1, 실패시 0
      */
-    public int deleteTable(int table_seq);
+    public int deleteTable(Store_Table_DTO dto);
 
 }

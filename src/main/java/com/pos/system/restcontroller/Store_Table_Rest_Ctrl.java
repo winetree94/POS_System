@@ -1,9 +1,12 @@
 package com.pos.system.restcontroller;
 
+import com.pos.system.dto.Service_Store_DTO;
 import com.pos.system.dto.Store_Table_DTO;
 import com.pos.system.service.IStore_Table_Service;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
+
+import javax.servlet.http.HttpSession;
 import java.util.List;
 
 /**
@@ -27,9 +30,10 @@ public class Store_Table_Rest_Ctrl {
      * @param \store_seq 매장의 고유번호
      * @return JSON 형태의 모든 테이블의 세부 정보.
      */
-    @GetMapping("/{store_seq}/table")
-    public List<Store_Table_DTO> table(	@PathVariable("store_seq") String store_seq){
-        return service.selectAll(Integer.parseInt(store_seq));
+    @GetMapping("/table")
+    public List<Store_Table_DTO> table(	HttpSession session){
+        Service_Store_DTO store = (Service_Store_DTO)session.getAttribute("store");
+        return service.selectAll(store.getStore_seq());
     }
 
     /**
@@ -37,16 +41,17 @@ public class Store_Table_Rest_Ctrl {
      * @param \store_seq:매장번호, table_name:테이블 이름, reservation:예약여부, min_people:가용 최소인원, max_people:가용 최대인원
      * @return int 1이면 테이블 생성성공, 0이면 실패
      */
-    @PostMapping("{store_seq}/table")
-    public int createTable(@PathVariable("store_seq") String store_seq,
+    @PostMapping("/table")
+    public int createTable(HttpSession session,
                            @RequestParam("table_name")String table_name,
                            @RequestParam("reservation")String reservation,
                            @RequestParam("min_people")String min_people,
                            @RequestParam("max_people")String max_people
 
                         ){
+        Service_Store_DTO store = (Service_Store_DTO)session.getAttribute("store");
         Store_Table_DTO dto = new Store_Table_DTO();
-        dto.setStore_seq(Integer.parseInt(store_seq));
+        dto.setStore_seq(store.getStore_seq());
         dto.setTable_name(table_name);
         dto.setReservation(reservation);
         dto.setMin_people(Integer.parseInt(min_people));
@@ -60,10 +65,10 @@ public class Store_Table_Rest_Ctrl {
      * @param \store_seq:매장번호, table_seq:테이블 번호, table_name:테이블 이름, reservation:예약여부, min_people:가용 최소인원, max_people:가용 최대인원
      * @return JSON형태의 수정된 테이블 세부정보
      */
-    @PostMapping("{store_seq}/table/edit")
+    @PutMapping("/table/{table_seq}")
     public Store_Table_DTO modifyTable(
-            @PathVariable("store_seq") String store_seq,
-            @RequestParam("table_seq") String table_seq,
+            HttpSession session,
+            @PathVariable("table_seq") String table_seq,
             @RequestParam("table_name") String table_name,
             @RequestParam("reservation") String reservation,
             @RequestParam("min_people") String min_people,
@@ -71,9 +76,11 @@ public class Store_Table_Rest_Ctrl {
 
             //table_name},RESERVATION=#{reservation}, MIN_PEOPLE=#{min_people},MAX_PEOPLE=#{max_people}
     ){
+        Service_Store_DTO store = (Service_Store_DTO)session.getAttribute("store");
         Store_Table_DTO dto = new Store_Table_DTO();
-
-        dto =service.selectOne(Integer.parseInt(table_seq));
+        dto.setStore_seq(store.getStore_seq());
+        dto.setTable_seq(Integer.parseInt(table_seq));
+        dto =service.selectOne(dto);
 
         dto.setMax_people(Integer.parseInt(max_people));
         dto.setMin_people(Integer.parseInt(min_people));
@@ -91,12 +98,17 @@ public class Store_Table_Rest_Ctrl {
      * @param \store_seq:매장고유번호, table_seq:예약고유번호
      * @return JSON형태의 테이블 세부정보
      */
-    @GetMapping("{store_seq}/table/{table_seq}")
+    @GetMapping("/table/{table_seq}")
     public Store_Table_DTO tableDetail(
-            @PathVariable("store_seq") String store_seq,
+            HttpSession session,
             @PathVariable("table_seq") String table_seq
     ) {
-        return service.selectOne(Integer.parseInt(table_seq));
+        Service_Store_DTO store = (Service_Store_DTO)session.getAttribute("store");
+        Store_Table_DTO dto = new Store_Table_DTO();
+        dto.setStore_seq(store.getStore_seq());
+        dto.setTable_seq(Integer.parseInt(table_seq));
+
+        return service.selectOne(dto);
     }
 
 
@@ -107,10 +119,15 @@ public class Store_Table_Rest_Ctrl {
      * @param \store_seq:매장 고유번호, table_seq:테이블 고유번호
      * @return int 1이면 삭제성공, 0이면 실패.
      */
-    @PostMapping("{store_seq}/table/delete")
-    public int deleteTable( @PathVariable("store_seq") String store_seq,
-                             @RequestParam("table_seq") String table_seq){
-        return service.deleteTable(Integer.parseInt(table_seq));
+    @DeleteMapping("/table/{table_seq}")
+    public int deleteTable( HttpSession session,
+                             @PathVariable("table_seq") String table_seq){
+
+        Service_Store_DTO store = (Service_Store_DTO)session.getAttribute("store");
+        Store_Table_DTO dto = new Store_Table_DTO();
+        dto.setStore_seq(store.getStore_seq());
+        dto.setTable_seq(Integer.parseInt(table_seq));
+        return service.deleteTable(dto);
     }
 
 

@@ -1,40 +1,42 @@
 package com.pos.system.restcontroller;
 
+import com.pos.system.dto.Service_Store_DTO;
 import com.pos.system.dto.Store_Cashbook_DTO;
 import com.pos.system.service.IStore_Cashbook_Service;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
-
-import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 import java.util.List;
 
 @RestController
 @RequestMapping("/api")
 public class Store_Cashbook_Rest_Ctrl {
-	
+
 	private final IStore_Cashbook_Service service;
-	
+
 	@Autowired
 	public Store_Cashbook_Rest_Ctrl(IStore_Cashbook_Service service) {
 		this.service = service;
 	}
-	
-	@GetMapping("/{store_seq}/cashbook")
+
+	@GetMapping("/cashbook")
 	public List<Store_Cashbook_DTO> cashbook(
-		@PathVariable("store_seq") String store_seq
+			HttpSession session
 	) {
-		return service.selectCashbook(Integer.parseInt(store_seq));
+		Service_Store_DTO store = (Service_Store_DTO) session.getAttribute("store");
+		return service.selectCashbook(store.getStore_seq());
 	}
-	
-	@PostMapping("/{store_seq}/cashbook")
+
+	@PostMapping("/cashbook")
 	public List<Store_Cashbook_DTO> cashbookInsert(
-		@PathVariable("store_seq") String store_seq,
-		@RequestParam("cash_deposit") String cash_deposit
+			HttpSession session,
+			@RequestParam("cash_deposit") String cash_deposit
 	){
+		Service_Store_DTO store = (Service_Store_DTO) session.getAttribute("store");
 		Store_Cashbook_DTO dto = new Store_Cashbook_DTO();
-		dto.setStore_seq(Integer.parseInt(store_seq));
+		dto.setStore_seq(store.getStore_seq());
 		dto.setCash_deposit(Integer.parseInt(cash_deposit));
 		return service.insertCashbook(dto);
 	}
-	
+
 }

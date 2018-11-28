@@ -33,8 +33,8 @@ public class IStore_Table_Service_Impl implements IStore_Table_Service {
     }
 
     // 세부 조회
-    public Store_Table_DTO selectOne(int table_seq){
-        return mapper_Read.selectOne(table_seq) ;
+    public Store_Table_DTO selectOne(Store_Table_DTO dto){
+        return mapper_Read.selectOne(dto) ;
     }
 
     //테이블 생성
@@ -48,13 +48,13 @@ public class IStore_Table_Service_Impl implements IStore_Table_Service {
     public Store_Table_DTO modifyTable(Store_Table_DTO dto){
         int n = mapper_Update.modifyTable(dto);
         if(n>0){
-            return mapper_Read.selectOne(dto.getTable_seq());
+            return mapper_Read.selectOne(dto);
         }
         return null;
     }
     // 테이블 삭제
-    public int deleteTable(int table_seq){
-        return mapper_Delete.deleteTable(table_seq);
+    public int deleteTable(Store_Table_DTO dto){
+        return mapper_Delete.deleteTable(dto);
     }
 
 

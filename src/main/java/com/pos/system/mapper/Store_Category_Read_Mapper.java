@@ -29,9 +29,9 @@ public interface Store_Category_Read_Mapper {
 
     /**
      * 메뉴의 상세정보를 볼 수 있는 기능.
-     * @param int menu_seq 메뉴의 고유번호
+     * @param \store_Category_DTO menu_seq 메뉴의 고유번호
      * @return \Store_Category_DTO\
      */
-    @Select(" SELECT MENU_SEQ,STORE_SEQ, MENU_NAME, CATEG_NAME, MENU_INFO,ORIGIN_FNAME, STORED_FNAME, MENU_PRICE, DELFLAG FROM STORE_CATEGORY WHERE MENU_SEQ=#{menu_seq} ")
-    public Store_Category_DTO selectOne(int menu_seq);
+    @Select(" SELECT MENU_SEQ,STORE_SEQ, MENU_NAME, CATEG_NAME, MENU_INFO,ORIGIN_FNAME, STORED_FNAME, MENU_PRICE, DELFLAG FROM STORE_CATEGORY WHERE MENU_SEQ=#{menu_seq} AND STORE_SEQ=#{store_Seq} ")
+    public Store_Category_DTO selectOne(Store_Category_DTO dto);
 }

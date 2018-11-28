@@ -1,10 +1,13 @@
 package com.pos.system.restcontroller;
 
 
+import com.pos.system.dto.Service_Store_DTO;
 import com.pos.system.dto.Store_Category_DTO;
 import com.pos.system.service.IStore_Category_Service;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
+
+import javax.servlet.http.HttpSession;
 import java.util.List;
 
 /**
@@ -29,9 +32,11 @@ public class Store_Category_Rest_Ctrl {
      * @param \store_seq 매장의 고유번호
      * @return JSON 형태의 모든 메뉴의 세부 정보.
      */
-    @GetMapping("{store_seq}/menu")
-    public List<Store_Category_DTO> menu(@PathVariable("store_seq") String store_seq){
-        return service.selectAll(Integer.parseInt(store_seq));
+    @GetMapping("/menu")
+    public List<Store_Category_DTO> menu(HttpSession session){
+        Service_Store_DTO store = (Service_Store_DTO)session.getAttribute("store");
+
+        return service.selectAll(store.getStore_seq());
        }
 
     /**
@@ -40,8 +45,8 @@ public class Store_Category_Rest_Ctrl {
      *        \stored_fname:저장된파일이름, menu_price:메뉴가격
      * @return int 1이면 메뉴생성성공, 0이면 실패
      */
-    @PostMapping("{store_seq}/menu")
-    public int createMenu(@PathVariable("store_seq") String store_seq,
+    @PostMapping("/menu")
+    public int createMenu(HttpSession session,
                           @RequestParam("menu_name") String menu_name,
                           @RequestParam("categ_name") String categ_name,
                           @RequestParam("menu_info") String menu_info,
@@ -49,8 +54,10 @@ public class Store_Category_Rest_Ctrl {
                           @RequestParam("stored_fname") String stored_fname,
                           @RequestParam("menu_price") String menu_price
                           ){
+
         Store_Category_DTO dto = new Store_Category_DTO();
-        dto.setStore_seq(Integer.parseInt(store_seq));
+        Service_Store_DTO store = (Service_Store_DTO)session.getAttribute("store");
+        dto.setStore_seq(store.getStore_seq());
         dto.setMenu_name(menu_name);
         dto.setCateg_name(categ_name);
         dto.setMenu_info(menu_info);
@@ -69,9 +76,9 @@ public class Store_Category_Rest_Ctrl {
      *        \stored_fname:저장된파일이름, menu_price:메뉴가격
      * @return JSON형태의 수정된 메뉴 세부정보
      */
-    @PostMapping("{store_seq}/menu/edit")
-    public Store_Category_DTO modifyMenu(@PathVariable("store_seq") String store_seq,
-                                     @RequestParam("menu_seq") String menu_seq,
+    @PutMapping("/menu/{menu_seq}")
+    public Store_Category_DTO modifyMenu(HttpSession session,
+                                     @PathVariable("menu_seq") String menu_seq,
                                      @RequestParam("menu_name") String menu_name,
                                      @RequestParam("categ_name") String categ_name,
                                      @RequestParam("menu_info") String menu_info,
@@ -80,9 +87,13 @@ public class Store_Category_Rest_Ctrl {
                                      @RequestParam("menu_price") String menu_price){
 
         Store_Category_DTO dto = new Store_Category_DTO();
-        dto = service.selectOne(Integer.parseInt(menu_seq));
+        Service_Store_DTO store = (Service_Store_DTO)session.getAttribute("store");
+        dto.setStore_seq(store.getStore_seq());
+        dto.setMenu_seq(Integer.parseInt(menu_seq));
+        dto = service.selectOne(dto);
 
         //MENU_NAME=#{menu_name},CATEG_NAME=#{categ_name},MENU_INFO=#{menu_info},ORIGIN_FNAME=#{origin_fname},STORED_FNAME=#{stored_fname}, MENU_PRICE=#{menu_price}
+        dto.setStore_seq(store.getStore_seq());
         dto.setMenu_name(menu_name);
         dto.setCateg_name(categ_name);
         dto.setMenu_info(menu_info);
@@ -97,12 +108,16 @@ public class Store_Category_Rest_Ctrl {
      * @param \store_seq:매장고유번호, menu_seq:메뉴고유번호
      * @return JSON형태의 메뉴의 세부정보
      */
-    @GetMapping("{store_seq}/menu/{menu_seq}")
-    public Store_Category_DTO menuDetail(@PathVariable("store_seq") String store_seq,
-                                         @PathVariable("menu_seq") String menu_seq){
+    @GetMapping("/menu/{menu_seq}")
+    public Store_Category_DTO menuDetail(@PathVariable("menu_seq") String menu_seq, HttpSession session){
+        Store_Category_DTO dto = new Store_Category_DTO();
+        Service_Store_DTO store = (Service_Store_DTO)session.getAttribute("store");
+        dto.setStore_seq(store.getStore_seq());
+        dto.setMenu_seq(Integer.parseInt(menu_seq));
+        dto = service.selectOne(dto);
 
 
-        return service.selectOne(Integer.parseInt(menu_seq));
+        return service.selectOne(dto);
     }
 
     /**
@@ -110,11 +125,12 @@ public class Store_Category_Rest_Ctrl {
      * @param \store_seq:매장고유번호, menu_seq:메뉴고유번호
      * @return JSON형태의 카테고리별 메뉴의 세부정보
      */
-    @GetMapping("{store_seq}/menu/category")
-    public List<Store_Category_DTO> category(@PathVariable("store_seq") String store_seq,
-                                             @RequestParam("categ_name") String categ_name){
+    @GetMapping("/menu/{categ_name}")
+    public List<Store_Category_DTO> category(HttpSession session,
+                                             @PathVariable("categ_name") String categ_name){
+        Service_Store_DTO store = (Service_Store_DTO)session.getAttribute("store");
         Store_Category_DTO dto = new Store_Category_DTO();
-        dto.setStore_seq(Integer.parseInt(store_seq));
+        dto.setStore_seq(store.getStore_seq());
         dto.setCateg_name(categ_name);
         return service.categSelect(dto);
     }
@@ -125,11 +141,14 @@ public class Store_Category_Rest_Ctrl {
      * @param \store_seq:매장고유번호, menu_seq:메뉴고유번호
      * @return int 1이면 삭제성공, 0이면 실패.
      */
-    @PostMapping("{store_seq}/menu/delete")
-    public int deleteMenu( @PathVariable("store_seq") String store_seq,
-                           @RequestParam("menu_seq") String menu_seq){
+    @DeleteMapping("/menu/{menu_seq}")
+    public int deleteMenu(@PathVariable("menu_seq") String menu_seq , HttpSession session){
+        Service_Store_DTO store = (Service_Store_DTO)session.getAttribute("store");
+        Store_Category_DTO dto = new Store_Category_DTO();
+        dto.setMenu_seq(Integer.parseInt(menu_seq));
+        dto.setStore_seq(store.getStore_seq());
 
-        return service.deleteMenu(Integer.parseInt(menu_seq));
+        return service.deleteMenu(dto);
     }
 
 

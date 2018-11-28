@@ -1,9 +1,12 @@
 package com.pos.system.restcontroller;
 
+import com.pos.system.dto.Service_Store_DTO;
 import com.pos.system.dto.Store_Reservation_DTO;
 import com.pos.system.service.IStore_Reservation_Service;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
+
+import javax.servlet.http.HttpSession;
 import java.util.List;
 
 /**
@@ -26,10 +29,11 @@ public class Store_Reservation_Rest_Ctrl {
      * @param \store_seq 매장의 고유번호
      * @return JSON 형태의 모든 예약의 세부 정보.
      */
-    @GetMapping("{store_seq}/reservation")
-    public List<Store_Reservation_DTO> reservation(	@PathVariable("store_seq") String store_seq){
+    @GetMapping("/reservation")
+    public List<Store_Reservation_DTO> reservation(HttpSession session){
+        Service_Store_DTO store = (Service_Store_DTO)session.getAttribute("store");
 
-        return service.selectAll(Integer.parseInt(store_seq));
+        return service.selectAll(store.getStore_seq());
     }
 
     /**
@@ -37,16 +41,16 @@ public class Store_Reservation_Rest_Ctrl {
      * @param \store_seq:매장번호, table_seq:테이블번호, user_id:예약하는 사용자아이디, reserv_time:예약 시간, reserv_people:예약인원
      * @return int 1이면 메뉴생성성공, 0이면 실패
      */
-    @PostMapping("{store_seq}/reservation")
-    public int createReserv(@PathVariable("store_seq") String store_seq,
+    @PostMapping("/reservation")
+    public int createReserv(HttpSession session,
                             @RequestParam("table_seq") String table_seq,
                             @RequestParam("user_id") String user_id,
                             @RequestParam("reserv_time") String reserv_time,
                             @RequestParam("reserv_people") String reserv_people
                             ){
-
+        Service_Store_DTO store = (Service_Store_DTO)session.getAttribute("store");
         Store_Reservation_DTO dto = new Store_Reservation_DTO();
-        dto.setStore_seq(Integer.parseInt(store_seq));
+        dto.setStore_seq(store.getStore_seq());
         dto.setTable_seq(Integer.parseInt(table_seq));
         dto.setUser_id(user_id);
         dto.setReserv_time(reserv_time);
@@ -62,14 +66,17 @@ public class Store_Reservation_Rest_Ctrl {
      * @param \store_seq:매장번호, reserv_seq:예약번호 table_seq:테이블번호, user_id:예약하는 사용자아이디, reserv_time:예약 시간, reserv_people:예약인원
      * @return JSON형태의 수정된 예약 세부정보
      */
-    @PostMapping("{store_seq}/reservation/edit")
-    public Store_Reservation_DTO modifyReservation(@PathVariable("store_seq") String store_seq,
-                                                   @RequestParam("reserv_seq") String reserv_seq,
+    @PutMapping("/reservation/{reserv_seq}")
+    public Store_Reservation_DTO modifyReservation(HttpSession session,
+                                                   @PathVariable("reserv_seq") String reserv_seq,
                                                    @RequestParam("table_seq") String table_seq,
                                                    @RequestParam("reserv_time") String reserv_time,
                                                    @RequestParam("reserv_people") String reserv_people){
+        Service_Store_DTO store = (Service_Store_DTO)session.getAttribute("store");
         Store_Reservation_DTO dto = new Store_Reservation_DTO();
-        dto = service.selectOne(Integer.parseInt(reserv_seq));
+        dto.setStore_seq(store.getStore_seq());
+        dto.setReserv_seq(Integer.parseInt(reserv_seq));
+        dto = service.selectOne(dto);
 
         dto.setTable_seq(Integer.parseInt(table_seq));
         dto.setReserv_time(reserv_time);
@@ -84,12 +91,15 @@ public class Store_Reservation_Rest_Ctrl {
      * @param \store_seq:매장고유번호, reserv_seq:예약고유번호
      * @return JSON형태의 예약 세부정보
      */
-    @GetMapping("{store_seq}/reservation/{reserv_seq}")
-    public Store_Reservation_DTO reservDetail(@PathVariable("store_seq") String store_seq,
+    @GetMapping("/reservation/{reserv_seq}")
+    public Store_Reservation_DTO reservDetail(HttpSession session,
                                               @PathVariable("reserv_seq") String reserv_seq
                                            ){
-
-        return service.selectOne(Integer.parseInt(reserv_seq));
+        Service_Store_DTO store = (Service_Store_DTO)session.getAttribute("store");
+        Store_Reservation_DTO dto = new Store_Reservation_DTO();
+        dto.setStore_seq(store.getStore_seq());
+        dto.setReserv_seq(Integer.parseInt(reserv_seq));
+        return service.selectOne(dto);
     }
 
     /**
@@ -98,9 +108,13 @@ public class Store_Reservation_Rest_Ctrl {
      * @param \store_seq:매장 고유번호, reserv_seq:예약 고유번호
      * @return int 1이면 삭제성공, 0이면 실패.
      */
-    @PostMapping("{store_seq}/reservation/delete")
-    public int deleteReserv(@RequestParam("reserv_seq") String reserv_seq){
-        return service.deleteReserv(Integer.parseInt(reserv_seq));
+    @DeleteMapping("/reservation/{reserv_seq}")
+    public int deleteReserv(@PathVariable("reserv_seq") String reserv_seq, HttpSession session){
+        Service_Store_DTO store = (Service_Store_DTO)session.getAttribute("store");
+        Store_Reservation_DTO dto = new Store_Reservation_DTO();
+        dto.setStore_seq(store.getStore_seq());
+        dto.setReserv_seq(Integer.parseInt(reserv_seq));
+        return service.deleteReserv(dto);
     }
 
 

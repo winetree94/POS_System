@@ -30,10 +30,10 @@ public interface IStore_Category_Service {
 
     /**
      * 메뉴의 상세정보를 조회하는 기능
-     * @param menu_name 메뉴 이름
+     * @param \menu_name 메뉴 이름
      * @return Store_Category_DTO 메뉴의 상세 정보
      */
-    public Store_Category_DTO selectOne(int menu_seq);
+    public Store_Category_DTO selectOne(Store_Category_DTO dto);
 
     /**
      * 메뉴의 정보를 수정하는 기능
@@ -49,10 +49,10 @@ public interface IStore_Category_Service {
      * 메뉴를 삭제하는 기능
      * 메뉴seq의 값을 입력하여 메뉴 테이블의 delflag를 Y로 변환합니다.
      * 삭제 실패하면 0 을 반환합니다.
-     * @param dto
+     * @param \dto
      * @return int
      */
-    public int deleteMenu(int menu_seq);
+    public int deleteMenu(Store_Category_DTO dto);
 
 
 }

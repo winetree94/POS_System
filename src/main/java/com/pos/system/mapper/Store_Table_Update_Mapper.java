@@ -15,6 +15,6 @@ public interface Store_Table_Update_Mapper {
      * @param dto
      * @return int 0이면 실패를 의미, 1이면 성공
      */
-    @Update(" UPDATE STORE_TABLE SET TABLE_NAME=#{table_name},RESERVATION=#{reservation}, MIN_PEOPLE=#{min_people},MAX_PEOPLE=#{max_people} WHERE TABLE_SEQ=#{table_seq} ")
+    @Update(" UPDATE STORE_TABLE SET TABLE_NAME=#{table_name},RESERVATION=#{reservation}, MIN_PEOPLE=#{min_people},MAX_PEOPLE=#{max_people} WHERE TABLE_SEQ=#{table_seq} AND STORE_SEQ=#{store_seq} ")
     public int modifyTable(Store_Table_DTO dto);
 }
