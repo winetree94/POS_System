@@ -4,12 +4,14 @@
 
 <jsp:include page="../comm/header.jsp"/>
 
-<div class="jumbotron">
+
+<div class="jumbotron jumbotron-fluid" style="margin-top:56px">
 	<div class="container">
-		<h1 class="display-4 text-center">로그인</h1>
+		<h4 class="display-4 text-center">로그인</h4>
+		<hr class="my-4">
+		<p class="lead small text-right">로그인 화면입니다.</p>
 	</div>
 </div>
-
 <div class='container' style="max-width: 500px">
 
 	<form method='post' id='frm'>

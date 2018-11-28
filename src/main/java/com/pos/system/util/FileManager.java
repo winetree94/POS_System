@@ -13,6 +13,7 @@ import javax.servlet.ServletContext;
 import javax.servlet.ServletOutputStream;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import java.awt.print.PrinterException;
 import java.io.File;
 import java.io.FileInputStream;
 import java.util.UUID;
@@ -31,6 +32,13 @@ public class FileManager {
     }
 
 //    상대경로
+
+    /**
+     * <h2>파일 업로드 기능<h2/>
+     * @param file
+     * @param request
+     * @return int
+     */
     public int upload(MultipartFile file, HttpServletRequest request) {
 
     //    절대경로
@@ -109,6 +117,13 @@ public class FileManager {
     }
 
 
+    /**
+     * 파일 다운로드 기능
+     * @param board_seq
+     * @param response
+     * @param request
+     * @return response
+     */
     public HttpServletResponse download(int board_seq, HttpServletResponse response,HttpServletRequest request) {
 
         //수정할 파일 정보 가져오기
@@ -175,6 +190,7 @@ public class FileManager {
                 in.close();
             } catch(Exception e) {
                 e.printStackTrace();
+                return null;
             }
         }
 
@@ -183,24 +199,55 @@ public class FileManager {
     }
 
 
+    /**
+     * 게시글 파일 수정기능
+     * upload, delete 메소드 사용
+     * @param file
+     * @param board_seq
+     * @param request
+     * @return
+     */
+    public int fileEdit(MultipartFile file, int board_seq, HttpServletRequest request){
 
-    public int fileEdit(MultipartFile file,int board_seq){
+        try{
 
-        Service_File_DTO file_dto = service_File.selectOneFile(board_seq);
-        System.out.println("asl;dfja;sdifjlkasdj;f;oiawejklfjdklg[g[g[g===================");
+            fileDelete(board_seq);//기존 파일 삭제
+            upload(file, request); //파일 재 업로드
 
+        }catch (Exception e){
 
+           e.printStackTrace();
 
+            System.out.println("파일 수정실패");
+            return 0;
 
-
-        return 0;
+        }
+        System.out.println("파일 fileEdit 성공");
+        return 1;
     }
 
 
+    /**
+     * 파일 삭제 기능
+     * @param board_seq
+     * @return
+     */
+    public int fileDelete(int board_seq){
 
-    public int fileDelete(MultipartFile file, int board_seq){
+        try{
 
-        return 0;
+            System.out.println("파일 삭제기능");
+            //파일 삭제
+            service_File.deleteFile(board_seq);
+
+        }catch (Exception e){
+            System.out.println("파일 삭제실패");
+            e.printStackTrace();
+
+        }
+
+
+        return 1;
     }
 
 }

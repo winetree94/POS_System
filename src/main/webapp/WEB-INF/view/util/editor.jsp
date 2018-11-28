@@ -15,17 +15,24 @@
 <link href="https://cdn.quilljs.com/1.2.2/quill.snow.css"
       rel="stylesheet">
 <script src="https://cdn.quilljs.com/1.2.2/quill.js"></script>
+
 <div class="container text-center">
-    <form id="editor-form" onsubmit="return sizeChk()" style="margin-bottom:14px">
+    <form class="editor-form" onsubmit="return sizeChk()" style="margin-bottom:14px">
         <div class="form-group">
             <input type="text" class="writer form-control" name="writer" placeholder="<%=service_id%>" readonly>
             <input type="text" class="title form-control" name="title" placeholder="title">
-              <%--<input type="date" class="date form-control" name="date" placeholder="date">--%>
-            <div id="editor-container" class="form-group"></div>
+            <%--<input type="date" class="date form-control" name="date" placeholder="date">--%>
+            <div class="editor-container form-group"></div>
+
+
+
             <input type="hidden" class="content" name="content" value="">
-            <div class="container text-left file form-control-file" style='height:27px;margin-bottom:12px;margin-top:6px'></div>
-            <div class="container text-right" id="submitB" style="margin-top:10px">
-                <input class="btn btn-primary" type="submit" value="submit" class="btn btn-primary">
+
+
+            <div class="container text-left file form-control-file"
+                 style='height:27px;margin-bottom:12px;margin-top:6px'></div>
+            <div class="container text-right submitB" style="margin-top:10px">
+                <input class="btn btn-primary submitbtn" type="submit" value="submit">
             </div>
         </div>
     </form>
@@ -34,14 +41,14 @@
     window.onload = function () {
 
 
-        var quill = new Quill('#editor-container', {
+        var quill = new Quill('.editor-container', {
             theme: 'snow'
         });
         document.querySelector(".ql-container").style.height = "300px";
-        document.querySelector("#editor-form > div").style.maxWidth= "500px";
-        document.querySelector("#editor-form > div").style.margin = "0 auto";
+        document.querySelector(".editor-form > div").style.maxWidth = "500px";
+        document.querySelector(".editor-form > div").style.margin = "0 auto";
 
-        var form = document.querySelector('#editor-form');
+        var form = document.querySelector('.editor-form');
         form.setAttribute("action", form_action);
         form.setAttribute("class", form_class);
         form.setAttribute("method", form_method);
@@ -49,7 +56,7 @@
         form.setAttribute("use_file", use_file);
 
         if (use_file) {
-            document.querySelector('div.file').innerHTML = "<input type='file' id='filechk' name='file' >";
+            document.querySelector('div.file').innerHTML = "<input type='file' class='filechk' name='file' ><input type='hidden' class='filedelete' name='filedelete' value='false' />";
 
         }
 
@@ -61,18 +68,20 @@
         }
 
         if (file != null || file != "") {
-            document.querySelector("div.file").innerHTML += ("<span id='fileN'>" + file + "</span>");
+            document.querySelector("div.file").innerHTML += ("<span class='fileN'>" + file + "</span>");
 
-            var fileP = document.querySelector("#fileN");
-            fileP.innerHTML +="&nbsp;&nbsp;<input type='button' onclick='deletF()' value='파일삭제' class='btn btn-sm btn-dark' />";
+            var fileP = document.querySelector(".fileN");
+            fileP.innerHTML += "&nbsp;&nbsp;<input type='button' onclick='deletF()' value='파일삭제' class='btn btn-sm btn-dark' />";
 
         }
 
 
     }
-    function deletF(){
 
-        document.getElementById("fileN").innerText= "";
+    function deletF() {
+
+        document.querySelector(".fileN").innerText = "";
+        document.querySelector(".filedelete").value = "true";
         // alert(file);
 
     }
@@ -89,8 +98,8 @@
         document.querySelector('.content').value = data;
         var maxSize = 2 * 1024 * 1024;
 
-        if (document.getElementById('filechk').files[0] != undefined) {
-            var fileSize = document.getElementById('filechk').files[0].size;
+        if (document.querySelector('.filechk').files[0] !== undefined) {
+            var fileSize = document.querySelector('.filechk').files[0].size;
             if (fileSize > maxSize) {
                 alert("사이즈가 너무 커요");
                 return false;

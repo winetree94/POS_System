@@ -21,7 +21,7 @@
 
 %>
 
-<div class="jumbotron jumbotron-fluid">
+<div class="jumbotron jumbotron-fluid" style="margin-top:56px">
     <div class="container">
         <h4 class="display-4 text-center">게시판</h4>
         <hr class="my-4">
@@ -55,7 +55,7 @@
 
 <script>
 
-    document.querySelector("#submitB").innerHTML += "<input onclick=\"back()\" class=\"btn\" value=\"취소\"type=\"button\"/>"
+    document.querySelector(".submitB").innerHTML += "<input onclick=\"back()\" class=\"btn\" value=\"취소\"type=\"button\"/>"
 
     function back() {
         history.back();

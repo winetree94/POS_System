@@ -6,7 +6,7 @@
 
 <jsp:include page="./view/comm/header.jsp"/>
 
-<div class="jumbotron jumbotron-fluid">
+<div class="jumbotron jumbotron-fluid" style="margin-top:56px">
 	<div class="container">
 		<h1 class="display-4 text-center"><b>P</b>oint <b>O</b>f <b>S</b>ale</h1>
 		<hr class="my-4">
