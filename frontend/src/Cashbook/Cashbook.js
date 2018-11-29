@@ -4,12 +4,14 @@ import Axios from "axios";
 import CashbookEdit from "./Cashbook_Edit";
 // import common from '../utility/common-utility';
 import qs from 'qs'
+import Loading from '../comm/Loading';
 
 
 export default class Cashbook extends React.Component {
 
     state = {
-        data : []
+        data : [],
+        isLoad: false
     };
 
     constructor (props){super(props);
@@ -18,15 +20,15 @@ export default class Cashbook extends React.Component {
     componentDidMount = () => {
 
         setInterval(()=>{
-
         Axios.get('/api/cashbook').then((response)=>{
             this.setState({
-                data : response.data
+                data : response.data,
+                isLoad : true
             })
         });
 		console.log("render");
 
-        }, 3000);
+        }, 1000);
     };
 
     createHandler = (info) => {
@@ -45,6 +47,12 @@ export default class Cashbook extends React.Component {
 
 	
 	render() {
+        const {isLoad} = this.state;
+
+        if(!isLoad){
+            return <Loading msg="현금출납부를 로딩중입니다."></Loading>
+
+        } else{
 
 		return (
 			<div className={"container content"}>
@@ -70,5 +78,6 @@ export default class Cashbook extends React.Component {
 
 
 		);
+        }
 	}
 }
