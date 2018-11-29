@@ -83,17 +83,19 @@ public class Store_Order_Rest_Ctrl {
 	}
 	
 	/**
-	 * 주문 세부정보 반환
 	 * @param store_seq / 매장 고유 번호
 	 * @param order_seq / 주문 고유 번호
 	 * @return Store_Order_DTO
 	 */
-	@GetMapping("/order/{order_seq}")
-	public Store_Order_DTO orderDetail(
+	@GetMapping("/order/{table_seq}")
+	public List<HashMap<String, Object>> orderDetail(
 		HttpSession session,
-		@PathVariable("order_seq") String order_seq
+		@PathVariable("table_seq") int table_seq
 	){
-		return service.orderOne(Integer.parseInt(order_seq));
+		
+		Service_Store_DTO store = (Service_Store_DTO)session.getAttribute("store");
+		
+		return service.getTableOrder(store.getStore_seq(), table_seq);
 	}
 	
 	/**

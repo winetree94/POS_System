@@ -28,9 +28,9 @@
 						<div class="form-group">
 							<input type="hidden" name="store_seq" value="<%=stores_list.get(i - 1).getStore_seq()%>">
 							<input class="btn btn-primary btn-sm" type="submit" value="접속">
+							<a href="/stores/<%=stores_list.get(i - 1).getStore_seq()%>/edit" class="btn btn-secondary btn-sm">수정</a>
 						</div>
 					</form>
-							<a href="/stores/<%=stores_list.get(i - 1).getStore_seq()%>/edit" class="btn btn-secondary btn-sm">수정</a>
 
 				</div>
 			</div>

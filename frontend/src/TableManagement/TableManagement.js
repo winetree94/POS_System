@@ -17,16 +17,14 @@ class TableManagement extends React.Component {
 	};
 	
 	componentDidMount() {
-		
-		return (this.interval = setInterval(() => {
+		this.interval = setInterval(() => {
 			Axios.get("/api/table").then((response) => {
 				this.setState({
 					tableList: response.data,
 					isLoad: true
 				});
-				// console.log("table updated");
 			});
-		}, 1000));
+		}, 1000);
 	};
 	
 	detailViewEventHandler = (detail) => {
