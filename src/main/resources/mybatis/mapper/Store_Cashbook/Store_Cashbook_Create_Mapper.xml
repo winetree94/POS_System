@@ -9,8 +9,8 @@
 			#{store_seq},
 			NOW(),
 			#{cash_deposit},
-			IFNULL((SELECT CASH_BALANCE FROM STORE_CASHBOOK A WHERE CASH_SEQ = (
-			SELECT MAX(CASH_SEQ) FROM STORE_CASHBOOK B WHERE STORE_SEQ = 1)), 0) + #{cash_deposit})
+			IFNULL((SELECT CASH_BALANCE FROM STORE_CASHBOOK A WHERE A.CASH_SEQ = (
+			SELECT MAX(CASH_SEQ) FROM STORE_CASHBOOK B WHERE B.STORE_SEQ = #{store_seq})), 0) + #{cash_deposit})
 	</insert>
 
 </mapper>

@@ -27,6 +27,8 @@ public class Store_POS_Ctrl {
 		String store_seq = request.getParameter("store_seq");
 		
 		Service_Store_DTO store = service_Store.selectStore(Integer.parseInt(store_seq));
+		
+		session.removeAttribute("store");
 		session.setAttribute("store", store);
 		
 		return "redirect:/pos";
