@@ -11,8 +11,6 @@ class CashbookEdit extends Component {
         inputName: "입금",
         outputName: "출금",
         cash_deposit: '',
-        cash_withdraw : ''
-
     };
 
 
@@ -54,7 +52,8 @@ class CashbookEdit extends Component {
 
     submitHandler = (e) => {
         e.preventDefault();
-        this.props.onCreate(this.state.cash_deposit);
+        console.log("디파짓"+this.state.cash_deposit);
+        this.props.onCreate(this.state);
         this.setState({
             cash_deposit: '',
             modal: false,
@@ -95,7 +94,7 @@ class CashbookEdit extends Component {
                                     <div>
                                         <input type="text" name='cash_deposit' placeholder="금액을 입력해주세요"
                                                onChange={this.changeHandler} value={this.state.cash_deposit}
-                                               className="form-control"/>
+                                               className="form-control" />
                                     </div>
                                 </ModalBody>
                                 <ModalFooter>
@@ -106,6 +105,9 @@ class CashbookEdit extends Component {
                             </form>
                         </Modal>
                     </div>
+
+
+
 
 
 

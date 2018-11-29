@@ -19,7 +19,7 @@ export default class Cashbook extends React.Component {
 
     componentDidMount = () => {
 
-        setInterval(()=>{
+        this.interval = setInterval(()=>{
         Axios.get('/api/cashbook').then((response)=>{
             this.setState({
                 data : response.data,
@@ -80,4 +80,8 @@ export default class Cashbook extends React.Component {
 		);
         }
 	}
+
+	componentWillUnmount(){
+	    clearInterval(this.interval);
+    }
 }
