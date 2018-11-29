@@ -13,6 +13,7 @@ import com.pos.system.service.IStore_Order_Service;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.HashMap;
 import java.util.List;
 
 @Service
@@ -64,5 +65,8 @@ public class IStore_Order_Service_Impl implements IStore_Order_Service {
 	public int sumOrder(int ref) {
 		return mapper_Read.sumOrder(ref);
 	}
+	
+	@Override
+	public List<HashMap<String, Object>> getInvoiceOrder(int ref) {return mapper_Read.getInvoiceOrder(ref);}
 	
 }

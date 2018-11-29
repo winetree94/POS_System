@@ -10,7 +10,6 @@ export default class Cashbook extends React.Component {
 
     state = {
         data : []
-
     };
 
     constructor (props){super(props);

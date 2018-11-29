@@ -15,6 +15,8 @@ import Cashbook from './Cashbook/Cashbook';
 import {
 	Route, Redirect
 } from 'react-router-dom'
+import Category from "./Category/Category";
+import TableManagement from "./TableManagement/TableManagement";
 
 export default class App extends React.Component {
 	
@@ -106,6 +108,8 @@ export default class App extends React.Component {
 								<SideBar toggle={this.switch}></SideBar>
 							</Col>
 							<Col>
+								<Route path="/category" component={Category} />
+								<Route path="/table" component={TableManagement} />
 								<Route path="/" exact={true} component={SaleMain}/>
 								<Route path="/sale" exact={true} component={SaleMain}/>
 								<Route path="/analyze" component={SaleMain}/>

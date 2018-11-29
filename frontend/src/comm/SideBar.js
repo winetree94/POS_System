@@ -52,8 +52,8 @@ export default class SideBar extends React.Component {
 					<li className="nav-item">
 						<a className="nav-link" href="#" onClick={this.toggleMmanagement}>관리</a>
 						<Collapse isOpen={this.state.collapse.management}>
-							<a className="nav-link" href="#" >메뉴 관리</a>
-							<a className="nav-link" href="#" >테이블 관리</a>
+							<Link className="nav-link" to="/category">메뉴 관리</Link>
+							<Link className="nav-link" to="/table">테이블 관리</Link>
 							<a className="nav-link" href="#" >직원 관리</a>
 							<a className="nav-link" href="#" >POS 관리</a>
 						</Collapse>

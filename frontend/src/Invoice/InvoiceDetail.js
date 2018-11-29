@@ -30,7 +30,7 @@ export default class InvoiceDetail extends React.Component {
     const { orderList } = this.props;
     const lists = orderList.map(order => (
 			<OrderItem 
-        key={order.order_seq}
+        key={order.menu_seq}
         order={order}
 			/>
     ));
@@ -44,6 +44,7 @@ export default class InvoiceDetail extends React.Component {
               <th>상품명</th>
               <th>금액</th>
               <th>개수</th>
+	            <th>합계금액</th>
             </tr>
           </thead>
           <tbody>

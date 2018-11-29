@@ -2,6 +2,7 @@ package com.pos.system.service;
 
 import com.pos.system.dto.Store_Order_DTO;
 
+import java.util.HashMap;
 import java.util.List;
 
 public interface IStore_Order_Service {
@@ -22,4 +23,6 @@ public interface IStore_Order_Service {
 	int deleteOrder(int order_seq);
 	
 	int sumOrder(int ref);
+	
+	List<HashMap<String, Object>> getInvoiceOrder(int ref);
 }

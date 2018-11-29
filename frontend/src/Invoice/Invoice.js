@@ -4,12 +4,16 @@ import { Row, Col } from "reactstrap";
 import InvoiceList from "./InvoiceList";
 import InvoiceItem from "./InvoiceItem";
 import InvoiceDetail from "./InvoiceDetail";
+import qs from 'qs';
 
 export default class Invoice extends React.Component {
   state = {
     invoiceList: [],
     invoiceDetail: {},
-    orderList: []
+    orderList: [],
+	  value:"",
+	  Empty : false,
+	  isLoad : false
   };
 
   componentDidMount = () => {
@@ -28,9 +32,7 @@ export default class Invoice extends React.Component {
       },
       () => {
         axios
-          .get("/api/order", {
-            ref: this.state.invoiceDetail.ref
-          })
+          .get("/api/invoice/order/" + this.state.invoiceDetail.ref)
           .then(response => {
             console.log(response.data);
             this.setState({
@@ -40,10 +42,11 @@ export default class Invoice extends React.Component {
       }
     );
   };
-
+	
   render() {
     return (
       <div className={"container content"}>
+	
         <h1 className={"content-header-1"} onClick={this.clickEventHandler}>
           판매 내역
         </h1>
