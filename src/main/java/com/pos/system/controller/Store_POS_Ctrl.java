@@ -34,7 +34,7 @@ public class Store_POS_Ctrl {
 		return "redirect:/pos";
 	}
 	
-	@RequestMapping(value = {"", "/sale"})
+	@RequestMapping(value = {"", "/sale", "/category", "/table", "/analyze", "/management", "/invoice", "/cashbook"})
 	public String goPOS(
 		HttpServletRequest request,
 		HttpSession session
