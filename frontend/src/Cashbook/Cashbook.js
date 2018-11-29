@@ -2,6 +2,8 @@ import React from "react";
 import Cashbook_List from "./Cashbook_List";
 import Axios from "axios";
 import CashbookEdit from "./Cashbook_Edit";
+// import common from '../utility/common-utility';
+import qs from 'qs'
 
 
 export default class Cashbook extends React.Component {
@@ -28,24 +30,22 @@ export default class Cashbook extends React.Component {
         }, 3000);
     };
 
-    // handlerCreate = (info) => {
-    //     const {data} = this.state;
-    //     this.setState(
-    //         {
-    //
-    //         }
-    //     );
-    // }
+    createHandler = (info) => {
+        console.log(info.cash_deposit);
+            Axios.post('/api/cashbook' , qs.stringify({
+                    cash_deposit : info.cash_deposit
+                })
+            ).then((response)=>{
+                console.log(response);
+            }).catch ((err) => {
+            console.log (err)
+        });
+            console.log("render complete");
+    };
 
 
 	
 	render() {
-	    const style = {
-            border: '1px solid black',
-            padding: '8px',
-            margin: '8px',
-
-        }
 
 		return (
 			<div className={"container content"}>
@@ -57,7 +57,7 @@ export default class Cashbook extends React.Component {
 				<Cashbook_List data={this.state.data} />
                     </div>
                         <div className="col" >
-                            <CashbookEdit/>
+                            <CashbookEdit onCreate={this.createHandler}/>
                         </div>
                 </div>
 
