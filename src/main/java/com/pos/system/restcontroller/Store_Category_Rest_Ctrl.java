@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpSession;
+import java.util.HashMap;
 import java.util.List;
 
 /**
@@ -26,14 +27,20 @@ public class Store_Category_Rest_Ctrl {
         this.service = service;
     }
 
+    @GetMapping("/menu")
+    public List<HashMap<String, Object>> categ(HttpSession session){
+        Service_Store_DTO store = (Service_Store_DTO)session.getAttribute("store");
+
+        return service.categList(store.getStore_seq());
+    }
 
     /**
      * 모든 메뉴를 출력하는 기능
      * @param \store_seq 매장의 고유번호
      * @return JSON 형태의 모든 메뉴의 세부 정보.
      */
-    @GetMapping("/menu")
-    public List<Store_Category_DTO> menu(HttpSession session){
+    @GetMapping("/menu1")
+    public List<HashMap<String, Object>> menu(HttpSession session){
         Service_Store_DTO store = (Service_Store_DTO)session.getAttribute("store");
 
         return service.selectAll(store.getStore_seq());
@@ -125,9 +132,10 @@ public class Store_Category_Rest_Ctrl {
      * @param \store_seq:매장고유번호, menu_seq:메뉴고유번호
      * @return JSON형태의 카테고리별 메뉴의 세부정보
      */
-    @GetMapping("/menu/{categ_name}")
-    public List<Store_Category_DTO> category(HttpSession session,
+    @GetMapping("/category/menulists/{categ_name}")
+    public List<Store_Category_DTO> category1(HttpSession session,
                                              @PathVariable("categ_name") String categ_name){
+        System.out.println("categ");
         Service_Store_DTO store = (Service_Store_DTO)session.getAttribute("store");
         Store_Category_DTO dto = new Store_Category_DTO();
         dto.setStore_seq(store.getStore_seq());

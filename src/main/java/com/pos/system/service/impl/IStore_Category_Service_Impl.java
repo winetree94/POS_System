@@ -9,6 +9,7 @@ import com.pos.system.service.IStore_Category_Service;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.HashMap;
 import java.util.List;
 
 @Service
@@ -26,8 +27,11 @@ public class IStore_Category_Service_Impl implements IStore_Category_Service {
         this.mapper_Delete = mapper_Delete;
     }
 
+    //카테고리 이름을 조회하는 기능
+    public List<HashMap<String, Object>> categList(int store_seq){return mapper_Read.categList(store_seq);};
+
     //전체 메뉴를 조회하는 기능
-    public List<Store_Category_DTO> selectAll(int store_seq){
+    public List<HashMap<String, Object>> selectAll(int store_seq){
         return mapper_Read.selectAll(store_seq);
     }
 

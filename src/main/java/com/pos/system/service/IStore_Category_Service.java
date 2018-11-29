@@ -2,6 +2,7 @@ package com.pos.system.service;
 
 import com.pos.system.dto.Store_Category_DTO;
 
+import java.util.HashMap;
 import java.util.List;
 
 public interface IStore_Category_Service {
@@ -11,9 +12,14 @@ public interface IStore_Category_Service {
      * @Param int 매장 고유번호
      * @return &lt;Service_Store_DTO&gt; 메뉴의 리스트
      */
-    public List<Store_Category_DTO> selectAll(int store_seq);
+    public List<HashMap<String, Object>> selectAll(int store_seq);
+
+
+    public List<HashMap<String, Object>> categList(int store_seq);
 
     /**
+     *
+     *
      * 특정 매장의 카테고리별 메뉴를 조회하는 기능
      * @Param dto 매장 seq 번호와 카테고리 이름
      * @return List&lt;Store_Category_DTO&gt; 메뉴의 리스트
