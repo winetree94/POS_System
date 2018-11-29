@@ -1,39 +1,20 @@
 import React, { Component } from 'react';
-import Axios from 'axios';
-
+import common from '../utility/common-utility';
 export default class Cashbook_Info extends Component {
 
-    state = {
-        data : []
-    };
-
-    constructor (props){
-        super(props);
-    }
-
-    getData = () => {
-        Axios.get('/api/cashbook').then((response)=>{
-            this.setState({
-                data : response.data
-            })
-        })
-
-    };
 
 
     render() {
 
-        const style = {
-            border: '1px solid black',
-            padding: '8px',
-            margin: '8px',
-        };
 
-
+        const { cash_date, cash_deposit, cash_balance} = this.props.info;
 
         return (
-            <div style={style}>{JSON.stringify(this.state)}
-            </div>
+            <tr>
+                <th>{cash_date}</th>
+                <th className={"text-right"}>{common(cash_deposit)}</th>
+                <th className={"text-right"}>{common(cash_balance)}</th>
+            </tr>
         );
     }
 }
