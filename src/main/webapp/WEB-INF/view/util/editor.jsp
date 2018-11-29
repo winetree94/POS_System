@@ -59,32 +59,41 @@
             document.querySelector('div.file').innerHTML = "<input type='file' class='filechk' name='file' ><input type='hidden' class='filedelete' name='filedelete' value='false' />";
 
         }
-
-        if (title != null && title != undefined) {
-            document.querySelector(".writer").value = writer;
-            document.querySelector(".title").value = title;
-            document.querySelector(".ql-editor").innerHTML = content;
-            document.querySelector(".content").value = content;
-        }
-
-        if (file != null || file != "") {
-            document.querySelector("div.file").innerHTML += ("<span class='fileN'>" + file + "</span>");
-
-            var fileP = document.querySelector(".fileN");
-            fileP.innerHTML += "&nbsp;&nbsp;<input type='button' onclick='deletF()' value='파일삭제' class='btn btn-sm btn-dark' />";
-
-        }
-
-
     }
+</script>
+                                                        <div class="container text-left file form-control-file" style='height:27px;margin-bottom:12px;margin-top:6px'></div>
 
-    function deletF() {
+                                                        <div class="container text-right submitB" style="margin-top:10px">
 
-        document.querySelector(".fileN").innerText = "";
-        document.querySelector(".filedelete").value = "true";
-        // alert(file);
+                                                            <input class="btn btn-primary submitbtn" type="submit" value="submit">
 
-    }
+                                                        </div>
+<script type="text/javascript">
+                                                    if (title != null && title != undefined) {
+                                                        document.querySelector(".writer").value = writer;
+                                                        document.querySelector(".title").value = title;
+                                                        document.querySelector(".ql-editor").innerHTML = content;
+                                                        document.querySelector(".content").value = content;
+                                                    }
+
+                                                    if (file != null || file != "") {
+                                                        document.querySelector("div.file").innerHTML += ("<span class='fileN'>" + file + "</span>");
+
+                                                        var fileP = document.querySelector(".fileN");
+                                                        fileP.innerHTML += "&nbsp;&nbsp;<input type='button' onclick='deletF()' value='파일삭제' class='btn btn-sm btn-dark' />";
+
+                                                    }
+
+
+                                                    }
+
+                                                    function deletF() {
+
+                                                                    document.querySelector(".fileN").innerText = "";
+                                                                    document.querySelector(".filedelete").value = "true";
+                                                                    // alert(file);
+
+                                                                }
 
     /*   if(file != null	){
            document.querySelector(".file > input").value = file;
