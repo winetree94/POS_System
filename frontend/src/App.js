@@ -8,8 +8,6 @@ import {
 import Axios from 'axios';
 import SaleMain from './Sale/SaleMain.js';
 import Loading from './comm/Loading';
-import ErrorPage from './comm/ErrorPage';
-import Analyze from './Analyze/Analyze';
 import Invoice from './Invoice/Invoice';
 import Cashbook from './Cashbook/Cashbook';
 import {
@@ -28,11 +26,6 @@ export default class App extends React.Component {
 	
 	constructor(props) {
 		super(props);
-		
-		this.updateStore((response)=>{
-			console.log(response);
-		});
-		
 		this.getAuth((response) => {
 			
 			this.setState({
@@ -99,7 +92,6 @@ export default class App extends React.Component {
 		else {
 			
 			return (
-				
 				<Fragment>
 					<Header service_id={this.state.auth.service_id}></Header>
 					<div className={"container"} style={{maxWidth: "1280px"}}>

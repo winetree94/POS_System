@@ -16,7 +16,7 @@ public interface Store_Table_Read_Mapper {
      * @Param int store_seq 매장의 고유 번호
      * @return List&lt;Store_Table_DTO&gt;
      */
-    @Select(" SELECT TABLE_SEQ, STORE_SEQ, TABLE_NAME, RESERVATION, MIN_PEOPLE, MAX_PEOPLE FROM STORE_TABLE WHERE STORE_SEQ=#{store_seq} AND DELFLAG='N' ")
+    @Select(" SELECT TABLE_SEQ, STORE_SEQ, TABLE_NAME, RESERVATION, MIN_PEOPLE, MAX_PEOPLE, DELFLAG FROM STORE_TABLE WHERE STORE_SEQ=#{store_seq} AND DELFLAG='N' ")
     public List<Store_Table_DTO> selectAll(int store_seq);
 
 

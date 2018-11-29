@@ -5,7 +5,9 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import './static/css/style.css';
 import * as serviceWorker from './serviceWorker';
 import $ from 'jquery';
-import {BrowserRouter} from "react-router-dom";
+import {BrowserRouter, Route} from "react-router-dom";
+import Category from "./Category/Category";
+import InvoicePrint from "./Invoice/InvoicePrint";
 
 ReactDOM.render(
 	<BrowserRouter basename={"/pos/"}>

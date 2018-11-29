@@ -1,73 +1,86 @@
 import React from "react";
 import axios from "axios";
-import { Row, Col } from "reactstrap";
+import {Row, Col} from "reactstrap";
 import InvoiceList from "./InvoiceList";
 import InvoiceItem from "./InvoiceItem";
 import InvoiceDetail from "./InvoiceDetail";
 import qs from 'qs';
+import Loading from "../comm/Loading";
 
 export default class Invoice extends React.Component {
-  state = {
-    invoiceList: [],
-    invoiceDetail: {},
-    orderList: [],
-	  value:"",
-	  Empty : false,
-	  isLoad : false
-  };
-
-  componentDidMount = () => {
-    axios.get("/api/invoice").then(response => {
-      this.setState({
-				invoiceList: response.data,
-      },()=>{
-				this.clickEventHandler(this.state.invoiceList[0]);
+	state = {
+		invoiceList: [],
+		invoiceDetail: {},
+		orderList: [],
+		value: "",
+		Empty: false,
+		isLoad: false
+	};
+	
+	componentDidMount = () => {
+		this.interval = setInterval(() => {
+			axios.get("/api/invoice").then(response => {
+				console.log("invoice updated");
+				this.setState({
+					invoiceList: response.data,
+					isLoad: true
+				});
 			});
-		});
-  };
-
-  clickEventHandler = param => {
-    this.setState({
-        invoiceDetail: { ...param }
-      },
-      () => {
-        axios
-          .get("/api/invoice/order/" + this.state.invoiceDetail.ref)
-          .then(response => {
-            console.log(response.data);
-            this.setState({
-              orderList: response.data
-            });
-          });
-      }
-    );
-  };
+		}, 1000);
+	};
 	
-  render() {
-    return (
-      <div className={"container content"}>
+	clickEventHandler = param => {
+		this.setState({
+				invoiceDetail: {...param}
+			},
+			() => {
+				axios
+					.get("/api/invoice/order/" + this.state.invoiceDetail.ref)
+					.then(response => {
+						this.setState({
+							orderList: response.data
+						});
+					});
+			}
+		);
+	};
 	
-        <h1 className={"content-header-1"} onClick={this.clickEventHandler}>
-          판매 내역
-        </h1>
-
-        <div className={"row"}>
-          <div className={"col"}>
-            <h4 className={"content-header-4"}>거래 내역</h4>
-            <InvoiceList
-              invoiceList={this.state.invoiceList}
-              select={this.clickEventHandler}
-            />
-          </div>
-          <div className={"col"}>
-            <h4 className={"content-header-4"}>영수증</h4>
-            <InvoiceDetail
-              orderList={this.state.orderList}
-              invoiceDetail={this.state.invoiceDetail}
-            />
-          </div>
-        </div>
-      </div>
-    );
-  }
+	render() {
+		const {isLoad} = this.state;
+		
+		if (!isLoad) {
+			return (<Loading msg="결재 내역을 로딩중입니다."></Loading>)
+		} else {
+			
+			return (
+				<div className={"container content"}>
+					
+					<h1 className={"content-header-1"} onClick={this.clickEventHandler}>
+						판매 내역
+					</h1>
+					
+					<div className={"row"}>
+						<div className={"col"}>
+							<h4 className={"content-header-4"}>거래 내역</h4>
+							<InvoiceList
+								invoiceList={this.state.invoiceList}
+								select={this.clickEventHandler}
+							/>
+						</div>
+						<div className={"col"}>
+							<h4 className={"content-header-4"}>영수증</h4>
+							<InvoiceDetail
+								orderList={this.state.orderList}
+								invoiceDetail={this.state.invoiceDetail}
+							/>
+						</div>
+					</div>
+				</div>
+			);
+		}
+	}
+	
+	componentWillUnmount() {
+		clearInterval(this.interval);
+	}
 }
