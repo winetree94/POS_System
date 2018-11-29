@@ -12,7 +12,7 @@ class TableManagement extends React.Component {
 		tableList: [],
 		tableDetail: {},
 		isLoad: false,
-		detailSwitch:false
+		detailSwitch:true
 		
 	};
 	
