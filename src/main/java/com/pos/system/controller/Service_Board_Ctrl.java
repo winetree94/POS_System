@@ -66,7 +66,7 @@ public class Service_Board_Ctrl {
     ) {
 //        return "/WEB-INF/view/board/board-new.jsp";
         request.setAttribute("command",1);
-        return "/WEB-INF/view/board/board-neww.jsp";
+        return "/WEB-INF/view/board/board-view.jsp";
 
     }
 
@@ -167,8 +167,8 @@ public class Service_Board_Ctrl {
             System.out.println(file_dto);
 
         }
-
-        return "/WEB-INF/view/board/board-detail.jsp";
+        request.setAttribute("command",2);
+        return "/WEB-INF/view/board/board-view.jsp";
     }
 
 
