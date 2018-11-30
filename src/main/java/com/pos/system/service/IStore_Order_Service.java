@@ -27,4 +27,6 @@ public interface IStore_Order_Service {
 	List<HashMap<String, Object>> getInvoiceOrder(int ref);
 	
 	List<HashMap<String, Object>> getTableOrder(int store_seq, int table_seq);
+	
+	HashMap<String, Object> getRef(HashMap<String, Object> map);
 }

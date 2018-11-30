@@ -61,5 +61,13 @@ public class Store_Invoice_Rest_Ctrl {
 		return service_Invoice.payment(dto);
 	}
 	
-
+	@GetMapping("/invoice/order/{ref}")
+	public List<HashMap<String, Object>> getInvoiceOrder(
+		@PathVariable("ref") String ref
+	) {
+		return service_Order.getInvoiceOrder(Integer.parseInt(ref));
+	}
+	
+	
+	
 }

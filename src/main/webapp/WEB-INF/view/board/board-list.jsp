@@ -78,10 +78,10 @@
     </div>
 
     <%--<table class="table w-75 p-3 mx-auto table-hover text-center">--%>
-    <table class="table mx-auto table-hover text-center">
-        <%--<form action="/board/new" method="get" class="text-right">--%>
-        <%--<input type="submit" value="새글작성" class="btn btn-primary">--%>
-        <%--</form>--%>
+    <%--<table class="table mx-auto table-hover text-center">
+        &lt;%&ndash;<form action="/board/new" method="get" class="text-right">&ndash;%&gt;
+        &lt;%&ndash;<input type="submit" value="새글작성" class="btn btn-primary">&ndash;%&gt;
+        &lt;%&ndash;</form>&ndash;%&gt;
 
         <thead class="thead-dark">
 
@@ -117,6 +117,6 @@
             </c:otherwise>
         </c:choose>
 
-    </table>
+    </table>--%>
 </div>
 <jsp:include page="../comm/footer.jsp"/>

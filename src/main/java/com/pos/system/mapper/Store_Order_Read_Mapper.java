@@ -30,5 +30,8 @@ public interface Store_Order_Read_Mapper {
 		"\t\t    AND SO.REF = (SELECT MAX(REF) FROM STORE_ORDER WHERE TABLE_SEQ = #{table_seq} AND PAYED = 'N')) SO\n" +
 		"GROUP BY SO.MENU_SEQ; ")
 	List<HashMap<String, Object>> getTableOrder(@Param("table_seq") int table_seq, @Param("store_seq") int store_seq);
+	
+	@Select(" SELECT IFNULL(MAX(REF), 0) ref FROM STORE_ORDER WHERE STORE_SEQ = #{store_seq} AND TABLE_SEQ = #{table_seq} AND DELFLAG ='N' AND PAYED = 'N' ")
+	HashMap<String, Object> getRef(HashMap<String, Object> map);
 
 }

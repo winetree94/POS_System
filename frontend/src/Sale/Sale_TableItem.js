@@ -3,6 +3,7 @@ import {Col, Row, Button, Card, CardBody, CardImg, CardSubtitle, CardText, CardT
 import Axios from 'axios';
 import $ from 'jquery';
 import TableItem from "../TableManagement/TableItem";
+import { Link } from 'react-router-dom';
 
 class Sale_TableItem extends React.Component {
 	
@@ -29,19 +30,28 @@ class Sale_TableItem extends React.Component {
 		const {tableOrder} = this.state;
 		
 		const lists = tableOrder.map(tableItem => (
+			
 			<CardText
 				key={tableItem.menu_seq}
 			>{tableItem.menu_name}   :   {tableItem.count} 개</CardText>
+			
 		));
-		
+		// <Link className="nav-link" exact={"true"} to="/sale">판매</Link>
 		return (
-						<Card className={"col-md"} style={{height:"100px", margin:"10px", width:"150px"}}>
+			<Link className="nav-link" to={"/tabledetail/"+table_seq}>
+			
+						<Card
+							className={"col-md"}
+							style={{height:"100px", margin:"10px", width:"150px"}}
+							onClick={()=>{this.props.onClick(this.props.tableItem)}}
+						>
 							<CardBody style={{padding:"3px"}}>
 								<CardTitle></CardTitle>
 								<CardSubtitle>{table_name}</CardSubtitle>
 								{lists}
 							</CardBody>
 						</Card>
+			</Link>
 		)
 	}
 	

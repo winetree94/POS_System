@@ -72,4 +72,7 @@ public class IStore_Order_Service_Impl implements IStore_Order_Service {
 	@Override
 	public List<HashMap<String, Object>> getTableOrder(int store_seq, int table_seq){return mapper_Read.getTableOrder(table_seq, store_seq);}
 	
+	@Override
+	public HashMap<String, Object> getRef(HashMap<String, Object> map) {return mapper_Read.getRef(map);}
+	
 }

@@ -15,6 +15,7 @@ import {
 } from 'react-router-dom'
 import Category from "./Category/Category";
 import TableManagement from "./TableManagement/TableManagement";
+import TableDetail from "./Sale/Sale_TableDetail";
 
 export default class App extends React.Component {
 	
@@ -108,6 +109,7 @@ export default class App extends React.Component {
 								<Route path="/management" component={SaleMain}/>
 								<Route path="/invoice" component={Invoice}/>
 								<Route path="/cashbook" component={Cashbook}/>
+								<Route path="/tabledetail/:table_seq" component={TableDetail}/>
 							</Col>
 						</Row>
 					</div>
