@@ -97,10 +97,11 @@ public class Store_Category_Rest_Ctrl {
         Service_Store_DTO store = (Service_Store_DTO)session.getAttribute("store");
         dto.setStore_seq(store.getStore_seq());
         dto.setMenu_seq(Integer.parseInt(menu_seq));
-        dto = service.selectOne(dto);
+        System.out.println("작동");
+        System.out.println(dto);
+
 
         //MENU_NAME=#{menu_name},CATEG_NAME=#{categ_name},MENU_INFO=#{menu_info},ORIGIN_FNAME=#{origin_fname},STORED_FNAME=#{stored_fname}, MENU_PRICE=#{menu_price}
-        dto.setStore_seq(store.getStore_seq());
         dto.setMenu_name(menu_name);
         dto.setCateg_name(categ_name);
         dto.setMenu_info(menu_info);
@@ -135,7 +136,6 @@ public class Store_Category_Rest_Ctrl {
     @GetMapping("/category/menulists/{categ_name}")
     public List<Store_Category_DTO> category1(HttpSession session,
                                              @PathVariable("categ_name") String categ_name){
-        System.out.println("categ");
         Service_Store_DTO store = (Service_Store_DTO)session.getAttribute("store");
         Store_Category_DTO dto = new Store_Category_DTO();
         dto.setStore_seq(store.getStore_seq());

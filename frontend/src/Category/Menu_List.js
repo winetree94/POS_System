@@ -17,7 +17,8 @@ class MenuList extends Component {
         menu_info : '',
         categ_name : '',
         origin_fname :'',
-        stored_fname : ''
+        stored_fname : '',
+        menu_seq : ''
     };
 
     constructor(props) {
@@ -90,7 +91,54 @@ class MenuList extends Component {
 
     };
 
+    checkboxHandler = (data)=>{
 
+        console.log("받아온 메뉴seq값");
+        console.log(data);
+        const{menu_seq} = this.state;
+        this.setState({
+            menu_seq : data
+
+        },()=>{
+            console.log("마지막 메뉴seq값");
+            console.log(this.state.menu_seq);
+        });
+
+    };
+
+    modifyHandler = (e)=>{
+        e.preventDefault();
+        Axios.put('/api/menu/' + this.state.menu_seq , qs.stringify({
+            menu_seq : this.state.menu_seq,
+            menu_name : this.state.menu_name,
+            categ_name: this.state.categ_name,
+            menu_info : this.state.menu_info,
+            menu_price: this.state.menu_price,
+            origin_fname : this.state.origin_fname,
+            stored_fname : this.state.stored_fname
+        }));
+
+        console.log("악시오스 스테이트");
+        console.log(this.state);
+        this.setState({
+            menu_name : '',
+            categ_name: '',
+            menu_info : '',
+            menu_price: '',
+            modal : false
+        })
+
+
+    }
+
+    removeHandler = (e)=>{
+        e.preventDefault();
+        Axios.delete('/api/menu/' + this.state.menu_seq, qs.stringify({
+            menu_seq : this.state.menu_seq
+        }));
+
+
+    }
 
 
 
@@ -104,7 +152,7 @@ class MenuList extends Component {
 
         const list = detail.map(
             info =>(
-                <MenuDetail key={info.menu_seq} info={info}/>
+                <MenuDetail key={info.menu_seq} onChange={this.checkboxHandler} info={info}/>
             )
         );
 
@@ -178,10 +226,29 @@ class MenuList extends Component {
                         <Modal isOpen={this.state.modal2} fade={false} toggle={this.toggle2}
                                className={this.props.className}>
                             <ModalHeader toggle={this.toggle2}>수정버튼작동</ModalHeader>
-                            <form method="post">
+                            <form method="post" onSubmit={this.modifyHandler}>
                                 <ModalBody>
                                     <div>
-                                        수정 하실겁니까
+                                        <div className="form-group">
+                                            <label htmlFor="menu_name">메뉴이름</label>
+                                            <input type="text" name='menu_name'   placeholder='메뉴이름을 적어주세요.' className='form-control' onChange={this.dataHandler} />
+                                        </div>
+
+                                        <div className="form-group">
+                                            <label htmlFor="categ_name">카테고리 이름</label>
+                                            <input id="categ_name1" name="categ_name"  placeholder="카테고리명을 적어주세요." className="form-control" onChange={this.dataHandler} />
+                                        </div>
+
+                                        <div className="form-group">
+                                            <label htmlFor="menu_info">메뉴 상세정보</label>
+                                            <input id="menu_info1" name="menu_info"  placeholder="설명을 적어주세요." className="form-control" onChange={this.dataHandler} />
+                                        </div>
+
+                                        <div className="form-group">
+                                            <label htmlFor="menu_price">메뉴 가격</label>
+                                            <input id="menu_price" name="menu_price" placeholder="가격을 정해주세요." className="form-control" onChange={this.dataHandler}/>
+                                        </div>
+
                                     </div>
                                 </ModalBody>
                                 <ModalFooter>
@@ -206,10 +273,10 @@ class MenuList extends Component {
                             <Modal isOpen={this.state.modal3} fade={false} toggle={this.toggle3}
                                    className={this.props.className}>
                                 <ModalHeader toggle={this.toggle3}>삭제버튼작동</ModalHeader>
-                                <form method="post">
+                                <form method="post" onSubmit={this.removeHandler}>
                                     <ModalBody>
                                         <div>
-                                     삭제 하실겁니까
+                                     삭제 하실겁니까?
                                         </div>
                                     </ModalBody>
                                     <ModalFooter>
