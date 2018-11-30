@@ -248,6 +248,7 @@ function editSendEmail(){
     var service_email = document.getElementById("service_email").value;
     document.getElementById("email_auth2").onclick = null;
     $("#result").text('이메일로 인증번호를 보내는 중입니다.');
+    document.querySelector("#reEmail").style = "display : none";
     $.ajax({
         type:"post",
         url:"/email/sendemail",
@@ -346,6 +347,7 @@ function sendEmail(){
     document.querySelector("#service_email").setAttribute("readonly", "readonly");
     document.getElementById("email_auth").onclick = null;
     document.getElementById("reEmail1").onclick = null;
+    document.querySelector("#reEmail1").style = "display : none";
     $("#resultemail").text('이메일로 인증키를 보내는 중입니다.');
 
     $.ajax({

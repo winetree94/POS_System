@@ -11,7 +11,7 @@ import java.util.List;
 @Repository
 public interface Store_Category_Read_Mapper {
 
-    @Select(" SELECT DISTINCT CATEG_NAME FROM STORE_CATEGORY WHERE STORE_SEQ=#{store_seq} ")
+    @Select(" SELECT DISTINCT CATEG_NAME FROM STORE_CATEGORY WHERE STORE_SEQ=#{store_seq} AND DELFLAG='N' ")
     public List<HashMap<String, Object>> categList(int store_seq);
 
 
