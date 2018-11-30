@@ -12,10 +12,10 @@
 <script src="https://cdn.quilljs.com/1.2.2/quill.js"></script>
 <style type="text/css">
     /*.ql-toolbar{*/
-        /*display:none;*/
+    /*display:none;*/
     /*}*/
     /*.ql-editor{*/
-        /*border-top: 1px solid #ccc;*/
+    /*border-top: 1px solid #ccc;*/
     /*}*/
 </style>
 <script type="text/javascript">
@@ -41,7 +41,7 @@
     Service_File_DTO fileDto = (Service_File_DTO) objF;
     Service_File_DTO file_edit = (Service_File_DTO) objEF;
 
-    int command = (int) request.getAttribute("command");//board-new:1 board-detail:2
+    int command = (int) request.getAttribute("command");//board-new:1 board-detail:2 board-edit:3
 
     String service_id = "";
     String service_type = "";
@@ -52,10 +52,9 @@
     }
 
 %>
-    <%--if (request.getAttribute("file_edit") != null){ --%>
-        <%--var file = "<%=file_edit.getOrigin_fname()%>";--%>
-    <%--}--%>
-
+<%--if (request.getAttribute("file_edit") != null){ --%>
+<%--var file = "<%=file_edit.getOrigin_fname()%>";--%>
+<%--}--%>
 
 
 <div class="jumbotron jumbotron-fluid" style="margin-top:56px">
@@ -65,11 +64,12 @@
         <hr class="my-4">
     </div>
 </div>
+<%--action=<%if (command==1){%>"/board"<%}else if(command==3){%>"/board/<%=board_edit.getBoard_seq()%>/edit"<%}%>--%>
 <div class="container">
     <form class="editor-form" onsubmit="return sizeChk()" style="margin-bottom:14px"
-          action=<%=command!=2?"/board":null%> class="" method=<%=command!=2?"post":null%> enctype="multipart/form-data"
-          use_file="true">
-
+          <%if (command==1){%>action="/board"
+          <%}else if(command==3){%>action="/board/<%=board_edit.getBoard_seq()%>/edit"<%}%>
+          class="" method=<%=command!=2?"post":""%> enctype="multipart/form-data" use_file="true">
         <%-- 제목, 글쓴이 --%>
         <div class="form-group input-group mb-3" style="margin-bottom: 0!important;">
             <%--<div class="input-group mb-3">--%>
@@ -78,11 +78,12 @@
             </div>
 
             <input type="text" class="title form-control" name="title" aria-describedby="basic-addon1"
-                   value="<%=command==2?board_detail.getTitle():""%>" <%if (command!=1){%>disabled<%}%>><%--title--%>
+                   value="<%=command==2?board_detail.getTitle():""%><%=command==3?board_edit.getTitle():""%>"
+                   <%if (command==2){%>disabled<%}%>><%--title--%>
 
             <div class="input-group-append">
                 <input type="text" class="writer input-group-text" id="basic-addon2" name="writer"
-                       placeholder="<% if (command==1){%><%=service_id%> <%}else if(command==2){%><%=board_detail.getService_id()%><%}else{%><%=board_edit.getService_id()%><%}%>"
+                       placeholder="<% if (command==1){%><%=service_id%> <%}else if(command==2){%><%=board_detail.getService_id()%><%}else if(command==3){%><%=board_edit.getService_id()%><%}%>"
                        readonly="readonly"/>
                 <%if (command == 2) {%>
                 <span class="input-group-text"><fmt:formatDate value="${board_detail.getRegdate()}"
@@ -94,57 +95,86 @@
 
         <%--에디터--%>
         <div class="form-group">
-            <div class="editor-container" style="maw-width:100%"id="test"></div>
+            <div class="editor-container" style="maw-width:100%" id="test"></div>
             <input type="hidden" class="content" name="content" value="">
         </div>
 
-            <%--파일--%>
+        <%--파일--%>
         <div class="form-group input-group mb-3" style="width:70%">
 
             <div class="custom-file">
-                <input type="file" class="filechk custom-file-input" name="file" id="inputGroupFile04" <%=command!=1?"disabled":""%>>
+                <input type="file" class="filechk custom-file-input" name="file"
+                       id="inputGroupFile04" <%=command!=1?"disabled":""%>>
                 <label class="custom-file-label fileN" for="inputGroupFile04"
                        aria-describedby="inputGroupFileAddon04">
-                   <%--<span class='fileN'></span>--%>
-                    <%=fileDto!=null?fileDto.getOrigin_fname():"UPLOAD"%>
+                    <%--<span class='fileN'></span>--%>
+                    <%if (command == 2) {%>
+                    <%=fileDto != null ? fileDto.getOrigin_fname() : "UPLOAD"%>
+                    <%} else if (command == 3) {%>
+                    <%=file_edit != null ? file_edit.getOrigin_fname() : "UPLOAD"%>
+                    <%}%>
                 </label>
 
             </div>
 
 
+        </div>
+        <div class="container text-right submitB" style="margin-top:10px">
+            <%if (command != 2) {%>
+            <input class="btn btn-primary submitbtn" type="submit" value="submit">
+            <%}%>
 
         </div>
 
 
-        <div>
-            <div class="container text-right submitB" style="margin-top:10px">
-                <input class="btn btn-primary submitbtn" type="submit" value="submit">
-                <input onclick="back()" class="btn" value="뒤로가기" type="button"/>
-                <script type="text/javascript">function back() {
-                    history.back();
-                }</script>
-            </div>
-        </div>
         <%--.form-group End--%>
     </form>
+    <div><%----%>
+        <div class="container text-right submitB" style="margin-top:10px">
+
+
+            <%--/board/<%=board_edit.getBoard_seq()%>/edit--%>
+
+            <%
+                if (command == 2) {
+                    if (service_id.equalsIgnoreCase(board_detail.getService_id())) {%>
+            <form action="" method="" class="boardChk">
+                <input class="btn btn-primary" type="button" onclick="edit()" value="수정"/>
+                <input class="btn btn-primary" type="button" onclick="del()" value="삭제"/>
+            </form>
+            <%
+                    }
+                }
+            %>
+            <input onclick="back()" class="btn" value="뒤로가기" type="button"/>
+        </div>
+    </div>
+
     <div class="input-group-append">
-        <%if(command!=2){%>
-        <input type='hidden' class='filedelete' name='filedelete' value='false' />
-        <input type='button' onclick='deletF()' value='파일삭제' class="btn btn-outline-secondary" id="inputGroupFileAddon04" />
-        <%}else if(command==2 && fileDto!=null) {%>
-        <form action="./${board_detail.board_seq}/download" method="POST"  enctype="multipart/form-data">
-            <%--<input type="button" onclick="editFile()" value="파일수정">--%>
-            <%--<input type="button" onclick="delFile()" value="파일삭제">--%>
-            <input type="submit" value="다운로드" class="input-group-text">
+
+
+        <%if (command != 2) {%>
+        <%if (command == 3 && file_edit != null) {%>
+        <form action="" method="" class="boardChk">
+            <input type='hidden' class='filedelete' name='filedelete' value='false'/>
+            <input type='button' onclick='deletF()' value='파일삭제' class="btn btn-outline-secondary"
+                   id="inputGroupFileAddon04"/>
         </form>
-        <%}%>
-        <%--%=fileDto.getOrigin_fname()%>--%>
-        <%--<form action="./${board_detail.board_seq}/download" method="POST" class="fileChk"--%>
-        <%--enctype="multipart/form-data">--%>
-        <%--&lt;%&ndash;<input type="button" onclick="editFile()" value="파일수정">&ndash;%&gt;--%>
-        <%--&lt;%&ndash;<input type="button" onclick="delFile()" value="파일삭제">&ndash;%&gt;--%>
-        <%--<input type="submit" value="다운로드">--%>
-        <%--</form>--%>
+                <%}%>
+                <%}else if(command==2 && fileDto!=null) {%>
+            <form action="./${board_detail.board_seq}/download" method="POST" enctype="multipart/form-data">
+                <%--<input type="button" onclick="editFile()" value="파일수정">--%>
+                <%--<input type="button" onclick="delFile()" value="파일삭제">--%>
+                <input type="submit" value="다운로드" class="input-group-text">
+            </form>
+                <%}%>
+            <%--%=fileDto.getOrigin_fname()%>--%>
+            <%--<form action="./${board_detail.board_seq}/download" method="POST" class="fileChk"--%>
+            <%--enctype="multipart/form-data">--%>
+            <%--&lt;%&ndash;<input type="button" onclick="editFile()" value="파일수정">&ndash;%&gt;--%>
+            <%--&lt;%&ndash;<input type="button" onclick="delFile()" value="파일삭제">&ndash;%&gt;--%>
+            <%--<input type="submit" value="다운로드">--%>
+            <%--</form>--%>
 
 
     </div>
@@ -152,70 +182,102 @@
 </div>
 <script>
 
-        // document.querySelector(".ql-snow").style.display = "none";
-        // document.querySelector(".ql-toolbar").style.display = "none";
+    // document.querySelector(".ql-snow").style.display = "none";
+    // document.querySelector(".ql-toolbar").style.display = "none";
 
 
-        var quill = new Quill('.editor-container', {
-            theme: 'snow'
-        });
+    var quill = new Quill('.editor-container', {
+        theme: 'snow'
+    });
 
-        document.querySelector(".ql-container").style.height = "130px";
+    document.querySelector(".ql-container").style.height = "130px";
 
-        <% if (command==2){%>
+    <% if (command==2){%>
 
-        document.querySelector(".ql-toolbar").style.display = "none";
-        document.querySelector(".ql-editor").style.borderTop= "1px solid #ccc";
-        document.querySelector(".ql-blank").contenteditable="false";
-        document.querySelector(".editor-container > div").contenteditable="false";
-        document.querySelector("#test > div").setAttribute("contenteditable","false");
-        document.querySelector("#test > div").innerHTML = "<%=board_detail.getContent()%>";
+    document.querySelector(".ql-toolbar").style.display = "none";
+    document.querySelector(".ql-editor").style.borderTop = "1px solid #ccc";
+    document.querySelector(".ql-blank").contenteditable = "false";
+    document.querySelector(".editor-container > div").contenteditable = "false";
+    document.querySelector("#test > div").setAttribute("contenteditable", "false");
+    document.querySelector("#test > div").innerHTML = "<%=board_detail.getContent()%>";
 
-        <%}%>
+    <%}%>
+    <%if (command==3){%>
+    document.querySelector("#test > div").innerHTML = "<%=board_edit.getContent()%>";
 
+    <%}%>
 
+    <%--<%if(command==2){--%>
+    <%--if(service_id.equalsIgnoreCase(board_detail.getService_id())){--%>
+    <%--%>--%>
 
+    function edit() {
 
-
-
-        function deletF() {
-
-            document.querySelector(".fileN").innerText = "UPLOAD";
-            document.querySelector(".filedelete").value = "true";
-            // alert(file);
-
-        }
-
-        <%--var use_file = true; // 파일 업로드 기능 사용 여부--%>
-        <%--if (use_file) {--%>
-            <%--document.querySelector('div.file').innerHTML = "<input type='hidden' class='filedelete' name='filedelete' value='false' />";--%>
-        <%--}--%>
-
-        function sizeChk() {
-
-            //content 담기
-            var content = document.querySelector("#test > div").innerHTML;
-            document.querySelector(".content").value = content;
-            console.log(content);
+        // var edit = document.forms[0];
+        var edit = document.querySelector(".boardChk");
+        edit.action = "/board/${board_detail.board_seq}/edit";
+        // edit.setAttribute("method","get");
+        edit.method = "get";
+        edit.submit();
 
 
-            //파일 사이즈체크
-            var maxSize = 2 * 1024 * 1024;
-            //
-            if (document.querySelector(".filechk").files[0] !== undefined) {
-                var fileSize = document.querySelector(".filechk").files[0].size;
-                // alert(fileSize);
-                if (fileSize > maxSize) {
-                    alert("2MB이하의 파일을 선택해주세요");
-                    return false;
-                } else {
-                    alert("적당한 사이즈네요");
-                    return true;
-                }
+    }
+
+    function del() {
+        var del = document.querySelector(".boardChk");
+        del.action = "/board/${board_detail.board_seq}/delete";
+        del.method = "post";
+        del.submit();
+        //alert("del");
+
+    }
+
+    <%--<%}}%>--%>
+
+    function back() {
+        // history.back();
+        location.href = document.referrer;
+    }
+
+
+    function deletF() {
+
+        document.querySelector(".fileN").innerText = "UPLOAD";
+        document.querySelector(".filedelete").setAttribute("value","true");
+        // alert(file);
+
+    }
+
+    <%--var use_file = true; // 파일 업로드 기능 사용 여부--%>
+    <%--if (use_file) {--%>
+    <%--document.querySelector('div.file').innerHTML = "<input type='hidden' class='filedelete' name='filedelete' value='false' />";--%>
+    <%--}--%>
+
+    function sizeChk() {
+
+        //content 담기
+        var content = document.querySelector("#test > div").innerHTML;
+        document.querySelector(".content").value = content;
+        console.log(content);
+
+
+        //파일 사이즈체크
+        var maxSize = 2 * 1024 * 1024;
+        //
+        if (document.querySelector(".filechk").files[0] !== undefined) {
+            var fileSize = document.querySelector(".filechk").files[0].size;
+            // alert(fileSize);
+            if (fileSize > maxSize) {
+                alert("2MB이하의 파일을 선택해주세요");
+                return false;
+            } else {
+                alert("적당한 사이즈네요");
+                return true;
             }
-
-            // return true;
         }
+
+        // return true;
+    }
 
 
 </script>

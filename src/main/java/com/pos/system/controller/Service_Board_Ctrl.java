@@ -248,7 +248,9 @@ public class Service_Board_Ctrl {
 
             System.out.println(file_edit.getOrigin_fname());
         }
-        return "/WEB-INF/view/board/board-edit.jsp";
+
+        request.setAttribute("command",3);
+        return "/WEB-INF/view/board/board-view.jsp";
     }
 
     /**
@@ -289,7 +291,8 @@ public class Service_Board_Ctrl {
         System.out.println("파일 수정1");
 
         String filedelete = request.getParameter("filedelete");
-
+//        System.out.println(filedelete);
+//
         if (file.isEmpty() && filedelete.equalsIgnoreCase("true")){
            fileManager.fileDelete(board_seq);
         }
@@ -311,8 +314,8 @@ public class Service_Board_Ctrl {
 
         if (result > 0) {
 
-
-            return "redirect:/board";
+                request.setAttribute("command",3);
+            return "/WEB-INF/view/board/board-view.jsp";
 
         } else {
 
