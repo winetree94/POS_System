@@ -31,7 +31,7 @@ export default class SideBar extends React.Component {
 	
 	handleClick = (e) => {
 		e.preventDefault();
-	}
+	};
 	
 	render() {
 		return (
