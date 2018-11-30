@@ -11,7 +11,7 @@ import java.util.List;
 @Repository
 public interface Store_Category_Read_Mapper {
 
-    @Select(" SELECT DISTINCT CATEG_NAME FROM STORE_CATEGORY WHERE STORE_SEQ=#{store_seq} ")
+    @Select(" SELECT DISTINCT CATEG_NAME FROM STORE_CATEGORY WHERE STORE_SEQ=#{store_seq} AND DELFLAG='N' ")
     public List<HashMap<String, Object>> categList(int store_seq);
 
 
@@ -37,6 +37,6 @@ public interface Store_Category_Read_Mapper {
      * @param \store_Category_DTO menu_seq 메뉴의 고유번호
      * @return \Store_Category_DTO\
      */
-    @Select(" SELECT MENU_SEQ,STORE_SEQ, MENU_NAME, CATEG_NAME, MENU_INFO,ORIGIN_FNAME, STORED_FNAME, MENU_PRICE, DELFLAG FROM STORE_CATEGORY WHERE MENU_SEQ=#{menu_seq} AND STORE_SEQ=#{store_Seq} ")
+    @Select(" SELECT MENU_SEQ,STORE_SEQ, MENU_NAME, CATEG_NAME, MENU_INFO,ORIGIN_FNAME, STORED_FNAME, MENU_PRICE, DELFLAG FROM STORE_CATEGORY WHERE MENU_SEQ=#{menu_seq} AND STORE_SEQ=#{store_seq} ")
     public Store_Category_DTO selectOne(Store_Category_DTO dto);
 }

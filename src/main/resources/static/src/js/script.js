@@ -169,7 +169,9 @@ function pwFind(){
     var service_email = document.getElementById("inputemail").value;
     var frm = document.forms[0];
     document.getElementById("pwfind").onclick=null;
-
+    $("#pwfindresult").text('새로운 비밀번호를 보내는 중입니다.');
+    document.querySelector("#pwfind").style ="display : none";
+    document.querySelector("#cancel2").style ="display : none";
     $.ajax({
         type:"post",
         url:"/email/pwfindcheck",
@@ -183,8 +185,6 @@ function pwFind(){
             }else if ("성공"){
                 $("#pwfindresult").text('선택하신 이메일로 새로운 비밀번호를 보냈습니다');
                 document.querySelector("#pwfindconfirm").style ="display : inline";
-                document.querySelector("#pwfind").style ="display : none";
-                document.querySelector("#cancel2").style ="display : none";
 
 
             }else{
@@ -248,6 +248,8 @@ function editSendEmail(){
     var service_email = document.getElementById("service_email").value;
     document.getElementById("email_auth2").onclick = null;
     $("#result").text('이메일로 인증번호를 보내는 중입니다.');
+    document.querySelector("#reEmail").style = "display : none";
+    document.querySelector("#email_auth2").style = "display : none";
     $.ajax({
         type:"post",
         url:"/email/sendemail",
@@ -346,6 +348,9 @@ function sendEmail(){
     document.querySelector("#service_email").setAttribute("readonly", "readonly");
     document.getElementById("email_auth").onclick = null;
     document.getElementById("reEmail1").onclick = null;
+    document.querySelector("#reEmail1").style = "display : none";
+    document.querySelector("#email_auth").style = "display : none";
+
     $("#resultemail").text('이메일로 인증키를 보내는 중입니다.');
 
     $.ajax({

@@ -14,7 +14,7 @@
                     <div class="form-group">
                         <label for="inputemail">이메일</label>
                             <input class="form-control" type="text" id="inputemail" name="inputemail" required="required" placeholder="이메일 주소">
-                        <span id="pwfindresult"></span>
+                        <p class="p-2"><span id="pwfindresult"></span></p>
                     </div>
 
 
