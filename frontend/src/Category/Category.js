@@ -27,8 +27,6 @@ class Category extends React.Component {
                     isLoad : true
                 })
             });
-            console.log(this.state.data);
-
         }, 1000);
     };
 
@@ -37,7 +35,9 @@ class Category extends React.Component {
                 categ_name : item.CATEG_NAME
             },
             () => {
-                Axios .get("/api/category/menulists/"+this.state.categ_name)
+
+
+                this.interval2= setInterval(()=>  { Axios .get("/api/category/menulists/"+this.state.categ_name)
                     .then(response => {
 
                         this.setState({
@@ -45,11 +45,14 @@ class Category extends React.Component {
 
                         });
 
-                        console.log("detail은");
-                       console.log(this.state.menu_list);
-                        console.log("categname은");
-                        console.log(this.state.categ_name);
-                    });
+
+
+                    });},1000 );
+
+
+
+
+
             }
         );
     };
@@ -90,6 +93,7 @@ class Category extends React.Component {
 
 	componentWillUnmount(){
 	    clearInterval(this.interval);
+	    clearInterval(this.interval2);
     }
 
 }

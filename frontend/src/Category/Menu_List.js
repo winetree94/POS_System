@@ -2,16 +2,11 @@ import React, {Component} from 'react';
 import common from "../utility/common-utility";
 import MenuDetail from "./Menu_Detail";
 import {Button, Modal, ModalHeader, ModalBody, ModalFooter} from 'reactstrap';
+import Axios from "axios";
+import qs from "qs";
 
 
 class MenuList extends Component {
-    constructor(props) {
-        super(props);
-
-        this.toggle = this.toggle.bind(this);
-        this.toggle2 = this.toggle2.bind(this);
-        this.toggle3 = this.toggle3.bind(this);
-    }
 
     state = {
         modal: false,
@@ -20,8 +15,20 @@ class MenuList extends Component {
         menu_name : '',
         menu_price : '',
         menu_info : '',
-        categ_name : ''
+        categ_name : '',
+        origin_fname :'',
+        stored_fname : ''
     };
+
+    constructor(props) {
+        super(props);
+
+        this.toggle = this.toggle.bind(this);
+        this.toggle2 = this.toggle2.bind(this);
+        this.toggle3 = this.toggle3.bind(this);
+    }
+
+
 
     toggle() {
         this.setState({
@@ -41,21 +48,49 @@ class MenuList extends Component {
         });
     }
 
-    changeHandler = (e)=>{
-        this.setState=({
-            [e.target.name]: e.target.value
+
+
+    dataHandler = (e)=>{
+        console.log(e.target.name);
+        console.log(e.target.value);
+        this.setState({
+        [e.target.name] : e.target.value
         });
-
-
+        console.log("스테이트 만들기");
+        console.log(this.state);
     };
+
+
+
+
 
 
     createHandler = (e)=>{
         e.preventDefault();
+        Axios.post('/api/menu', qs.stringify({
+            menu_name : this.state.menu_name,
+            categ_name: this.state.categ_name,
+            menu_info : this.state.menu_info,
+            menu_price: this.state.menu_price,
+            origin_fname : this.state.origin_fname,
+            stored_fname : this.state.stored_fname
+        }));
+
+        console.log("악시오스 스테이트");
+        console.log(this.state);
+        this.setState({
+            menu_name : '',
+            categ_name: '',
+            menu_info : '',
+            menu_price: '',
+            modal : false
 
 
+        })
 
     };
+
+
 
 
 
@@ -69,7 +104,7 @@ class MenuList extends Component {
 
         const list = detail.map(
             info =>(
-                <MenuDetail info={info} key={detail.menu_seq} />
+                <MenuDetail key={info.menu_seq} info={info}/>
             )
         );
 
@@ -101,13 +136,29 @@ class MenuList extends Component {
                         <Modal isOpen={this.state.modal} fade={false} toggle={this.toggle}
                                className={this.props.className}>
                             <ModalHeader toggle={this.toggle}>추가버튼작동</ModalHeader>
-                            <form method="post" obSubmit={this.createHandler}>
+                            <form onSubmit={this.createHandler}>
                                 <ModalBody>
                                     <div>
-                                        <input name="menu_name"  placeholder="메뉴이름을 적어주세요." />
-                                        <input placeholder="카테고리명을 적어주세요." />
-                                        <input placeholder="설명을 적어주세요." />
-                                        <input placeholder="가격을 정해주세요." />
+                                        <div className="form-group">
+                                        <label htmlFor="menu_name">메뉴이름</label>
+                                        <input type="text" name='menu_name'   placeholder='메뉴이름을 적어주세요.' className='form-control' onChange={this.dataHandler} />
+                                        </div>
+
+                                        <div className="form-group">
+                                            <label htmlFor="categ_name">카테고리 이름</label>
+                                        <input id="categ_name1" name="categ_name"  placeholder="카테고리명을 적어주세요." className="form-control" onChange={this.dataHandler} />
+                                        </div>
+
+                                        <div className="form-group">
+                                            <label htmlFor="menu_info">메뉴 상세정보</label>
+                                        <input id="menu_info1" name="menu_info"  placeholder="설명을 적어주세요." className="form-control" onChange={this.dataHandler} />
+                                        </div>
+
+                                        <div className="form-group">
+                                            <label htmlFor="menu_price">메뉴 가격</label>
+                                        <input id="menu_price" name="menu_price" placeholder="가격을 정해주세요." className="form-control" onChange={this.dataHandler}/>
+                                    </div>
+
                                     </div>
                                 </ModalBody>
                                 <ModalFooter>

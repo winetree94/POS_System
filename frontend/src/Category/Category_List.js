@@ -8,12 +8,9 @@ class CategoryList extends Component {
 
         const list = data.map(
             info => (
-              <CategoryInfo info={info} onClick={onClick}/>
-
+              <CategoryInfo key={info.menu_seq} info={info} onClick={onClick}/>
             )
         );
-
-        console.log(data);
 
         return (
             <div className="content-box" style={{overflow:"auto"}}>
