@@ -111,20 +111,7 @@
 
             </div>
 
-            <div class="input-group-append">
-                <%if(command!=2){%>
-                <input type='hidden' class='filedelete' name='filedelete' value='false' />
-                <input type='button' onclick='deletF()' value='파일삭제' class="btn btn-outline-secondary" id="inputGroupFileAddon04" />
-                <%}else if(command==2 && fileDto!=null) {%>
 
-                <form action="./${board_detail.board_seq}/download" method="POST"
-                      enctype="multipart/form-data">
-                    <%--<input type="button" onclick="editFile()" value="파일수정">--%>
-                    <%--<input type="button" onclick="delFile()" value="파일삭제">--%>
-                    <input type="submit" value="다운로드">
-                </form>
-                <%}%>
-            </div>
 
         </div>
 
@@ -140,6 +127,27 @@
         </div>
         <%--.form-group End--%>
     </form>
+    <div class="input-group-append">
+        <%if(command!=2){%>
+        <input type='hidden' class='filedelete' name='filedelete' value='false' />
+        <input type='button' onclick='deletF()' value='파일삭제' class="btn btn-outline-secondary" id="inputGroupFileAddon04" />
+        <%}else if(command==2 && fileDto!=null) {%>
+        <form action="./${board_detail.board_seq}/download" method="POST"  enctype="multipart/form-data">
+            <%--<input type="button" onclick="editFile()" value="파일수정">--%>
+            <%--<input type="button" onclick="delFile()" value="파일삭제">--%>
+            <input type="submit" value="다운로드" class="input-group-text">
+        </form>
+        <%}%>
+        <%--%=fileDto.getOrigin_fname()%>--%>
+        <%--<form action="./${board_detail.board_seq}/download" method="POST" class="fileChk"--%>
+        <%--enctype="multipart/form-data">--%>
+        <%--&lt;%&ndash;<input type="button" onclick="editFile()" value="파일수정">&ndash;%&gt;--%>
+        <%--&lt;%&ndash;<input type="button" onclick="delFile()" value="파일삭제">&ndash;%&gt;--%>
+        <%--<input type="submit" value="다운로드">--%>
+        <%--</form>--%>
+
+
+    </div>
     <%--form End--%>
 </div>
 <script>
@@ -197,7 +205,7 @@
             if (document.querySelector(".filechk").files[0] !== undefined) {
                 var fileSize = document.querySelector(".filechk").files[0].size;
                 // alert(fileSize);
-                if (fileSize < maxSize) {
+                if (fileSize > maxSize) {
                     alert("2MB이하의 파일을 선택해주세요");
                     return false;
                 } else {
