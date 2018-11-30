@@ -54,7 +54,7 @@ public class FileManager {
 //        ServletContext context = request.getServletContext();
 //		String PATH= context.getRealPath("upload");
 //		String filepath2 = request.getServletContext() +"/"+"upload";
-        String PATH = request.getSession().getServletContext().getRealPath("/")+"upload/";
+        String PATH = request.getSession().getServletContext().getRealPath("/")+"upload";
 
 
         File path = new File(PATH);
