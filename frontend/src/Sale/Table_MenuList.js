@@ -16,7 +16,6 @@ class Sale_MenuList extends React.Component {
 	
 	render() {
 		
-		//		[Log] {activeTab: "1", category: [{CATEG_NAME: "FOOD"}, {CATEG_NAME: "COFFEE"}, {CATEG_NAME: "DESSERT"}, {CATEG_NAME: "MODAL"}]} (main.chunk.js, line 3084)
 		const categories = this.props.category.map(category => (
 			<div key={category.CATEG_NAME}>
 				<NavLink
@@ -61,45 +60,6 @@ class Sale_MenuList extends React.Component {
 				<Nav tabs>
 					{categories}
 				</Nav>
-				{/*<Nav tabs>*/}
-				{/*<NavItem>*/}
-				{/*<NavLink*/}
-				{/*className={classnames({ active: this.props.activeTab === '1' })}*/}
-				{/*onClick={() => { this.props.toggle('1'); }}*/}
-				{/*>*/}
-				{/*Tab1*/}
-				{/*</NavLink>*/}
-				{/*</NavItem>*/}
-				{/*<NavItem>*/}
-				{/*<NavLink*/}
-				{/*className={classnames({ active: this.props.activeTab === '2' })}*/}
-				{/*onClick={() => { this.props.toggle('2'); }}*/}
-				{/*>*/}
-				{/*Moar Tabs*/}
-				{/*</NavLink>*/}
-				{/*</NavItem>*/}
-				{/*</Nav>*/}
-				
-				
-				{/*<TabContent activeTab={this.props.activeTab}>*/}
-				{/*<TabPane tabId="1">*/}
-				{/*<Row>*/}
-				{/*<Col sm="12">*/}
-				{/*<h4>Tab 1 Contents</h4>*/}
-				{/*</Col>*/}
-				{/*</Row>*/}
-				{/*</TabPane>*/}
-				{/*<TabPane tabId="2">*/}
-				{/*<Row>*/}
-				{/*<Col sm="6">*/}
-				{/*d*/}
-				{/*</Col>*/}
-				{/*<Col sm="6">*/}
-				{/*d*/}
-				{/*</Col>*/}
-				{/*</Row>*/}
-				{/*</TabPane>*/}
-				{/*</TabContent>*/}
 				
 				<TabContent activeTab={this.props.activeTab}>
 					{menus}

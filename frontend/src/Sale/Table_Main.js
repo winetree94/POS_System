@@ -2,6 +2,7 @@ import React from 'react';
 import Axios from "axios";
 import {Button, Col, Row} from "reactstrap";
 import Sale_MenuList from "./Sale_MenuList";
+import Table_OrderList from './Sale_TableList.js';
 import Qs from 'qs';
 
 class Sale_TableDetail extends React.Component {
@@ -80,12 +81,6 @@ class Sale_TableDetail extends React.Component {
 				menu_seq: menu.menu_seq,
 				ref: this.state.ref,
 			})
-			// 	@PostMapping("/order")
-			// public int addOrder(
-			// 	HttpSession session,
-			// 	@RequestParam("table_seq") String table_seq,
-			// 	@RequestParam("menu_seq") String menu_seq,
-			// 	@RequestParam(value = "ref", required = false) String ref
 		)
 	};
 	
