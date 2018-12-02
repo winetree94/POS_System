@@ -21,7 +21,7 @@ class Sale_TableItem extends React.Component {
 				tableOrder : response.data
 			})
 		});
-		},1000);
+		},300);
 	};
 	
 	render() {
@@ -31,23 +31,20 @@ class Sale_TableItem extends React.Component {
 		
 		const lists = tableOrder.map(tableItem => (
 			
-			<CardText
+			<p style={{margin:"0px"}}
 				key={tableItem.menu_seq}
-			>{tableItem.menu_name}   :   {tableItem.count} 개</CardText>
+			>{tableItem.menu_name}   :   {tableItem.count} 개</p>
 			
 		));
 		// <Link className="nav-link" exact={"true"} to="/sale">판매</Link>
 		return (
 			<Link className="nav-link" to={"/tabledetail/"+table_seq}>
-			
 						<Card
 							className={"col-md"}
-							style={{height:"100px", margin:"10px", width:"150px"}}
-							onClick={()=>{this.props.onClick(this.props.tableItem)}}
+							style={{height:"100px", margin:"10px", width:"150px",overflow:"auto"}}
 						>
 							<CardBody style={{padding:"3px"}}>
-								<CardTitle></CardTitle>
-								<CardSubtitle>{table_name}</CardSubtitle>
+								<CardTitle>{table_name}</CardTitle>
 								{lists}
 							</CardBody>
 						</Card>

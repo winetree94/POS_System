@@ -2,8 +2,9 @@ import React from 'react';
 import {TabContent, TabPane, Nav, NavItem, NavLink, Card, Button, CardTitle, CardText, Row, Col} from 'reactstrap';
 import classnames from 'classnames';
 import Axios from "axios";
+import Comma from '../utility/common-utility';
 
-class Sale_MenuList extends React.Component {
+class Table_MenuList extends React.Component {
 	
 	state = {
 		category: [],
@@ -36,7 +37,7 @@ class Sale_MenuList extends React.Component {
 					<tbody>
 					<tr>
 						<td>{category.menu_name}</td>
-						<td className={"text-right"}>{category.menu_price}</td>
+						<td className={"text-right"}>{Comma(category.menu_price)} 원</td>
 					</tr>
 					</tbody>
 				</table>
@@ -57,7 +58,7 @@ class Sale_MenuList extends React.Component {
 		
 		return (
 			<div className={"content-box"} style={{height: "400px"}}>
-				<Nav tabs>
+				<Nav style={{overflow:"auto"}} tabs>
 					{categories}
 				</Nav>
 				
@@ -72,4 +73,4 @@ class Sale_MenuList extends React.Component {
 	
 }
 
-export default Sale_MenuList;
+export default Table_MenuList;

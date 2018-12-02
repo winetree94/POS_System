@@ -22,7 +22,9 @@
 		FROM STORE_INVOICE
 		WHERE
 			STORE_SEQ = 1 AND
-			DELFLAG ='N';
+			DELFLAG ='N'
+		ORDER BY
+			PAID_DATE DESC
 	</select>
 
 

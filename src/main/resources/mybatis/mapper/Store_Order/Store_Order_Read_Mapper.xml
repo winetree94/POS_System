@@ -55,4 +55,21 @@
 		ORDER_SEQ = #{value}
 	</select>
 	
+	<select id="tableOrder" parameterType="list" resultType="hashmap">
+		SELECT SC.MENU_SEQ menu_seq,
+			ORDER_SEQ order_seq,
+			SO.MENU_PRICE price,
+			MENU_NAME count
+		FROM STORE_ORDER SO
+		JOIN
+			STORE_CATEGORY SC on SO.MENU_SEQ = SC.MENU_SEQ
+		WHERE
+			SO.STORE_SEQ = #{store_seq} AND
+			SO.DELFLAG = 'N' AND
+			SO.PAYED = 'N' AND
+			SO.REF = (SELECT MAX(REF) FROM STORE_ORDER WHERE TABLE_SEQ = #{table_seq})
+		ORDER BY
+			MENU_SEQ
+	</select>
+	
 </mapper>

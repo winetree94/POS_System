@@ -24,9 +24,10 @@ public class Store_Order_Rest_Ctrl {
 	
 	/**
 	 * 매장의 주문정보 전체 반환
-	 * @param  / 매장 고유 번호
-	 * @param make / 생산 여부
-	 * @param ref / 주문 묶음 고유 번호
+	 *
+	 * @param /       매장 고유 번호
+	 * @param make    / 생산 여부
+	 * @param ref     / 주문 묶음 고유 번호
 	 * @param delflag / 삭제 여부
 	 * @return
 	 */
@@ -58,9 +59,10 @@ public class Store_Order_Rest_Ctrl {
 	 * 매장 주문 등록
 	 * ref가 null 이면 새로운 테이블의 첫 주문으로 인식함
 	 * 추가 주문일 경우 ref를 테이블의 ref 값으로 넣을 것
+	 *
 	 * @param table_seq / 테이블 고유번호
-	 * @param menu_seq / 메뉴의 고유번호
-	 * @param ref / 주문의 묶음 고유번호
+	 * @param menu_seq  / 메뉴의 고유번호
+	 * @param ref       / 주문의 묶음 고유번호
 	 * @return
 	 */
 	@PostMapping("/order")
@@ -71,12 +73,16 @@ public class Store_Order_Rest_Ctrl {
 		@RequestParam(value = "ref", required = false) int ref
 	) {
 		Service_Store_DTO store = (Service_Store_DTO) session.getAttribute("store");
+		
+		System.out.println(store.getStore_seq() + " / " + table_seq + " / " + menu_seq + " / " + ref);
+		
 		Store_Order_DTO dto = new Store_Order_DTO();
+		
 		dto.setStore_seq(store.getStore_seq());
 		dto.setTable_seq(Integer.parseInt(table_seq));
 		dto.setMenu_seq(Integer.parseInt(menu_seq));
 		
-		if(ref != 0) {
+		if (ref != 0) {
 			dto.setRef(String.valueOf(ref));
 		}
 		return service.addOrder(dto);
@@ -89,9 +95,9 @@ public class Store_Order_Rest_Ctrl {
 	public List<HashMap<String, Object>> orderDetail(
 		HttpSession session,
 		@PathVariable("table_seq") int table_seq
-	){
+	) {
 		
-		Service_Store_DTO store = (Service_Store_DTO)session.getAttribute("store");
+		Service_Store_DTO store = (Service_Store_DTO) session.getAttribute("store");
 		
 		return service.getTableOrder(store.getStore_seq(), table_seq);
 	}
@@ -100,7 +106,7 @@ public class Store_Order_Rest_Ctrl {
 	public HashMap<String, Object> getLastRef(
 		@PathVariable("table_seq") String table_seq,
 		HttpSession session
-	){
+	) {
 		HashMap<String, Object> map = new HashMap<String, Object>();
 		Service_Store_DTO store = (Service_Store_DTO) session.getAttribute("store");
 		
@@ -108,18 +114,24 @@ public class Store_Order_Rest_Ctrl {
 		map.put("store_seq", store.getStore_seq());
 		
 		return service.getRef(map);
-	};
+	}
+	
+	;
 	
 	/**
 	 * 주문 삭제 메소드
-	 * @param order_seq / 주문 고유 번호
+	 *
+	 * @param / 주문 고유 번호
 	 * @return
 	 */
-	@DeleteMapping("/order/{order_seq}")
+	@DeleteMapping("/order/{table_seq}/{menu_seq}")
 	public int orderUpdate(
-		@PathVariable("order_seq") String order_seq
-	){
-		return service.deleteOrder(Integer.parseInt(order_seq));
+		HttpSession session,
+		@PathVariable("table_seq") int table_seq,
+		@PathVariable("menu_seq") int menu_seq
+	) {
+		System.out.println("table_seq : " + table_seq + "menu_seq : " + menu_seq);
+		return service.deleteOrder(table_seq, menu_seq);
 	}
 	
 }

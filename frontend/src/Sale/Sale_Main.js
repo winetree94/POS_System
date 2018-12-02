@@ -3,7 +3,7 @@ import Sale_TableList from "./Sale_TableList";
 import Axios from "axios";
 import Loading from "../comm/Loading";
 
-export default class SaleMain extends React.Component {
+export default class Sale_Main extends React.Component {
 	
 	state = {
 		tableList: [],
@@ -21,10 +21,6 @@ export default class SaleMain extends React.Component {
 		}, 1000);
 	};
 	
-	clickEventHandler=(table)=> {
-		console.log(table);
-	};
-	
 	render() {
 		
 		const {isLoad, tableList} = this.state;
@@ -39,7 +35,7 @@ export default class SaleMain extends React.Component {
 					<div className={"row"}>
 						<div className={"col"}>
 							<h4 className={"content-header-4"}>테이블 상태</h4>
-							<Sale_TableList tableList={tableList} onClick={this.clickEventHandler} />
+							<Sale_TableList tableList={tableList} />
 						</div>
 					</div>
 				</div>

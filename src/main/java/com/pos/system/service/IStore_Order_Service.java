@@ -20,7 +20,7 @@ public interface IStore_Order_Service {
 	
 	Store_Order_DTO orderOne(int order_seq);
 	
-	int deleteOrder(int order_seq);
+	int deleteOrder(int menu_seq, int table_seq);
 	
 	int sumOrder(int ref);
 	
@@ -29,4 +29,6 @@ public interface IStore_Order_Service {
 	List<HashMap<String, Object>> getTableOrder(int store_seq, int table_seq);
 	
 	HashMap<String, Object> getRef(HashMap<String, Object> map);
+	
+	String payment(int ref);
 }
