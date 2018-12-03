@@ -29,7 +29,6 @@ export default class Cashbook extends React.Component {
 			});
 			console.log("render");
 		}, 1000);
-		
 	};
 	
 	createHandler = (info) => {

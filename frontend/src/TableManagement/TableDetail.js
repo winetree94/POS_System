@@ -34,16 +34,21 @@ class TableDetail extends React.Component {
 				min_people: min_people,
 				max_people: max_people
 			})).then(response => {
+				this.props.dataUpdater();
 			})
 		} else if (handler === "delete") {
-			Axios.delete('/api/table/' + table_seq)
+			Axios.delete('/api/table/' + table_seq).then(response=>{
+				this.props.dataUpdater();
+			})
 		} else if (handler === "new") {
 			Axios.post('/api/table', Qs.stringify({
 				table_name: '새로운 테이블',
 				reservation: 'N',
 				min_people: '0',
 				max_people: '0'
-			}))
+			})).then(response=>{
+				this.props.dataUpdater();
+			})
 		}
 	};
 	

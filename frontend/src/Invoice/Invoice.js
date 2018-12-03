@@ -1,5 +1,5 @@
 import React from "react";
-import axios from "axios";
+import Axios from "axios";
 import {Row, Col} from "reactstrap";
 import InvoiceList from "./InvoiceList";
 import InvoiceItem from "./InvoiceItem";
@@ -18,23 +18,31 @@ export default class Invoice extends React.Component {
 	};
 	
 	componentDidMount = () => {
-		this.interval = setInterval(() => {
-			axios.get("/api/invoice").then(response => {
-				console.log("invoice updated");
-				this.setState({
-					invoiceList: response.data,
-					isLoad: true
-				});
-			});
-		}, 1000);
+		this.interval = this.setIntervalAndExecution(this.dataUpdater, 3000);
 	};
+	
+	dataUpdater=()=>{
+		Axios.get("/api/invoice").then(response => {
+			console.log("invoice updated");
+			this.setState({
+				invoiceList: response.data,
+				isLoad: true
+			});
+		});
+	};
+	
+	setIntervalAndExecution = (callback, timeout) => {
+		callback();
+		return (setInterval(callback, timeout));
+	};
+	
 	
 	clickEventHandler = param => {
 		this.setState({
 				invoiceDetail: {...param}
 			},
 			() => {
-				axios
+				Axios
 					.get("/api/invoice/order/" + this.state.invoiceDetail.ref)
 					.then(response => {
 						this.setState({
@@ -49,7 +57,7 @@ export default class Invoice extends React.Component {
 		const {isLoad} = this.state;
 		
 		if (!isLoad) {
-			return (<Loading msg="결재 내역을 로딩중입니다."></Loading>)
+			return (<div></div>)
 		} else {
 			
 			return (

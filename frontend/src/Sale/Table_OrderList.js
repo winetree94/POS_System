@@ -28,7 +28,9 @@ class Table_OrderList extends React.Component {
 	
 	clickRemove=()=>{
 		const {menu_seq} = this.props.item;
-		Axios.delete('/api/order/'+this.props.table_seq +'/'+menu_seq);
+		Axios.delete('/api/order/'+this.props.table_seq +'/'+menu_seq).then(response=>{
+			this.props.dataUpdater();
+		});
 	};
 	
 	
