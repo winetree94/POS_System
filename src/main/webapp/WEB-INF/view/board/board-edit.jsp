@@ -57,9 +57,9 @@
 
     document.querySelector(".submitB").innerHTML += "<input onclick=\"back()\" class=\"btn\" value=\"취소\"type=\"button\"/>"
 
-    function back() {
-        history.back();
-    }
+    // function back() {
+    //     history.back();
+    // }
 
     var read = document.querySelector(".writer");
     read.readOnly = true;

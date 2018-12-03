@@ -35,10 +35,9 @@ public interface IService_Board_Service {
 	
 	/**
 	 * 공지 게시글 조회
-	 * @param type
 	 * @return List<Service_Board_DTO>
 	 */
-	List<Service_Board_DTO> selectNotice(String type);
+	List<Service_Board_DTO> selectNoticeBoard();
 	
 	
 	/**
@@ -69,4 +68,40 @@ public interface IService_Board_Service {
 	 * @return Service_Baord_DTO
 	 */
 	int selectRecentBoard();
+
+
+	/**
+	 * 특정 게시글의 답변 조회
+	 * @param board_seq
+	 * @return Service_Board_Dto
+	 */
+	Service_Board_DTO selectReplyBoard(int board_seq);
+
+//	/**
+//	 * 답변글 추가 type = A
+//	 * @param dto
+//	 * @return
+//	 */
+//	int insertReplyBoard(Service_Board_DTO dto);
+
+	/**
+	 * 공지글 추가 type = N
+	 * @param dto
+	 * @return
+	 */
+	int insertNoticeBoard(Service_Board_DTO dto);
+
+	/**
+	 * 답글달기 쿼리 update문
+	 * @param board_seq
+	 * @return int
+	 */
+	int updateReply(int board_seq);
+
+	/**
+	 * 답글달기 쿼리 insert문
+	 * @param dto
+	 * @return int
+	 */
+	int insertReply(Service_Board_DTO dto);
 }
