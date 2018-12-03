@@ -4,7 +4,6 @@ import Comma from '../utility/common-utility';
 class MenuDetail extends Component {
 
     state = {
-        isChecked: false,
         menu_seq: ''
     };
 
@@ -14,40 +13,16 @@ class MenuDetail extends Component {
 
     toggleChange = (e) => {
         console.log("e타겟");
-        console.log(e.target.name);
-        console.log(e.target.value);
         this.setState({
-            isChecked: !this.state.isChecked,
             [e.target.name] : e.target.value
         }, () => {
-            console.log("if문 전")
-            console.log(this.state);
-
-
-        if(this.state.isChecked == true) {
                 console.log("성공");
                 console.log(this.state);
                 const {onChange} = this.props;
                 onChange(this.state.menu_seq);
                 this.setState({
                     menu_seq: '',
-                    isChecked : true
                 });
-
-        }else{
-            console.log("망함");
-            this.setState({
-                menu_seq: '',
-                isChecked: false
-            },()=>{
-                const {onChange} = this.props;
-                onChange(this.state.menu_seq);
-                console.log(this.state);
-            });
-
-        }
-
-
         });
 
     };
@@ -70,7 +45,7 @@ class MenuDetail extends Component {
                 <th>{menu_name}</th>
                 <th className={"text-right"}>{Comma(menu_price)} 원</th>
 
-                <th className={"text-right"}><input name="menu_seq" type="checkbox"
+                <th className={"text-right"}><input name="menu_seq" type="radio"
                                                     defaultChecked={this.state.isChecked} value={menu_seq}
                                                     onChange={this.toggleChange.bind(this)}/></th>
 
