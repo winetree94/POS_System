@@ -59,7 +59,6 @@ public class FileManager {
 		
 		File path = new File(PATH);
 		
-		System.out.println(PATH);
 //폴더위치 없을시 생성
 		if (path.exists() == false) {
 			path.mkdirs();

@@ -42,7 +42,6 @@
     Object objEF = request.getAttribute("file_edit");
     Service_File_DTO fileDto = (Service_File_DTO) objF;
     Service_File_DTO file_edit = (Service_File_DTO) objEF;
-    System.out.println("board_reply"+board_reply);
 
     int command = (int) request.getAttribute("command");//board-new:1 board-detail:2 board-edit:3
 
@@ -136,9 +135,9 @@
             </div>
         </div>
 
-        <div class="form-group text-right submitB" style="margin-top:10px">
+        <%--<div class="form-group text-right submitB" style="margin-top:10px">--%>
 
-        </div>
+        <%--</div>--%>
     </form>
 
     <%=board_reply%>

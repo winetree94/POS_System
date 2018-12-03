@@ -100,13 +100,12 @@ public class Service_Board_Ctrl {
         dto.setContent(content);
 
 
-
         int seq = service_Board.selectRecentBoard();
 
 
-        if (user.getService_type().equalsIgnoreCase("M")){
+        if (user.getService_type().equalsIgnoreCase("M")) {
             service_Board.insertNoticeBoard(dto);
-        }else{
+        } else {
             service_Board.insertBoard(dto);
         }
 
@@ -162,10 +161,8 @@ public class Service_Board_Ctrl {
 
         Service_Board_DTO board_reply = service_Board.selectReplyBoard(board_seq);
 
-        System.out.println("boardreplydldldldl"+board_reply);
-        if (board_reply != null){
-            request.setAttribute("board_reply",board_reply);
-            System.out.println("boardreplydldldldl"+board_reply);
+        if (board_reply != null) {
+            request.setAttribute("board_reply", board_reply);
         }
 
         if (file_dto != null) {
@@ -296,20 +293,35 @@ public class Service_Board_Ctrl {
 
         String filedelete = request.getParameter("filedelete");
 
+        System.out.println("filedeletefiledelete~~~~~~~~~~" + filedelete);
+        System.out.println(file.isEmpty());
 
-        if (request.getParameter("file_edit") != null) {
+        if (file != null) {
 
-            if (!file.isEmpty()) {
+            if (filedelete != null) {
+
+                if (file.isEmpty() && filedelete.equalsIgnoreCase("true")) {
+                    fileManager.fileDelete(board_seq);
+                    System.out.println(file.isEmpty());
+                }
+
+            } else if (!file.isEmpty()) {
+                System.out.println(file.isEmpty());
                 fileManager.fileEdit(file, board_seq, request);
+//                request.setAttribute("file_edit",file); 여기여기여기여기
+
             } else {
 
-            }
-            if (file.isEmpty() && filedelete.equalsIgnoreCase("true")) {
-                fileManager.fileDelete(board_seq);
+                request.getParameter("file_edit");
+
             }
 
+            if (filedelete == null) {
+                request.getParameter("file_edit");
+            }
 
         }
+
 
         if (result > 0) {
 
@@ -392,7 +404,7 @@ public class Service_Board_Ctrl {
             List<Service_Board_DTO> board_reply = (List<Service_Board_DTO>) service_Board.selectReplyBoard(board_seq);
             request.setAttribute("board_reply", board_reply);
 
-            System.out.println("board_reply"+board_reply);
+            System.out.println("board_reply" + board_reply);
         }
 
 
