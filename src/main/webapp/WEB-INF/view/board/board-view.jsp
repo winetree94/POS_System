@@ -145,6 +145,7 @@
 <br>
     <hr>
     <%--<%if (service_type.equalsIgnoreCase("M")){%>--%>
+    <%if (command==2){%>
     <form action="/board/<%=board_detail.getBoard_seq()%>/reply" method="post" class="form-group">
 
         <div class="input-group input-group-lg">
@@ -159,7 +160,7 @@
             <%--<input type="submit" class="input-group-append btn btn-primary" value="답변수정">--%>
         </div>
     </form>
-
+    <%}%>
     <%--<%}%>--%>
 
 
