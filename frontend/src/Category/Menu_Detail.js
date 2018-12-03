@@ -40,6 +40,8 @@ class MenuDetail extends Component {
                 menu_seq: '',
                 isChecked: false
             },()=>{
+                const {onChange} = this.props;
+                onChange(this.state.menu_seq);
                 console.log(this.state);
             });
 
