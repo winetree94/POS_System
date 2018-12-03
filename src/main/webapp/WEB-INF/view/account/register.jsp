@@ -98,58 +98,108 @@
 
 
 		$("#service_id").keyup(function () {
-			var inputLength = $(this).val().length;
-			$("#result").html("");
+        var inputLength = $(this).val().length;
+        $("#result").html("");
 // 		alert(inputLength);
-			var service_id = "";
-			service_id = $(this).val();
+        var service_id = "";
+        service_id = $(this).val();
 
-			//이미 while문처럼 돌아가서 while을 쓰면 안된다.
-			//그래서 while을 쓰면은 무한루프처럼 돌아간다. 그래서 if로 벗어나는 코드 작성
-			//공백이면은 -1 이 나온다
+        //이미 while문처럼 돌아가서 while을 쓰면 안된다.
+        //그래서 while을 쓰면은 무한루프처럼 돌아간다. 그래서 if로 벗어나는 코드 작성
+        //공백이면은 -1 이 나온다
 
 
-			if (service_id.indexOf(" ") != -1) {
-				$("#result").css("color", "red");
-				$("#result").html("공백이 포함된 아이디는 사용할 수 없습니다.");
+        if (service_id.indexOf(" ") != -1) {
+            $("#result").css("color", "red");
+            $("#result").html("공백이 포함된 아이디는 사용할 수 없습니다.");
 
-				document.getElementById("chkval").value = 0;
+            document.getElementById("chkval").value = 0;
 
-			} else if (inputLength >= 5) {
-				$.ajax({
-					type: "post",
-					url: "/account/idduplicate",
-					data: "service_id=" + $(this).val(),
-					//비동기식을 걸어주면 좋다. 동기식을 입력하면은
-					//다른 정보들이 들어올 때 까지 기다려야한다.
-					async: true,
-					success: function (msg) {
-						console.log(msg);
-						$("#result").html(msg);
-						if (msg == "사용가능한 아이디") {
-							console.log("사용가능한 아이디");
+        } else if (inputLength >= 5) {
+            $.ajax({
+                type: "post",
+                url: "/account/idduplicate",
+                data: "service_id=" + $(this).val(),
+                //비동기식을 걸어주면 좋다. 동기식을 입력하면은
+                //다른 정보들이 들어올 때 까지 기다려야한다.
+                async: true,
+                success: function (msg) {
+                    console.log(msg);
+                    $("#result").html(msg);
+                    if (msg == "사용가능한 아이디") {
+                        console.log("사용가능한 아이디");
 // 						alert("확인");
-							//chkval 은 이중체크를 하기 위한 변수.
+                        //chkval 은 이중체크를 하기 위한 변수.
 //						1이면은 아이디와 중복검사가 다 됨
-							document.getElementById("chkval").value = "1";
-							$("#result").css("color", "blue");
-							document.querySelector("#idchk").value = "true";
-						} else {
-							document.getElementById("chkval").value = "0";
-							$("#result").css("color", "red");
-							document.querySelector("#idchk").value = "false";
-						}
-					}
-				});
-			} else {
-				//5자리 전까지는 ajax 처리 나머지는 java에서 처리 해서 속도가 빠르다.
-				$("#result").css("color", "red");
-				$("#result").html("다섯자 이상만 사용가능합니다.");
-				document.getElementById("chkval").value = "0";
-				document.querySelector("#idchk").value = "false";
-			}
-		});
-	});
+                        document.getElementById("chkval").value = "1";
+                        $("#result").css("color", "blue");
+                        document.querySelector("#idchk").value = "true";
+                    } else {
+                        document.getElementById("chkval").value = "0";
+                        $("#result").css("color", "red");
+                        document.querySelector("#idchk").value = "false";
+                    }
+                }
+            });
+        } else {
+            //5자리 전까지는 ajax 처리 나머지는 java에서 처리 해서 속도가 빠르다.
+            $("#result").css("color", "red");
+            $("#result").html("다섯자 이상만 사용가능합니다.");
+            document.getElementById("chkval").value = "0";
+            document.querySelector("#idchk").value = "false";
+        }
+    });
+
+
+
+        $("#service_pw").keyup(function () {
+            var inputLength = $(this).val().length;
+            $("#pass_result").html("");
+// 		alert(inputLength);
+            var service_pw = "";
+            service_pw = $(this).val();
+
+            //이미 while문처럼 돌아가서 while을 쓰면 안된다.
+            //그래서 while을 쓰면은 무한루프처럼 돌아간다. 그래서 if로 벗어나는 코드 작성
+            //공백이면은 -1 이 나온다
+
+            if(inputLength<8) {
+                $("#pass_result").html("비밀번호는 영문(대소문자구분),숫자,특수문자(~!@#$%^&*()-_? 만 허용)를 혼용하여 8~16자를 입력해주세요.");
+
+                return false;
+
+            }
+
+
+
+            if(!service_pw.match(/([a-zA-Z0-9].*[!,@,#,$,%,^,&,*,?,_,~,-])|([!,@,#,$,%,^,&,*,?,_,~,-].*[a-zA-Z0-9])/)) {
+                    $("#pass_result").html("비밀번호는 영문(대소문자구분),숫자,특수문자(~!@#$%^&*()-_? 만 허용)를 혼용하여 8~16자를 입력해주세요");
+
+
+                return false;
+
+            }
+
+            $("#pass_result").html("올바른 비밀번호입니다.");
+
+
+            return true;
+
+        });
+
+
+
+
+
+
+
+
+
+
+
+
+
+    });
 </script>
 
 <div class="jumbotron jumbotron-fluid">
@@ -203,8 +253,10 @@
 				<label for="service_pw">비밀번호를 입력하세요.</label>
 				<input class="form-control" type="password" id="service_pw" name="service_pw" placeholder="비밀번호"
 				       required="required">
+				<p class="p-2" id="pass_result" name="pass_result"></p>
 				<input class="form-control" id="passOk" type="password" required="required"
 				       placeholder="비밀번호 확인"/>
+
 			</div>
 
 			<div class="form-group">
