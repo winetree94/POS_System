@@ -11,6 +11,7 @@
 
 <%
     List<Service_Board_DTO> board_list = (List<Service_Board_DTO>) request.getAttribute("board_list");
+
     Service_Account_DTO user = (Service_Account_DTO) session.getAttribute("user");
     String service_id = "";
     if (user != null) {

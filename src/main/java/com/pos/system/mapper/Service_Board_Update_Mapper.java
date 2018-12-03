@@ -28,5 +28,12 @@ public interface Service_Board_Update_Mapper {
 	 */
 	@Update(" UPDATE SERVICE_BOARD SET READCOUNT=READCOUNT+1 WHERE BOARD_SEQ=#{board_seq} ")
 	int readcountBoard(int board_seq);
-	
+
+	/**
+	 * 답글달기 쿼리 update문
+	 * @param board_seq
+	 * @return int
+	 */
+	@Update(" UPDATE SERVICE_BOARD SET STEP = STEP + 1 WHERE (STEP > (SELECT * FROM (SELECT STEP FROM SERVICE_BOARD WHERE BOARD_SEQ = #{board_seq} )AS X) ) AND (REF =(SELECT * FROM (SELECT REF FROM SERVICE_BOARD WHERE BOARD_SEQ = #{board_seq}) AS Y)) ")
+	int updateReply(int board_seq);
 }

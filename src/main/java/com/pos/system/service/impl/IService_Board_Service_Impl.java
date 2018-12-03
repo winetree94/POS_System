@@ -53,9 +53,9 @@ public class IService_Board_Service_Impl implements IService_Board_Service {
 	}
 
 	@Override
-	public List<Service_Board_DTO> selectNotice(String type) {
+	public List<Service_Board_DTO> selectNoticeBoard() {
 		// TODO Auto-generated method stub
-		return mapper_Read.selectNotice(type);
+		return mapper_Read.selectNoticeBoard();
 	}
 
 	@Override
@@ -79,5 +79,31 @@ public class IService_Board_Service_Impl implements IService_Board_Service {
 	@Override
 	public int selectRecentBoard() {
 		return mapper_Read.selectRecentBoard();
+	}
+
+	@Override
+	public Service_Board_DTO selectReplyBoard(int board_seq) {
+		return mapper_Read.selectReplyBoard(board_seq);
+	}
+
+//    @Override
+//    public int insertReplyBoard(Service_Board_DTO dto) {
+//        return mapper_Create.insertReplyBoard(dto);
+//    }
+
+    @Override
+    public int insertNoticeBoard(Service_Board_DTO dto) {
+
+		return mapper_Create.insertNoticeBoard(dto);
+    }
+
+	@Override
+	public int updateReply(int board_seq) {
+		return mapper_Update.updateReply(board_seq);
+	}
+
+	@Override
+	public int insertReply(Service_Board_DTO dto) {
+		return mapper_Create.insertReply(dto);
 	}
 }

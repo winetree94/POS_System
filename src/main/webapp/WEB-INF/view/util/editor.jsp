@@ -25,12 +25,18 @@
             <div class="editor-container form-group"></div>
 
 
-
             <input type="hidden" class="content" name="content" value="">
 
 
             <div class="container text-left file form-control-file"
-                 style='height:27px;margin-bottom:12px;margin-top:6px'></div>
+                 style='height:27px;margin-bottom:12px;margin-top:6px'>
+
+                <input type='file' class='filechk' name='file'>
+                <input type='hidden' class='filedelete' name='filedelete' value='false'/>
+
+            </div>
+
+
             <div class="container text-right submitB" style="margin-top:10px">
                 <input class="btn btn-primary submitbtn" type="submit" value="submit">
             </div>
@@ -61,47 +67,41 @@
         }
     }
 </script>
-                                                        <div class="container text-left file form-control-file" style='height:27px;margin-bottom:12px;margin-top:6px'></div>
+<div class="container text-left file form-control-file" style='height:27px;margin-bottom:12px;margin-top:6px'></div>
 
-                                                        <div class="container text-right submitB" style="margin-top:10px">
+<div class="container text-right submitB" style="margin-top:10px">
 
-                                                            <input class="btn btn-primary submitbtn" type="submit" value="submit">
+    <input class="btn btn-primary submitbtn" type="submit" value="submit">
 
-                                                        </div>
+</div>
 <script type="text/javascript">
-                                                    if (title != null && title != undefined) {
-                                                        document.querySelector(".writer").value = writer;
-                                                        document.querySelector(".title").value = title;
-                                                        document.querySelector(".ql-editor").innerHTML = content;
-                                                        document.querySelector(".content").value = content;
-                                                    }
+    if (title != null && title != undefined) {
+        document.querySelector(".writer").value = writer;
+        document.querySelector(".title").value = title;
+        document.querySelector(".ql-editor").innerHTML = content;
+        document.querySelector(".content").value = content;
+    }
 
-                                                    if (file != null || file != "") {
-                                                        document.querySelector("div.file").innerHTML += ("<span class='fileN'>" + file + "</span>");
+    if (file != null || file != "") {
+        document.querySelector("div.file").innerHTML += ("<span class='fileN'>" + file + "</span>");
 
-                                                        var fileP = document.querySelector(".fileN");
-                                                        fileP.innerHTML += "&nbsp;&nbsp;<input type='button' onclick='deletF()' value='파일삭제' class='btn btn-sm btn-dark' />";
+        var fileP = document.querySelector(".fileN");
+        fileP.innerHTML += "&nbsp;&nbsp;<input type='button' onclick='deletF()' value='파일삭제' class='btn btn-sm btn-dark' />";
 
-                                                    }
+    }
 
 
-                                                    }
+    }
 
-                                                    function deletF() {
+    function deletF() {
 
-                                                                    document.querySelector(".fileN").innerText = "";
-                                                                    document.querySelector(".filedelete").value = "true";
-                                                                    // alert(file);
+        document.querySelector(".fileN").innerText = "";
+        document.querySelector(".filedelete").value = "true";
 
-                                                                }
+    }
 
-    /*   if(file != null	){
-           document.querySelector(".file > input").value = file;
-       }*/
 
     function sizeChk() {
-        //		if (document.getElementById("filechk").value != "") {
-        // var fileSize = document.querySelector('input[type=file]').files[0].size;
 
         var data = document.querySelector('.ql-editor').innerHTML;
         document.querySelector('.content').value = data;

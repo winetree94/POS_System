@@ -16,16 +16,15 @@ public interface Service_Board_Read_Mapper {
 	 * 모든 게시물 조회 
 	 * @return List<Service_Board_DTO> 
 	 */
-	@Select(" SELECT BOARD_SEQ, SERVICE_ID ,READCOUNT, REGDATE, TITLE, CONTENT, REF, STEP, DEPTH, TYPE, DELFLAG FROM SERVICE_BOARD WHERE DELFLAG = 'N' ORDER BY BOARD_SEQ DESC")
+	@Select(" SELECT BOARD_SEQ, SERVICE_ID ,READCOUNT, REGDATE, TITLE, CONTENT, REF, STEP, DEPTH, TYPE, DELFLAG FROM SERVICE_BOARD WHERE DELFLAG = 'N' AND TYPE NOT IN('A') ORDER BY TYPE = 'N' DESC, BOARD_SEQ DESC ")
 	List<Service_Board_DTO> selectAllBoard();
 	
 	/**
 	 * 공지게시글 조회
-	 * @param type
 	 * @return List<Service_Board_DTO>
 	 */
-	@Select(" SELECT BOARD_SEQ, SERVICE_ID ,READCOUNT, REGDATE, TITLE, CONTENT, REF, STEP, DEPTH, TYPE, DELFLAG FROM SERVICE_BOARD WHERE TYPE = #{type} ")
-	List<Service_Board_DTO> selectNotice(String type);
+	@Select(" SELECT BOARD_SEQ, SERVICE_ID ,READCOUNT, REGDATE, TITLE, CONTENT, REF, STEP, DEPTH, TYPE, DELFLAG FROM SERVICE_BOARD WHERE TYPE = 'N' AND DELFLAG = 'N' ")
+	List<Service_Board_DTO> selectNoticeBoard();
 	  
 	/**
 	 * 특정 게시글 상세조회
@@ -34,6 +33,15 @@ public interface Service_Board_Read_Mapper {
 	 */
 	@Select(" SELECT BOARD_SEQ, SERVICE_ID ,READCOUNT, REGDATE, TITLE, CONTENT, REF, STEP, DEPTH, TYPE, DELFLAG FROM SERVICE_BOARD WHERE BOARD_SEQ = #{board_seq} ")
 	Service_Board_DTO selectOneBoard(int board_seq);
+
+
+	/**
+	 * 특정 게시글의 답변 조회
+	 * @param board_seq
+	 * @return Service_Baord_Dto
+	 */
+	@Select(" SELECT BOARD_SEQ, SERVICE_ID ,READCOUNT, REGDATE, TITLE, CONTENT, REF, STEP, DEPTH, TYPE, DELFLAG FROM SERVICE_BOARD WHERE REF = #{board_seq} AND TYPE = 'A' ")
+	Service_Board_DTO selectReplyBoard(int board_seq);
 
 
 	/**
