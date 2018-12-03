@@ -27,7 +27,7 @@
 
 
 </script>
-<div class="jumbotron jumbotron-fluid" style="margin-top:56px">
+<div class="jumbotron jumbotron-fluid" style="margin-top:56px;">
     <div class="container">
     <h4 class="display-4 text-center">게시판</h4>
         <hr class="my-4">
@@ -39,7 +39,7 @@
         <%}%>
     </div>
 </div>
-<div class="container">
+<div class="container" style="margin-bottom: 56px">
     <div class="list-group">
         <span class="bg-info text-white list-group-item list-group-item-action flex-column align-items-start" style="position:relative">
             <span class="justify-content-between">
@@ -77,47 +77,5 @@
     </c:otherwise>
     </c:choose>
     </div>
-
-    <%--<table class="table w-75 p-3 mx-auto table-hover text-center">--%>
-    <%--<table class="table mx-auto table-hover text-center">
-        &lt;%&ndash;<form action="/board/new" method="get" class="text-right">&ndash;%&gt;
-        &lt;%&ndash;<input type="submit" value="새글작성" class="btn btn-primary">&ndash;%&gt;
-        &lt;%&ndash;</form>&ndash;%&gt;
-
-        <thead class="thead-dark">
-
-        <tr>
-            <th scope="col">글번호</th>
-            <th scope="col">작성자</th>
-            <th scope="col">제목</th>
-            <th scope="col">작성일</th>
-            <th scope="col">조회수</th>
-        </tr>
-        </thead>
-
-        <tbody>
-        <c:choose>
-            <c:when test="${empty board_list}">
-                <tr>
-                    <th colspan="5">작성된 글이 없습니다</th>
-                </tr>
-            </c:when>
-        <c:otherwise>
-
-
-            <c:forEach items="${board_list}" var="dto" varStatus="vs">
-                    <tr>
-                        <th id="board_seq" scope="row">${vs.count}</th>
-                        <td>${dto.getService_id()}</td>
-                        <td><a href="/board/${dto.board_seq}">${dto.getTitle()}</a></td>
-                        <td><fmt:formatDate value="${dto.getRegdate()}" pattern="yyyy-MM-dd"/></td>
-                        <td>${dto.getReadcount()}</td>
-                    </tr>
-                </tbody>
-                </c:forEach>
-            </c:otherwise>
-        </c:choose>
-
-    </table>--%>
 </div>
 <jsp:include page="../comm/footer.jsp"/>

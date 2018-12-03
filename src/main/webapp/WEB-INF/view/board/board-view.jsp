@@ -140,11 +140,10 @@
         <%--</div>--%>
     </form>
 
-    <%=board_reply%>
 <br>
     <hr>
     <%--<%if (service_type.equalsIgnoreCase("M")){%>--%>
-    <%if (command==2){%>
+    <%if (command==2 && !board_detail.getType().equalsIgnoreCase("N")){%>
     <form action="/board/<%=board_detail.getBoard_seq()%>/reply" method="post" class="form-group">
 
         <div class="input-group input-group-lg">
@@ -152,9 +151,8 @@
                 <span class="input-group-text" id="inputGroup-sizing-lg">답변</span>
             </div>
             <input type="text" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-lg" name="content"
-                   <%if (board_reply!=null){%>value="<%=board_reply.getContent()%>" <%}else{%>value=""<%}%>>
-            <%--<input type="text" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-lg" name="content" value="">--%>
-
+                   <%if (board_reply!=null){%>value="<%=board_reply.getContent()%>" <%}else{%>value=""<%}%> <%=!service_type.equalsIgnoreCase("M")?"readonly":""%>>
+            <input type="hidden" name="title" value="none">
             <%--<%if (board_reply==null)%>--%>
             <input type="submit" class="input-group-append btn btn-primary" value="답변달기">
             <%--<%}%>--%>

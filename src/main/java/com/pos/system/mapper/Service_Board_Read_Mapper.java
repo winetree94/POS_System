@@ -40,7 +40,7 @@ public interface Service_Board_Read_Mapper {
 	 * @param board_seq
 	 * @return Service_Baord_Dto
 	 */
-	@Select(" SELECT BOARD_SEQ, SERVICE_ID ,READCOUNT, REGDATE, TITLE, CONTENT, REF, STEP, DEPTH, TYPE, DELFLAG FROM SERVICE_BOARD WHERE REF = #{board_seq} AND TYPE = 'A' ")
+	@Select(" SELECT BOARD_SEQ, SERVICE_ID ,READCOUNT, REGDATE, TITLE, CONTENT, REF, STEP, DEPTH, TYPE, DELFLAG FROM SERVICE_BOARD WHERE REF = (SELECT REF FROM SERVICE_BOARD WHERE BOARD_SEQ = #{board_seq}) AND TYPE = 'A' AND DELFLAG = 'N' ")
 	Service_Board_DTO selectReplyBoard(int board_seq);
 
 

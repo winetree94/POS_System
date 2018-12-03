@@ -389,6 +389,7 @@ public class Service_Board_Ctrl {
         Udto.setTitle(title);
         Udto.setContent(content);
         Udto.setBoard_seq(board_seq);
+//        Udto.setRef(board_seq);
 
         int a = 0;
         int b = 0;
@@ -403,11 +404,11 @@ public class Service_Board_Ctrl {
             request.setAttribute("board_reply", board_reply);
 
             System.out.println("board_reply" + board_reply);
-        }
+        } 
 
 
-//        return "redirect:/board/{board_seq}";
-        return null;
+        return "redirect:/board/{board_seq}";
+//        return null;
     }
 
 
