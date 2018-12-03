@@ -124,7 +124,7 @@ class Table_Main extends React.Component {
 			)
 		);
 		
-		if (this.state.ref == undefined) {
+		if (this.state.ref == undefined && this.state.ref != 0) {
 			return <div></div>
 		} else {
 			return (

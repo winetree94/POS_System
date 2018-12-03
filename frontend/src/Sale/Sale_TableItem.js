@@ -13,7 +13,6 @@ class Sale_TableItem extends React.Component {
 	};
 	
 	componentDidMount = () => {
-		
 		this.interval = this.setIntervalAndExecution(this.dataUpdate, 3000);
 	};
 	
@@ -40,7 +39,7 @@ class Sale_TableItem extends React.Component {
 			
 			<p
 				className="text-center"
-				style={{margin: "0px"}}
+				style={{margin: "0px", overflow:"auto"}}
 			   key={tableItem.menu_seq}
 			>{tableItem.menu_name} : {tableItem.count} 개</p>
 		
@@ -50,9 +49,9 @@ class Sale_TableItem extends React.Component {
 			<Link className="nav-link" to={"/tabledetail/" + table_seq}>
 				<Card
 					className={"col-md"}
-					style={{height: "100px", margin: "10px", width: "150px", overflow: "auto"}}
+					style={{height: "150px", margin: "auto auto", width: "220px", overflow: "auto"}}
 				>
-					<CardBody style={{padding: "3px"}}>
+					<CardBody style={{padding: "3px", marginTop:"10px"}}>
 						<CardTitle className="text-center">{table_name}</CardTitle>
 						{lists}
 					</CardBody>
