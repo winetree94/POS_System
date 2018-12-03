@@ -60,8 +60,7 @@ class Category extends React.Component {
 	
 	render() {
 		
-		console.log("rendered");
-		
+
 		const {isLoad} = this.state;
 		
 		if (!isLoad) {

@@ -37,9 +37,21 @@ class MenuList extends Component {
 	}
 	
 	toggle2() {
-		this.setState({
-			modal2: !this.state.modal2
-		});
+		console.log("메뉴seq값 하");
+		console.log(this.state.menu_seq);
+		if(this.state.menu_seq==''){
+            this.setState({
+                modal2: false
+            });
+
+		}else {
+
+            this.setState({
+                modal2: !this.state.modal2
+            });
+        }
+
+
 	}
 	
 	toggle3() {
@@ -103,6 +115,11 @@ class MenuList extends Component {
 	
 	modifyHandler = (e) => {
 		e.preventDefault();
+
+		if(this.state.menu_seq==''){
+			alert("메뉴를 선택해주세요.")
+		}else {
+
 		Axios.put('/api/menu/' + this.state.menu_seq, qs.stringify({
 			menu_seq: this.state.menu_seq,
 			menu_name: this.state.menu_name,
@@ -114,7 +131,7 @@ class MenuList extends Component {
 		})).then(response=>{
 			this.props.dataUpdater();
 		});
-		
+
 		console.log("악시오스 스테이트");
 		console.log(this.state);
 		this.setState({
@@ -124,7 +141,10 @@ class MenuList extends Component {
 			menu_price: '',
 			modal: false
 		})
-		
+		}
+
+
+
 		
 	};
 	

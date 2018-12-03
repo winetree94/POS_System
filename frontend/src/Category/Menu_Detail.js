@@ -5,7 +5,7 @@ class MenuDetail extends Component {
 
     state = {
         isChecked: false,
-        menu_seq : ''
+        menu_seq: ''
     };
 
     constructor(props) {
@@ -13,34 +13,54 @@ class MenuDetail extends Component {
     }
 
     toggleChange = (e) => {
-
+        console.log("e타겟");
+        console.log(e.target.name);
+        console.log(e.target.value);
         this.setState({
-            isChecked : !this.state.isChecked
-        }, ()=>{
+            isChecked: !this.state.isChecked,
+            [e.target.name] : e.target.value
+        }, () => {
+            console.log("if문 전")
             console.log(this.state);
-        });
 
-        if(this.state.isChecked ==false){
-            console.log("성공");
-            const {onChange} = this.props;
-            onChange(this.state.menu_seq);
+
+        if(this.state.isChecked == true) {
+                console.log("성공");
+                console.log(this.state);
+                const {onChange} = this.props;
+                onChange(this.state.menu_seq);
+                this.setState({
+                    menu_seq: '',
+                    isChecked : true
+                });
 
         }else{
             console.log("망함");
+            this.setState({
+                menu_seq: '',
+                isChecked: false
+            },()=>{
+                console.log(this.state);
+            });
+
         }
+
+
+        });
 
     };
 
-    componentDidMount=()=> {
+    componentDidMount = () => {
         this.setState({
-            menu_seq : this.props.info.menu_seq
-        }, ()=>{console.log(this.state)})
+            menu_seq: this.props.info.menu_seq
+        }, () => {
+            console.log(this.state)
+        })
     };
 
 
     render() {
-        const{menu_seq, menu_name, menu_price, categ_name} = this.props.info;
-
+        const {menu_seq, menu_name, menu_price, categ_name} = this.props.info;
 
 
         return (
@@ -48,7 +68,9 @@ class MenuDetail extends Component {
                 <th>{menu_name}</th>
                 <th className={"text-right"}>{Comma(menu_price)} 원</th>
 
-                <th className={"text-right"}><input name="menu_seq" type="checkbox" defaultChecked={this.state.isChecked} value={menu_seq} onChange={this.toggleChange.bind(this)}  /></th>
+                <th className={"text-right"}><input name="menu_seq" type="checkbox"
+                                                    defaultChecked={this.state.isChecked} value={menu_seq}
+                                                    onChange={this.toggleChange.bind(this)}/></th>
 
             </tr>
         );
