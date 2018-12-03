@@ -11,14 +11,21 @@ export default class Sale_Main extends React.Component {
 	};
 	
 	componentDidMount = () => {
-		this.interval = setInterval(() => {
-			Axios.get("/api/table").then((response) => {
-				this.setState({
-					tableList: response.data,
-					isLoad: true
-				});
+		this.interval = this.setIntervalAndExecution(this.dataUpdater, 3000);
+	};
+	
+	dataUpdater=()=>{
+		Axios.get("/api/table").then((response) => {
+			this.setState({
+				tableList: response.data,
+				isLoad: true
 			});
-		}, 1000);
+		});
+	};
+	
+	setIntervalAndExecution = (callback, timeout) => {
+		callback();
+		return (setInterval(callback, timeout));
 	};
 	
 	render() {
@@ -26,7 +33,7 @@ export default class Sale_Main extends React.Component {
 		const {isLoad, tableList} = this.state;
 		
 		if (!isLoad) {
-			return <Loading msg="현재 매장 정보를 불러오는 입니다."/>
+			return <div></div>
 		} else {
 			
 			return (

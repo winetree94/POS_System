@@ -17,14 +17,21 @@ class TableManagement extends React.Component {
 	};
 	
 	componentDidMount() {
-		this.interval = setInterval(() => {
-			Axios.get("/api/table").then((response) => {
-				this.setState({
-					tableList: response.data,
-					isLoad: true
-				});
+		this.interval = this.setIntervalAndExecution(this.dataUpdater, 3000);
+	};
+	
+	setIntervalAndExecution = (callback, timeout) => {
+		callback();
+		return (setInterval(callback, timeout));
+	};
+	
+	dataUpdater=()=>{
+		Axios.get("/api/table").then((response) => {
+			this.setState({
+				tableList: response.data,
+				isLoad: true
 			});
-		}, 300);
+		});
 	};
 	
 	detailViewEventHandler = (detail) => {
@@ -48,7 +55,7 @@ class TableManagement extends React.Component {
 		const {tableList, tableDetail, isLoad} = this.state;
 		
 		if (!isLoad) {
-			return (<Loading msg="테이블 관리 로딩중입니다."></Loading>)
+			return (<div></div>)
 		} else {
 			
 			return (
@@ -67,7 +74,7 @@ class TableManagement extends React.Component {
 						
 						<div className="col">
 							<h4 className={"content-header-4"}>테이블 상세정보</h4>
-							{this.state.detailSwitch?<TableDetail onClick={this.detailViewChangeHandler} tableDetail={tableDetail}/>:null}
+							{this.state.detailSwitch?<TableDetail onClick={this.detailViewChangeHandler} dataUpdater={this.dataUpdater} tableDetail={tableDetail}/>:null}
 						</div>
 					
 					</div>
