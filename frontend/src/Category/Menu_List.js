@@ -69,9 +69,9 @@ class MenuList extends Component {
 			menu_price: this.state.menu_price,
 			origin_fname: this.state.origin_fname,
 			stored_fname: this.state.stored_fname
-		}, ()=>{
+		})).then(response=>{
 			this.props.dataUpdater();
-		}));
+		});
 		
 		console.log("악시오스 스테이트");
 		console.log(this.state);
@@ -81,8 +81,6 @@ class MenuList extends Component {
 			menu_info: '',
 			menu_price: '',
 			modal: false
-			
-			
 		})
 		
 	};
@@ -98,6 +96,7 @@ class MenuList extends Component {
 		}, () => {
 			console.log("마지막 메뉴seq값");
 			console.log(this.state.menu_seq);
+			this.props.dataUpdater();
 		});
 		
 	};
@@ -112,7 +111,9 @@ class MenuList extends Component {
 			menu_price: this.state.menu_price,
 			origin_fname: this.state.origin_fname,
 			stored_fname: this.state.stored_fname
-		}));
+		})).then(response=>{
+			this.props.dataUpdater();
+		});
 		
 		console.log("악시오스 스테이트");
 		console.log(this.state);

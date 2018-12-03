@@ -112,9 +112,11 @@ export default class InvoiceDetail extends React.Component {
 					                                                                      color="primary" size="lg"
 					                                                                      onClick={this.printInvoice}>영수증
 						재출력</Button></Col>
-					<Col style={{width: "100%", height: "100%", padding: "15px"}}><Button style={{width: "100%", height: "70px"}}
-					                                                                      color="danger" size="lg">환
-						불</Button></Col>
+					<Col style={{width: "100%", height: "100%", padding: "15px"}}>
+						<Button style={{width: "100%", height: "70px"}}
+						        color="danger" size="lg"
+						        onClick={this.props.refund}
+						>환 불</Button></Col>
 				</Row>
 			</div>
 		);

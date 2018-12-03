@@ -13,6 +13,7 @@ import com.pos.system.service.IStore_Invoice_Service;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.HashMap;
 import java.util.List;
 
 @Service
@@ -47,5 +48,16 @@ public class IStore_Invoice_Service_Impl implements IStore_Invoice_Service {
 	
 	@Override
 	public List<Store_Invoice_DTO> invoiceList(int store_seq){return mapper_Read.invoiceList(store_seq);}
+	
+	@Override
+	public int refund(String ref) {
+		
+		mapper_Delete.refund(ref);
+		HashMap<String, Object> invoice = mapper_Read.selectInvoice(ref);
+		int final_amount = (int)invoice.get("final_amount");
+		
+		return final_amount;
+	}
+	
 	
 }

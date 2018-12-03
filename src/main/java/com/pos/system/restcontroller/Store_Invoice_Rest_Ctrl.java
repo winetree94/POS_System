@@ -70,6 +70,25 @@ public class Store_Invoice_Rest_Ctrl {
 		return service_Invoice.payment(dto);
 	}
 	
+	@PostMapping("/invoice/{ref}/refund")
+	public int refund(
+		HttpSession session,
+		@PathVariable("ref") String ref
+	){
+		
+		Service_Store_DTO store = (Service_Store_DTO) session.getAttribute("store");
+		
+		int final_amount = service_Invoice.refund(ref);
+		Store_Cashbook_DTO dto = new Store_Cashbook_DTO();
+		
+		dto.setStore_seq(store.getStore_seq());
+		dto.setCash_deposit(final_amount-final_amount-final_amount);
+		
+		service_Cashbook.insertCashbook(dto);
+		
+		return 1;
+	}
+	
 	@GetMapping("/invoice/order/{ref}")
 	public List<HashMap<String, Object>> getInvoiceOrder(
 		@PathVariable("ref") String ref

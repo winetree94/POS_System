@@ -72,7 +72,15 @@ public class IStore_Order_Service_Impl implements IStore_Order_Service {
 	public List<HashMap<String, Object>> getInvoiceOrder(int ref) {return mapper_Read.getInvoiceOrder(ref);}
 	
 	@Override
-	public List<HashMap<String, Object>> getTableOrder(int store_seq, int table_seq){return mapper_Read.getTableOrder(table_seq, store_seq);}
+	public List<HashMap<String, Object>> getTableOrder(int store_seq, int table_seq){
+		
+		List<HashMap<String, Object>> obj = mapper_Read.getTableOrder(table_seq, store_seq);
+		if(obj != null) {
+			return obj;
+		} else {
+			return null;
+		}
+	}
 	
 	@Override
 	public HashMap<String, Object> getRef(HashMap<String, Object> map) {return mapper_Read.getRef(map);}

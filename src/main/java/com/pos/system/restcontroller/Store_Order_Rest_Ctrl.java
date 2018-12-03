@@ -89,16 +89,14 @@ public class Store_Order_Rest_Ctrl {
 	}
 	
 	/**
-	 * @return Store_Order_DTO
+	 * @return Store_Order_DTOΩ
 	 */
 	@GetMapping("/order/{table_seq}")
 	public List<HashMap<String, Object>> orderDetail(
 		HttpSession session,
 		@PathVariable("table_seq") int table_seq
 	) {
-		
 		Service_Store_DTO store = (Service_Store_DTO) session.getAttribute("store");
-		
 		return service.getTableOrder(store.getStore_seq(), table_seq);
 	}
 	

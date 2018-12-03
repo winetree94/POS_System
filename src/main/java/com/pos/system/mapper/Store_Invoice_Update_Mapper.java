@@ -6,4 +6,5 @@ import org.springframework.stereotype.Repository;
 @Mapper
 @Repository
 public interface Store_Invoice_Update_Mapper {
+
 }

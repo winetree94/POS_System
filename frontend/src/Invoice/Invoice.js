@@ -21,7 +21,7 @@ export default class Invoice extends React.Component {
 		this.interval = this.setIntervalAndExecution(this.dataUpdater, 3000);
 	};
 	
-	dataUpdater=()=>{
+	dataUpdater = () => {
 		Axios.get("/api/invoice").then(response => {
 			console.log("invoice updated");
 			this.setState({
@@ -53,6 +53,12 @@ export default class Invoice extends React.Component {
 		);
 	};
 	
+	refund = () => {
+		Axios.post('/api/invoice/'+this.state.invoiceDetail.ref+'/refund').then(response=>{
+			this.dataUpdater();
+		})
+	};
+	
 	render() {
 		const {isLoad} = this.state;
 		
@@ -80,6 +86,7 @@ export default class Invoice extends React.Component {
 							<InvoiceDetail
 								orderList={this.state.orderList}
 								invoiceDetail={this.state.invoiceDetail}
+								refund={this.refund}
 							/>
 						</div>
 					</div>

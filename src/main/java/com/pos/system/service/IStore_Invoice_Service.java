@@ -9,4 +9,6 @@ public interface IStore_Invoice_Service {
 	int payment(Store_Invoice_DTO dto);
 	
 	List<Store_Invoice_DTO> invoiceList(int store_seq);
+	
+	int refund(String ref);
 }
