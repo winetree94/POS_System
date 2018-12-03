@@ -99,10 +99,16 @@ public class Service_Board_Ctrl {
         dto.setTitle(title);
         dto.setContent(content);
 
-        service_Board.insertBoard(dto);
+
 
         int seq = service_Board.selectRecentBoard();
 
+
+        if (user.getService_type().equalsIgnoreCase("M")){
+            service_Board.insertNoticeBoard(dto);
+        }else{
+            service_Board.insertBoard(dto);
+        }
 
         if (!file.isEmpty()) {
 
@@ -156,8 +162,10 @@ public class Service_Board_Ctrl {
 
         Service_Board_DTO board_reply = service_Board.selectReplyBoard(board_seq);
 
+        System.out.println("boardreplydldldldl"+board_reply);
         if (board_reply != null){
             request.setAttribute("board_reply",board_reply);
+            System.out.println("boardreplydldldldl"+board_reply);
         }
 
         if (file_dto != null) {
@@ -288,17 +296,19 @@ public class Service_Board_Ctrl {
 
         String filedelete = request.getParameter("filedelete");
 
-        if (file != null) {
 
-            if (file.isEmpty() && filedelete.equalsIgnoreCase("true")) {
-                fileManager.fileDelete(board_seq);
-            }
+        if (request.getParameter("file_edit") != null) {
 
             if (!file.isEmpty()) {
                 fileManager.fileEdit(file, board_seq, request);
             } else {
-                request.getParameter("file_edit");
+
             }
+            if (file.isEmpty() && filedelete.equalsIgnoreCase("true")) {
+                fileManager.fileDelete(board_seq);
+            }
+
+
         }
 
         if (result > 0) {

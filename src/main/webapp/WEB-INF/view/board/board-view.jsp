@@ -128,7 +128,7 @@
                 <input class="btn btn-primary" type="button" onclick="edit()" value="수정"/>
                 <input class="btn btn-primary" type="button" onclick="del()" value="삭제"/>
                 <%}%>
-                <%} else if (command == 3 && file_edit != null) {%>
+                <%}if (command == 3 && file_edit != null||command == 3 && file_edit != null&&service_type.equalsIgnoreCase("M")) {%>
                 <input class="btn btn-outline-secondary" type="button" onclick="deletF()" value="파일삭제"
                        id="inputGroupFileAddon04">
                 <%}%>
@@ -152,11 +152,13 @@
             <div class="input-group-prepend">
                 <span class="input-group-text" id="inputGroup-sizing-lg">답변</span>
             </div>
-            <input type="text" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-lg" name="title" value="">
-            <input type="text" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-lg" name="content" value="">
+            <input type="text" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-lg" name="content"
+                   <%if (board_reply!=null){%>value="<%=board_reply.getContent()%>" <%}else{%>value=""<%}%>>
             <%--<input type="text" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-lg" name="content" value="">--%>
 
+            <%--<%if (board_reply==null)%>--%>
             <input type="submit" class="input-group-append btn btn-primary" value="답변달기">
+            <%--<%}%>--%>
             <%--<input type="submit" class="input-group-append btn btn-primary" value="답변수정">--%>
         </div>
     </form>
