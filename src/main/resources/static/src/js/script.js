@@ -335,7 +335,14 @@ function editPw() {
         $("#resultPw").text('비밀번호를 입력해주세요');
 
         return
-    } else {
+    } else if(!service_pw.match(/([a-zA-Z0-9].*[!,@,#,$,%,^,&,*,?,_,~,-])|([!,@,#,$,%,^,&,*,?,_,~,-].*[a-zA-Z0-9])/)){
+
+        $("#resultPw").text("비밀번호는 영문(대소문자구분),숫자,특수문자(~!@#$%^&*()-_? 만 허용)를 혼용하여 8~16자를 입력해주세요");
+
+
+        return false;
+    }
+    else {
         frm.action = './edit/pw';
         frm.submit();
 
