@@ -2,6 +2,7 @@ package com.pos.system.service;
 
 import com.pos.system.dto.Store_Cashbook_DTO;
 
+import java.util.HashMap;
 import java.util.List;
 
 public interface IStore_Cashbook_Service {
@@ -23,5 +24,6 @@ public interface IStore_Cashbook_Service {
 	 * @return
 	 */
 	List<Store_Cashbook_DTO> selectCashbook(int store_seq);
-
+	
+	List<HashMap<String, Object>> getDayCal(String store_seq);
 }

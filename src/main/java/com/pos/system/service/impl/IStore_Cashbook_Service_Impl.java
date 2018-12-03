@@ -13,6 +13,7 @@ import com.pos.system.service.IStore_Cashbook_Service;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.HashMap;
 import java.util.List;
 
 @Service
@@ -55,4 +56,7 @@ public class IStore_Cashbook_Service_Impl implements IStore_Cashbook_Service {
 	public List<Store_Cashbook_DTO> selectCashbook(int store_seq) {
 		return dao_Read.selectCashbook(store_seq);
 	}
+	
+	@Override
+	public List<HashMap<String, Object>> getDayCal(String store_seq){return mapper_Read.getDayCal(store_seq);}
 }

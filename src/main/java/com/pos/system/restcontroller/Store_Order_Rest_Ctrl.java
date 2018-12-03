@@ -132,4 +132,10 @@ public class Store_Order_Rest_Ctrl {
 		return service.deleteOrder(table_seq, menu_seq);
 	}
 	
+	@GetMapping("/order/{ref}/sumorder")
+	public int orderUpdate(
+		@PathVariable("ref") int ref
+	) {
+		return service.sumOrder(ref);
+	}
 }

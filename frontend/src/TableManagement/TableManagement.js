@@ -4,6 +4,7 @@ import Loading from "../comm/Loading";
 import TableList from "./TableList";
 import TableDetail from "./TableDetail";
 import Qs from "qs";
+import {Spring, Trail} from "react-spring";
 
 class TableManagement extends React.Component {
 	
@@ -12,7 +13,7 @@ class TableManagement extends React.Component {
 		tableList: [],
 		tableDetail: {},
 		isLoad: false,
-		detailSwitch:true
+		detailSwitch: true
 		
 	};
 	
@@ -25,7 +26,7 @@ class TableManagement extends React.Component {
 		return (setInterval(callback, timeout));
 	};
 	
-	dataUpdater=()=>{
+	dataUpdater = () => {
 		Axios.get("/api/table").then((response) => {
 			this.setState({
 				tableList: response.data,
@@ -37,7 +38,7 @@ class TableManagement extends React.Component {
 	detailViewEventHandler = (detail) => {
 		this.setState({
 			tableDetail: {...detail},
-			detailSwitch : true
+			detailSwitch: true
 		});
 	};
 	
@@ -59,27 +60,58 @@ class TableManagement extends React.Component {
 		} else {
 			
 			return (
-				<div className={"container content"}>
-					
-					<h1 className={"content-header-1"}>
-						테이블 관리
-					</h1>
-					
-					<div className={"row"}>
+				<Spring
+					from={{
+						opacity: 0,
+						transform: 'translateY(30px)'
+					}}
+					to={{
+						opacity: 1,
+						transform: 'translateY(0px)'
+					}}>
+					{props =>
+						<div style={props}>
+							<div className={"container content"}>
+								
+								<h1 className={"content-header-1"}>
+									<Trail
+										items={['테', '이', '블', ' 관', '리']}
+										from={{
+											opacity: 0,
+											transform: 'translate3d(0,40px,0)'
+										}}
+										to={{
+											opacity: 1,
+											transform: 'translate3d(0,0px,0)'
+										}}
+									>
+										{item => props => (
+											<span style={props}>{item}</span>
+										)}
+									</Trail>
+								</h1>
+								
+								<div className={"row"}>
+									
+									<div className="col">
+										<h4 className={"content-header-4"}>테이블 목록</h4>
+										<TableList tableList={tableList} onClick={this.detailViewEventHandler}></TableList>
+									</div>
+									
+									<div className="col">
+										<h4 className={"content-header-4"}>테이블 상세정보</h4>
+										{this.state.detailSwitch ?
+											<TableDetail onClick={this.detailViewChangeHandler} dataUpdater={this.dataUpdater}
+											             tableDetail={tableDetail}/> : null}
+									</div>
+								
+								</div>
+							
+							</div>
 						
-						<div className="col">
-							<h4 className={"content-header-4"}>테이블 목록</h4>
-							<TableList tableList={tableList} onClick={this.detailViewEventHandler}></TableList>
-						</div>
-						
-						<div className="col">
-							<h4 className={"content-header-4"}>테이블 상세정보</h4>
-							{this.state.detailSwitch?<TableDetail onClick={this.detailViewChangeHandler} dataUpdater={this.dataUpdater} tableDetail={tableDetail}/>:null}
-						</div>
-					
-					</div>
-				
-				</div>
+						</div>}
+				</Spring>
+			
 			)
 		}
 	}

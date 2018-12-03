@@ -6,6 +6,7 @@ import com.pos.system.service.IStore_Cashbook_Service;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import javax.servlet.http.HttpSession;
+import java.util.HashMap;
 import java.util.List;
 
 @RestController
@@ -37,6 +38,14 @@ public class Store_Cashbook_Rest_Ctrl {
 		dto.setStore_seq(store.getStore_seq());
 		dto.setCash_deposit(Integer.parseInt(cash_deposit));
 		return service.insertCashbook(dto);
+	}
+	
+	@GetMapping("/cashbook/day")
+	public List<HashMap<String, Object>> getDayCal(
+		HttpSession session
+	) {
+		Service_Store_DTO store = (Service_Store_DTO) session.getAttribute("store");
+		return service.getDayCal(String.valueOf(store.getStore_seq()));
 	}
 
 }

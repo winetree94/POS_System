@@ -11,9 +11,9 @@ export default class Cashbook_Info extends Component {
 
         return (
             <tr>
-                <th>{cash_date}</th>
-                <th className={"text-right"}>{common(cash_deposit)}</th>
-                <th className={"text-right"}>{common(cash_balance)}</th>
+                <td>{cash_date}</td>
+                <td className={"text-right"}>{common(cash_deposit)}</td>
+                <td className={"text-right"}>{common(cash_balance)}</td>
             </tr>
         );
     }

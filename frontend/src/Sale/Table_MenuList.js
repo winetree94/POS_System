@@ -18,8 +18,8 @@ class Table_MenuList extends React.Component {
 	render() {
 		
 		const categories = this.props.category.map(category => (
-			<div key={category.CATEG_NAME}>
 				<NavLink
+					key={category.CATEG_NAME}
 					className={classnames({active: this.props.activeTab === category.CATEG_NAME})}
 					onClick={() => {
 						this.props.toggle(category.CATEG_NAME);
@@ -27,13 +27,14 @@ class Table_MenuList extends React.Component {
 				>
 					{category.CATEG_NAME}
 				</NavLink>
-			</div>
 		));
 		
 		const menusItem = this.props.menus.map(category => (
-			<Row key={category.menu_seq} onClick={()=>{this.props.onClick(category)}}>
-				
-				<table className={"table"}>
+				<table
+					onClick={()=>{this.props.onClick(category)}}
+					key={category.menu_seq}
+					className={"table"}
+				>
 					<tbody>
 					<tr>
 						<td>{category.menu_name}</td>
@@ -41,17 +42,11 @@ class Table_MenuList extends React.Component {
 					</tr>
 					</tbody>
 				</table>
-			
-			</Row>
 		));
 		
 		const menus = this.props.category.map(category => (
 			<TabPane key={category.CATEG_NAME} tabId={category.CATEG_NAME}>
-				<Row>
-					<Col sm="12">
 						{menusItem}
-					</Col>
-				</Row>
 			</TabPane>
 		));
 		

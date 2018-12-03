@@ -6,6 +6,7 @@ import InvoiceItem from "./InvoiceItem";
 import InvoiceDetail from "./InvoiceDetail";
 import qs from 'qs';
 import Loading from "../comm/Loading";
+import {Spring, Trail} from "react-spring";
 
 export default class Invoice extends React.Component {
 	state = {
@@ -54,7 +55,7 @@ export default class Invoice extends React.Component {
 	};
 	
 	refund = () => {
-		Axios.post('/api/invoice/'+this.state.invoiceDetail.ref+'/refund').then(response=>{
+		Axios.post('/api/invoice/' + this.state.invoiceDetail.ref + '/refund').then(response => {
 			this.dataUpdater();
 		})
 	};
@@ -67,30 +68,60 @@ export default class Invoice extends React.Component {
 		} else {
 			
 			return (
-				<div className={"container content"}>
-					
-					<h1 className={"content-header-1"} onClick={this.clickEventHandler}>
-						판매 내역
-					</h1>
-					
-					<div className={"row"}>
-						<div className={"col"}>
-							<h4 className={"content-header-4"}>거래 내역</h4>
-							<InvoiceList
-								invoiceList={this.state.invoiceList}
-								select={this.clickEventHandler}
-							/>
-						</div>
-						<div className={"col"}>
-							<h4 className={"content-header-4"}>영수증</h4>
-							<InvoiceDetail
-								orderList={this.state.orderList}
-								invoiceDetail={this.state.invoiceDetail}
-								refund={this.refund}
-							/>
-						</div>
-					</div>
-				</div>
+				
+				<Spring
+					from={{
+						opacity: 0,
+						transform: 'translateY(30px)'
+					}}
+					to={{
+						opacity: 1,
+						transform: 'translateY(0px)'
+					}}>
+					{props =>
+						<div style={props}>
+							
+							<div className={"container content"}>
+								
+								<h1 className={"content-header-1"} onClick={this.clickEventHandler}>
+									<Trail
+										items={['판', '매', '내', '역']}
+										from={{
+											opacity: 0,
+											transform: 'translate3d(0,40px,0)'
+										}}
+										to={{
+											opacity: 1,
+											transform: 'translate3d(0,0px,0)'
+										}}
+									>
+										{item => props => (
+											<span style={props}>{item}</span>
+										)}
+									</Trail>
+								</h1>
+								
+								<div className={"row"}>
+									<div className={"col"}>
+										<h4 className={"content-header-4"}>거래 내역</h4>
+										<InvoiceList
+											invoiceList={this.state.invoiceList}
+											select={this.clickEventHandler}
+										/>
+									</div>
+									<div className={"col"}>
+										<h4 className={"content-header-4"}>영수증</h4>
+										<InvoiceDetail
+											orderList={this.state.orderList}
+											invoiceDetail={this.state.invoiceDetail}
+											refund={this.refund}
+										/>
+									</div>
+								</div>
+							</div>
+						</div>}
+				</Spring>
+			
 			);
 		}
 	}

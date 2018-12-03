@@ -2,6 +2,7 @@ import React, {Component} from 'react';
 import {Button, Modal, ModalHeader, ModalBody, ModalFooter, Row, Col} from 'reactstrap';
 import Axios from "axios";
 import qs from "qs";
+import Comma from '../utility/common-utility';
 
 class CashbookEdit extends Component {
 	
@@ -77,18 +78,39 @@ class CashbookEdit extends Component {
 		
 	};
 	
-	
 	render() {
+		
+		const lists = this.props.day.map(day => (
+			<tr key={day.cash_seq}>
+				<td>{day.cash_date}</td>
+				<td className="text-right">{Comma(day.cash_balance)} 원</td>
+			</tr>
+		));
+		
 		return (
 			<div>
-				<div className="content-box" style={{height: "400px"}}>
 				
+				<div className="content-box" style={{height: "400px"}}>
+					
+					<table className={"table"}>
+						<thead>
+							<tr>
+								<th>일자</th>
+								<th className={"text-right"}>현금 잔액</th>
+							</tr>
+						</thead>
+						<tbody>
+							{lists}
+						</tbody>
+						
+					</table>
 				
 				</div>
+				
 				<Row style={{padding: "15px", width: "100%", height: "100%"}}>
 					
 					<Col style={{width: "100%", height: "100%", padding: "15px"}}>
-						<Button color="primary" onClick={this.toggle} style={{width: "100%", height: "70px"}}>{this.state.inputName}</Button>
+						<Button size="lg" color="primary" onClick={this.toggle} style={{width: "100%", height: "70px"}}>{this.state.inputName}</Button>
 						<Modal isOpen={this.state.modal} fade={false} toggle={this.toggle}
 						       className={this.props.className}>
 							<ModalHeader toggle={this.toggle}>현금 {this.state.inputName}액을 넣어주세요.</ModalHeader>
@@ -111,7 +133,8 @@ class CashbookEdit extends Component {
 					
 					
 					<Col style={{width: "100%", height: "100%", padding: "15px"}}>
-						<Button color="danger" onClick={this.toggle2} style={{width: "100%", height: "70px"}}>{this.state.outputName}</Button>
+						
+						<Button color="danger" size="lg" onClick={this.toggle2} style={{width: "100%", height: "70px"}}>{this.state.outputName}</Button>
 						<Modal isOpen={this.state.modal2} fade={false} toggle={this.toggle2}
 						       className={this.props.className}>
 							<ModalHeader toggle={this.toggle2}>현금 {this.state.outputName}액을 넣어주세요.</ModalHeader>

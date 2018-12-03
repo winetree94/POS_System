@@ -21,9 +21,9 @@ export default class Cashbook_List extends Component {
                 <table className={"table"}>
                     <thead>
                         <tr>
-                            <th>날짜</th>
-                            <th>입출금액</th>
-                            <th>현금 총잔액</th>
+                            <th style={{width:"200px"}}>날짜</th>
+                            <th className={"text-right"}>입출금액</th>
+                            <th className={"text-right"}>현금 총잔액</th>
                         </tr>
                     </thead>
                     <tbody>
