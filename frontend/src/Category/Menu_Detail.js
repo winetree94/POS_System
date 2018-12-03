@@ -1,4 +1,5 @@
 import React, {Component} from 'react';
+import Comma from '../utility/common-utility';
 
 class MenuDetail extends Component {
 
@@ -45,7 +46,7 @@ class MenuDetail extends Component {
         return (
             <tr>
                 <th>{menu_name}</th>
-                <th className={"text-right"}>{menu_price}</th>
+                <th className={"text-right"}>{Comma(menu_price)} 원</th>
 
                 <th className={"text-right"}><input name="menu_seq" type="checkbox" defaultChecked={this.state.isChecked} value={menu_seq} onChange={this.toggleChange.bind(this)}  /></th>
 

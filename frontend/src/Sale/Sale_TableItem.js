@@ -38,7 +38,9 @@ class Sale_TableItem extends React.Component {
 		
 		const lists = tableOrder.map(tableItem => (
 			
-			<p style={{margin: "0px"}}
+			<p
+				className="text-center"
+				style={{margin: "0px"}}
 			   key={tableItem.menu_seq}
 			>{tableItem.menu_name} : {tableItem.count} 개</p>
 		
@@ -51,7 +53,7 @@ class Sale_TableItem extends React.Component {
 					style={{height: "100px", margin: "10px", width: "150px", overflow: "auto"}}
 				>
 					<CardBody style={{padding: "3px"}}>
-						<CardTitle>{table_name}</CardTitle>
+						<CardTitle className="text-center">{table_name}</CardTitle>
 						{lists}
 					</CardBody>
 				</Card>

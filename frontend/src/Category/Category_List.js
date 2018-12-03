@@ -8,7 +8,7 @@ class CategoryList extends Component {
 
         const list = data.map(
             info => (
-              <CategoryInfo key={info.menu_seq} info={info} onClick={onClick}/>
+              <CategoryInfo key={info.CATEG_NAME} info={info} onClick={onClick}/>
             )
         );
 

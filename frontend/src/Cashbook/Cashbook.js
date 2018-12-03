@@ -20,15 +20,21 @@ export default class Cashbook extends React.Component {
 	
 	componentDidMount = () => {
 		
-		this.interval = setInterval(() => {
-			Axios.get('/api/cashbook').then((response) => {
-				this.setState({
-					data: response.data,
-					isLoad: true
-				})
-			});
-			console.log("render");
-		}, 1000);
+		this.interval = this.setIntervalAndExecution(this.dataUpdater, 3000);
+	};
+	
+	setIntervalAndExecution = (callback, timeout) => {
+		callback();
+		return (setInterval(callback, timeout));
+	};
+	
+	dataUpdater = () => {
+		Axios.get('/api/cashbook').then((response) => {
+			this.setState({
+				data: response.data,
+				isLoad: true
+			})
+		});
 	};
 	
 	createHandler = (info) => {
@@ -37,13 +43,9 @@ export default class Cashbook extends React.Component {
 				cash_deposit: info.cash_deposit
 			})
 		).then((response) => {
-			console.log(response);
-		}).catch((err) => {
-			console.log(err)
+			this.dataUpdater();
 		});
-		console.log("render complete");
 	};
-	
 	
 	render() {
 		const {isLoad} = this.state;

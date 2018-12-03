@@ -24,7 +24,7 @@ export default class InvoiceList extends React.Component {
             <tr>
               <th>일자</th>
               <th>시간</th>
-              <th>금액</th>
+              <th width="150px" className="text-right">금액</th>
             </tr>
           </thead>
 					<tbody>
