@@ -16,7 +16,7 @@
 <div class="container">
 	<div class="row">
 		<% for (int i = 1; i < stores_list.size() + 1; i++) { %>
-		<div class="col-sm">
+		<div class="col-sm" style="max-width: 380px">
 			<div class="card bg-light mb-3">
 				<div class="card-header"><%=stores_list.get(i - 1).getStore_name()%>
 				</div>

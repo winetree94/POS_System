@@ -14,9 +14,9 @@
 		#{sumorder} * (1/10),
 		#{sumorder},
 		#{discount_amount},
-		#{sumorder} - 5000,
+		#{sumorder} - #{discount_amount},
 		NOW(),
-		'CARD',
+		'CASH',
 		'N'
 		)
 	</insert>

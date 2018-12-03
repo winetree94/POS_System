@@ -16,4 +16,9 @@
     return str;
   };
 
-export default comma;
+function addComma(num) {
+	var regexp = /\B(?=(\d{3})+(?!\d))/g;
+	return num.toString().replace(regexp, ',');
+}
+
+export default addComma;

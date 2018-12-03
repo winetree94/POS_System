@@ -13,10 +13,6 @@ import { Link } from 'react-router-dom';
 
 export default class Header extends React.Component {
 	
-	static defaultProps = {
-		service_id : "null"
-	}
-	
 	constructor(props) {
 		super(props);
 		this.toggle = this.toggle.bind(this);
@@ -32,6 +28,7 @@ export default class Header extends React.Component {
 	}
 	
 	render() {
+		console.log(this.props);
 		return (
 			<Fragment>
 				<Navbar color="light" light expand="md">
@@ -41,10 +38,10 @@ export default class Header extends React.Component {
 						<Collapse isOpen={this.state.isOpen} navbar>
 							<Nav className="ml-auto" navbar>
 								<NavItem>
-									<NavLink href="#">{this.props.service_id}</NavLink>
+									<NavLink href="#">{this.props.auth.service_id}</NavLink>
 								</NavItem>
 								<NavItem>
-									<NavLink href="#">로그아웃</NavLink>
+									<NavLink href="/account/logout">로그아웃</NavLink>
 								</NavItem>
 							</Nav>
 						</Collapse>

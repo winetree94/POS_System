@@ -24,7 +24,7 @@ class TableManagement extends React.Component {
 					isLoad: true
 				});
 			});
-		}, 1000);
+		}, 300);
 	};
 	
 	detailViewEventHandler = (detail) => {

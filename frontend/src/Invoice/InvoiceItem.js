@@ -1,4 +1,5 @@
 import React from 'react';
+import Comma from '../utility/common-utility';
 
 class Invoice_Item extends React.Component {
 	
@@ -14,7 +15,7 @@ class Invoice_Item extends React.Component {
 			<tr onClick={()=>{this.props.select(this.props.invoice)}}>
 				<td>{paid_date.substring(0, 10)}</td>
 				<td>{paid_date.substring(11, 19)}</td>
-				<td>{final_amount} ₩</td>
+				<td className={"text-right"}>{Comma(final_amount)} ₩</td>
 			</tr>
 		)
 	}

@@ -1,7 +1,9 @@
 package com.pos.system.restcontroller;
 
 import com.pos.system.dto.Service_Store_DTO;
+import com.pos.system.dto.Store_Cashbook_DTO;
 import com.pos.system.dto.Store_Invoice_DTO;
+import com.pos.system.service.IStore_Cashbook_Service;
 import com.pos.system.service.IStore_Invoice_Service;
 import com.pos.system.service.IStore_Order_Service;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,11 +19,13 @@ public class Store_Invoice_Rest_Ctrl {
 	
 	private final IStore_Order_Service service_Order;
 	private final IStore_Invoice_Service service_Invoice;
+	private final IStore_Cashbook_Service service_Cashbook;
 	
 	@Autowired
-	public Store_Invoice_Rest_Ctrl(IStore_Order_Service service_Order, IStore_Invoice_Service service_Invoice) {
+	public Store_Invoice_Rest_Ctrl(IStore_Order_Service service_Order, IStore_Invoice_Service service_Invoice, IStore_Cashbook_Service service_Cashbook) {
 		this.service_Order = service_Order;
 		this.service_Invoice = service_Invoice;
+		this.service_Cashbook = service_Cashbook;
 	}
 	
 	@GetMapping("/invoice")
@@ -34,7 +38,6 @@ public class Store_Invoice_Rest_Ctrl {
 	
 	/**
 	 * 영수증 출력 기능
-	 * @param store_seq / 매장 고유 번호
 	 * @param table_seq /
 	 * @param discount_amount /
 	 * @param ref /
@@ -45,18 +48,24 @@ public class Store_Invoice_Rest_Ctrl {
 		HttpSession session,
 		@RequestParam("table_seq") String table_seq,
 		@RequestParam(value = "discount_amount", required = false) String discount_amount,
-		@RequestParam("ref") String ref
+		@RequestParam("ref") int ref
 	){
 		Service_Store_DTO store = (Service_Store_DTO) session.getAttribute("store");
-		int sumorder = service_Order.sumOrder(Integer.parseInt(ref));
+		int sumorder = service_Order.sumOrder(ref);
 		
 		Store_Invoice_DTO dto = new Store_Invoice_DTO();
 		
 		dto.setStore_seq(store.getStore_seq());
 		dto.setTable_seq(Integer.parseInt(table_seq));
-		dto.setRef(Integer.parseInt(ref));
+		dto.setRef(ref);
 		dto.setSumorder(sumorder);
-		dto.setDiscount_amount(Integer.parseInt(discount_amount));
+		
+		service_Order.payment(ref);
+		
+		Store_Cashbook_DTO cash = new Store_Cashbook_DTO();
+		cash.setStore_seq(store.getStore_seq());
+		cash.setCash_deposit(sumorder);
+		service_Cashbook.insertCashbook(cash);
 
 		return service_Invoice.payment(dto);
 	}
@@ -67,7 +76,6 @@ public class Store_Invoice_Rest_Ctrl {
 	) {
 		return service_Order.getInvoiceOrder(Integer.parseInt(ref));
 	}
-	
 	
 	
 }

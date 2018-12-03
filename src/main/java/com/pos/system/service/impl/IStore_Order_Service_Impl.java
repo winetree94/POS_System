@@ -56,9 +56,11 @@ public class IStore_Order_Service_Impl implements IStore_Order_Service {
 		return dao_Read.orderOne(order_seq);
 	}
 	
+	
+	//int deleteOrder(@Param("menu_seq") int menu_seq, @Param("table_seq") int table_seq);
 	@Override
-	public int deleteOrder(int order_seq) {
-		return mapper_Delete.deleteOrder(order_seq);
+	public int deleteOrder(int table_seq, int menu_seq) {
+		return mapper_Delete.deleteOrder(table_seq,menu_seq);
 	}
 	
 	@Override
@@ -74,5 +76,8 @@ public class IStore_Order_Service_Impl implements IStore_Order_Service {
 	
 	@Override
 	public HashMap<String, Object> getRef(HashMap<String, Object> map) {return mapper_Read.getRef(map);}
+	
+	@Override
+	public String payment(int ref){return mapper_Update.paymemt(ref);}
 	
 }

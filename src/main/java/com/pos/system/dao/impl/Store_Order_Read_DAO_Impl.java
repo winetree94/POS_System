@@ -21,5 +21,9 @@ public class Store_Order_Read_DAO_Impl extends SqlSessionTemplate_Comm implement
 	public Store_Order_DTO orderOne(int order_seq) {
 		return session.selectOne("mybatis.mapper.Store_Order.orderOne", order_seq);
 	}
+	@Override
+	public List<HashMap<String,Object>> tableOrder(HashMap<String, Object> map) {
+		return session.selectOne("mybatis.mapper.Store_Order.tableOrder", map);
+	}
 	
 }

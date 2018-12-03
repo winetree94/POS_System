@@ -1,6 +1,7 @@
 package com.pos.system.controller;
 
 import com.pos.system.dto.Service_Account_DTO;
+import com.pos.system.dto.Service_Store_DTO;
 import com.pos.system.service.IService_Account_Service;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpRequest;
@@ -158,8 +159,13 @@ public class Service_Account_Ctrl {
     @GetMapping("/logout")
     public String logout(HttpSession session) {
         Service_Account_DTO user = (Service_Account_DTO) session.getAttribute("user");
+	      Service_Store_DTO store = (Service_Store_DTO) session.getAttribute("store");
         if (user != null) {
             session.removeAttribute("user");
+        }
+        
+        if(store != null){
+	          session.removeAttribute("store");
         }
 
         return "redirect:../";
