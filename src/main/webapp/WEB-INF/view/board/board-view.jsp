@@ -102,7 +102,7 @@
             <div class="custom-file" style="float:left">
                 <input type="file" class="filechk custom-file-input" name="file"
                        id="inputGroupFile04" <%=command==2?"disabled":""%>>
-                <%if (command == 3 && file_edit != null) {%>
+                <%if (command == 3) {%>
                 <input type="hidden" class="filedelete" name="filedelete" value="false"/>
                 <%}%>
                 <label class="custom-file-label fileN"

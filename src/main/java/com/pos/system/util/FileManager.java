@@ -40,7 +40,7 @@ public class FileManager {
 	 * @param request
 	 * @return int
 	 */
-	public int upload(MultipartFile file, HttpServletRequest request) {
+	public int upload(MultipartFile file, HttpServletRequest request,int board_seq) {
 		
 		//    절대경로
 //    public int upload(MultipartFile file) {
@@ -88,8 +88,9 @@ public class FileManager {
 			Service_File_DTO fdto = new Service_File_DTO();
 			
 			//board_seq 가져옴
-			int seq = service_Board.selectRecentBoard();
-			
+//			int seq = service_Board.selectRecentBoard();
+			int seq = service_Board.selectOneBoard(board_seq).getBoard_seq();
+
 			//값 넣기
 			fdto.setBoard_seq(seq);
 			fdto.setOrigin_fname(origin_fname);
@@ -203,36 +204,6 @@ public class FileManager {
 		
 		return response;
 	}
-	
-	
-	/**
-	 * 게시글 파일 수정기능
-	 * upload, delete 메소드 사용
-	 *
-	 * @param file
-	 * @param board_seq
-	 * @param request
-	 * @return
-	 */
-	public int fileEdit(MultipartFile file, int board_seq, HttpServletRequest request) {
-		
-		try {
-			
-			fileDelete(board_seq);//기존 파일 삭제
-			upload(file, request); //파일 재 업로드
-			
-		} catch (Exception e) {
-			
-			e.printStackTrace();
-			
-			System.out.println("파일 수정실패");
-			return 0;
-			
-		}
-		System.out.println("파일 fileEdit 성공");
-		return 1;
-	}
-	
 	
 	/**
 	 * 파일 삭제 기능

@@ -115,7 +115,7 @@ public class Service_Board_Ctrl {
 //            fileManager.upload(file);
 
             //상대경로 사용시
-            fileManager.upload(file, request);
+            fileManager.upload(file, request,seq);
 
         }
 
@@ -277,6 +277,7 @@ public class Service_Board_Ctrl {
     ) {
 
         int board_seq = Integer.parseInt(seq);
+        System.out.println("수정하려는 게시글의 글번호 : " + board_seq);
         Service_Board_DTO dto = service_Board.selectOneBoard(board_seq);
 
 
@@ -298,31 +299,29 @@ public class Service_Board_Ctrl {
 
         if (file != null) {
 
-            if (filedelete != null) {
-
-                if (file.isEmpty() && filedelete.equalsIgnoreCase("true")) {
+            if (filedelete.equalsIgnoreCase("true")) {// 파일 삭제 버튼을 눌렀을때 일어나는 일들
+                if (file.isEmpty()) {
                     fileManager.fileDelete(board_seq);
-                    System.out.println(file.isEmpty());
+                } else {
+                    fileManager.fileDelete(board_seq);
+                    fileManager.upload(file, request,board_seq);
+                }
+            } else if (filedelete.equalsIgnoreCase("false")) {
+                if (file.isEmpty()){
+
+                    request.getParameter("file_edit"); //이거 왜한거지
+
+                }else{
+
+                    fileManager.fileDelete(board_seq);
+                    fileManager.upload(file, request,board_seq);
                 }
 
-            } else if (!file.isEmpty()) {
-                System.out.println(file.isEmpty());
-                fileManager.fileEdit(file, board_seq, request);
-//                request.setAttribute("file_edit",file); 여기여기여기여기
-
-            } else {
-
-                request.getParameter("file_edit");
-
             }
+         }else if(file == null){
 
-            if (filedelete == null) {
-                request.getParameter("file_edit");
-            }
 
         }
-
-
         if (result > 0) {
 
             request.setAttribute("command", 3);
@@ -334,7 +333,6 @@ public class Service_Board_Ctrl {
 
         }
     }
-
 
     /**
      * 파일 다운로드 기능
