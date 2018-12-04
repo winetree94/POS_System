@@ -53,7 +53,6 @@ public class Service_Board_Ctrl {
         return "/WEB-INF/view/board/board-list.jsp";
     }
 
-
     /**
      * @return
      */
@@ -83,17 +82,14 @@ public class Service_Board_Ctrl {
             HttpSession session,
             MultipartFile file
     ) {
-//        session.setAttribute("id", "winetree"); // for test
         Service_Account_DTO user = (Service_Account_DTO) session.getAttribute("user");
 
         String writer = user.getService_id();
-//        String writer = (String) session.getAttribute("user");
 
         String title = request.getParameter("title");
         String content = request.getParameter("content");
 
         Service_Board_DTO dto = new Service_Board_DTO();
-
 
         dto.setService_id(writer);
         dto.setTitle(title);
@@ -119,7 +115,6 @@ public class Service_Board_Ctrl {
 
         }
 
-
         return "redirect:/board";
     }
 
@@ -142,7 +137,6 @@ public class Service_Board_Ctrl {
             MultipartFile file
     ) {
 
-
         Service_Board_DTO board_detail;
 
         int board_seq = Integer.parseInt(seq);
@@ -158,7 +152,6 @@ public class Service_Board_Ctrl {
         if (session == null) {
 
         }
-
         Service_Board_DTO board_reply = service_Board.selectReplyBoard(board_seq);
 
         if (board_reply != null) {
@@ -203,18 +196,15 @@ public class Service_Board_Ctrl {
 
         } else {
 
-
             Service_File_DTO fileDto = service_File.selectOneFile(board_seq);
 
             if (fileDto != null) {
 
                 fileManager.fileDelete(board_seq);
 
-
             }
 
         }
-
 
         return "redirect:/board";
     }
@@ -242,24 +232,19 @@ public class Service_Board_Ctrl {
 
         Service_Board_DTO board_edit = service_Board.selectOneBoard(board_seq);
 
-
         Service_File_DTO file_edit = service_File.selectOneFile(board_seq);
 
         request.setAttribute("board_edit", board_edit);
 
         if (file_edit != null) {
-
             request.setAttribute("file_edit", file_edit);
-
         }
-
         request.setAttribute("command", 3);
         return "/WEB-INF/view/board/board-view.jsp";
     }
 
     /**
      * 게시글 수정 PostMapping
-     *
      * @param seq
      * @param request
      * @param response
@@ -275,11 +260,8 @@ public class Service_Board_Ctrl {
             HttpSession session,
             MultipartFile file
     ) {
-
         int board_seq = Integer.parseInt(seq);
-        System.out.println("수정하려는 게시글의 글번호 : " + board_seq);
         Service_Board_DTO dto = service_Board.selectOneBoard(board_seq);
-
 
         Service_Account_DTO user = (Service_Account_DTO) session.getAttribute("user");
         String writer = user.getService_id();
@@ -294,7 +276,6 @@ public class Service_Board_Ctrl {
 
         String filedelete = request.getParameter("filedelete");
 
-        System.out.println("filedeletefiledelete~~~~~~~~~~" + filedelete);
         System.out.println(file.isEmpty());
 
         if (file != null) {
@@ -308,24 +289,18 @@ public class Service_Board_Ctrl {
                 }
             } else if (filedelete.equalsIgnoreCase("false")) {
                 if (file.isEmpty()) {
-
                     request.getParameter("file_edit"); //이거 왜한거지
-
                 } else {
-
                     fileManager.fileDelete(board_seq);
                     fileManager.upload(file, request, board_seq);
                 }
-
             }
         } else if (file == null) {
-
-
         }
         if (result > 0) {
 
             request.setAttribute("command", 3);
-            return "redirect:/board";
+            return "redirect:/board/" + board_seq;
 
         } else {
 
@@ -361,7 +336,6 @@ public class Service_Board_Ctrl {
 
     /**
      * 답글달기 기능
-     *
      * @param seq
      * @param request
      * @param response
@@ -400,15 +374,12 @@ public class Service_Board_Ctrl {
 
         if (result > 1) {
 
-            List<Service_Board_DTO> board_reply = (List<Service_Board_DTO>) service_Board.selectReplyBoard(board_seq);
+            Service_Board_DTO board_reply = service_Board.selectReplyBoard(board_seq);
             request.setAttribute("board_reply", board_reply);
 
-            System.out.println("board_reply" + board_reply);
         }
 
-
         return "redirect:/board/{board_seq}";
-//        return null;
     }
 
 
@@ -453,7 +424,6 @@ public class Service_Board_Ctrl {
                               HttpSession session,
                               MultipartFile file) {
 
-        System.out.println("삭제하려는 답변 번호 : " + seq);
         int board_seq = Integer.parseInt(seq);
         Service_Board_DTO board_reply = service_Board.selectReplyBoard(board_seq);
         int reply_seq = board_reply.getBoard_seq();

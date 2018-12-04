@@ -54,49 +54,35 @@
     }
 
 %>
-<%--if (request.getAttribute("file_edit") != null){ --%>
-<%--var file = "<%=file_edit.getOrigin_fname()%>";--%>
-<%--}--%>
-
-
 <div class="jumbotron jumbotron-fluid" style="margin-top:56px">
     <div class="container">
-
         <h2 class="display-4 text-center">게시판</h2>
         <hr class="my-4">
     </div>
 </div>
 <div class="container">
     <form class="editor-form boardChk" style="margin-bottom:14px" action="" method="" enctype="multipart/form-data"
-          onsubmit="return submitbtn()">
+          onsubmit="return submitbtn()" id="boardForm">
         <%-- 제목, 글쓴이 --%>
         <div class="form-group input-group mb-3 input-group-prepend" style="margin-bottom: 0!important;">
-            <%--<div class="input-group mb-3">--%>
-            <%--<div class="input-group-prepend">--%>
             <span class="input-group-text input-group-prepend" id="basic-addon1">제목</span>
-            <%--</div>--%>
-
-            <input style="text-overflow:ellipsis; overflow:hidden; white-space:nowrap;text-overflow:ellipsis; overflow:hidden; white-space:nowrap"type="text" class="title form-control input-group-text" name="title" aria-describedby="basic-addon1"
+            <input style="text-overflow:ellipsis; overflow:hidden; white-space:nowrap;text-overflow:ellipsis; overflow:hidden; white-space:nowrap"
+                   type="text" class="title form-control input-group-text" name="title" aria-describedby="basic-addon1"
                    value="<%=command==2?board_detail.getTitle():""%><%=command==3?board_edit.getTitle():""%>"
                    <%if (command==2){%>disabled<%}%>>
-
-            <%--<div class="input-group-append">--%>
             <input type="text" class="writer form-control  input-group-text" id="basic-addon2" name="writer"
                    placeholder="<% if (command==1){%><%=service_id%> <%}else if(command==2){%><%=board_detail.getService_id()%><%}else if(command==3){%><%=board_edit.getService_id()%><%}%>"
                    readonly="readonly"/>
             <%if (command == 2) {%>
-            <p class="input-group-text input-group-append"><fmt:formatDate value="${board_detail.getRegdate()}" pattern="yyyy-MM-dd"/></p>
+            <p class="input-group-text input-group-append"><fmt:formatDate value="${board_detail.getRegdate()}"
+                                                                           pattern="yyyy-MM-dd"/></p>
             <%}%>
-
-            <%--</div>--%>
         </div>
-
         <%--에디터--%>
         <div class="form-group">
             <div class="editor-container" style="maw-width:100%" id="test"></div>
             <input type="hidden" class="content" name="content" value="">
         </div>
-
         <%--파일--%>
         <div class="form-group input-group mb-3" style="clear:both">
             <div class="custom-file" style="float:left">
@@ -113,7 +99,6 @@
                     <%} else if (command == 3) {%>
                     <%=file_edit != null ? file_edit.getOrigin_fname() : "UPLOAD"%>
                     <%}%>
-
                 </label>
             </div>
             <div class="text-right submitB" style="margin-left:7px;float:right">
@@ -123,11 +108,15 @@
                 <%if (fileDto != null) {%>
                 <input type="button" onclick="fileDownload()" class="btn" value="다운로드">
                 <%}%>
-                <% if (service_id.equalsIgnoreCase(board_detail.getService_id())||service_type.equalsIgnoreCase("M")) {%>
+                <% if (service_id.equalsIgnoreCase(board_detail.getService_id()) || service_type.equalsIgnoreCase("M")) {%>
                 <input class="btn btn-primary" type="button" onclick="edit()" value="수정"/>
+                <%--<a class="btn btn-primary" href="/board/${board_detail.board_seq}/edit">수정</a>--%>
                 <input class="btn btn-primary" type="button" onclick="del()" value="삭제"/>
                 <%}%>
-                <%}if (command == 3 && file_edit != null||command == 3 && file_edit != null&&service_type.equalsIgnoreCase("M")) {%>
+                <%
+                    }
+                    if (command == 3 && file_edit != null || command == 3 && file_edit != null && service_type.equalsIgnoreCase("M")) {
+                %>
                 <input class="btn btn-outline-secondary" type="button" onclick="deletF()" value="파일삭제"
                        id="inputGroupFileAddon04">
                 <%}%>
@@ -135,37 +124,31 @@
             </div>
         </div>
 
-        <%--<div class="form-group text-right submitB" style="margin-top:10px">--%>
-
-        <%--</div>--%>
     </form>
 
-<br>
+    <br>
     <hr>
-    <%--<%if (service_type.equalsIgnoreCase("M")){%>--%>
-    <%if (command==2 && !board_detail.getType().equalsIgnoreCase("N")){%>
-    <form action="/board/<%=board_detail.getBoard_seq()%>/<%if(board_reply==null){%>reply<%}else if(board_reply!=null){%>replyModify<%}%>" method="post" class="form-group">
+    <%if (command == 2 && !board_detail.getType().equalsIgnoreCase("N")) {%>
+    <form id="replyForm"
+          action="/board/<%=board_detail.getBoard_seq()%>/<%if(board_reply==null){%>reply<%}else if(board_reply!=null){%>replyModify<%}%>"
+          method="post" class="form-group">
 
         <div class="input-group">
             <div class="input-group-prepend">
                 <span class="input-group-text">답변</span>
             </div>
-            <textarea  type="text" class="form-control" aria-label="With textarea" name="content" style="resize:none"
-                       <%=!service_type.equalsIgnoreCase("M")?"readonly":""%>><%if (board_reply!=null){%><%=board_reply.getContent()%><%}else{%><%}%> </textarea>
+            <textarea type="text" class="form-control" aria-label="With textarea" name="content" style="resize:none"
+                    <%=!service_type.equalsIgnoreCase("M") ? "readonly" : ""%>><%if (board_reply != null) {%><%=board_reply.getContent()%><%} else {%><%}%> </textarea>
             <input type="hidden" name="title" value="none">
-            <%--<%if (board_reply==null)%>--%>
-            <%if(service_type.equalsIgnoreCase("M")){%>
-            <input type="submit" class="input-group-append btn btn-primary" value="답변달기" >
-            <%if (board_reply!=null){%>
-            <input type="button" onclick="replyDelete()" class="input-group-append btn btn-primary" value="삭제" >
+            <%if (service_type.equalsIgnoreCase("M")) {%>
+            <input type="submit" class="input-group-append btn btn-primary" value="답변달기">
+            <%if (board_reply != null) {%>
+            <input type="button" onclick="replyDelete()" class="input-group-append btn btn-primary" value="삭제">
             <%}%>
             <%}%>
-            <%--<%}%>--%>
-            <%--<input type="submit" class="input-group-append btn btn-primary" value="답변수정">--%>
         </div>
     </form>
     <%}%>
-    <%--<%}%>--%>
 
 
 </div>
@@ -190,6 +173,7 @@
     <%}%>
 
     function edit() {
+        // var form = document.querySelector("#boardForm");
         var form = document.forms[0];
         form.action = "/board/${board_detail.board_seq}/edit";
         form.method = "get";
@@ -235,18 +219,18 @@
                 alert("2MB이하의 파일을 선택해주세요");
                 return false;
             } else {
-                alert("적당한 사이즈네요");
+                // alert("적당한 사이즈네요");
                 return true;
             }
         }
     }
 
     function submitbtn() {
-
         var form = document.forms[0];
+        form.action = "/board";
+        // var form = document.forms[0];
 
         <% if (command == 1) {%>
-        form.action = "/board";
         form.method = "post";
         <%}%>
 
@@ -259,11 +243,17 @@
 
     }
 
-    function replyDelete(){
+    <% if(command==2) { %>
+
+    function replyDelete() {
         var form = document.forms[1];
-        form.action = "/board/<%=board_detail.getBoard_seq()%>/replyDelete"
+        form.action = "/board/<%=board_detail.getBoard_seq()%>/replyDelete";
         form.method = "post";
         form.submit();
     }
 
+    <% }%>
+
 </script>
+
+
