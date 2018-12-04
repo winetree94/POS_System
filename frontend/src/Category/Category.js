@@ -65,7 +65,7 @@ class Category extends React.Component {
 		const {isLoad} = this.state;
 		
 		if (!isLoad) {
-			return <Loading></Loading>
+			return <div></div>
 			
 			
 		} else {
