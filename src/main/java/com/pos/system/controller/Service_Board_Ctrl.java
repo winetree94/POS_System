@@ -115,7 +115,7 @@ public class Service_Board_Ctrl {
 //            fileManager.upload(file);
 
             //상대경로 사용시
-            fileManager.upload(file, request,seq);
+            fileManager.upload(file, request, seq);
 
         }
 
@@ -304,21 +304,21 @@ public class Service_Board_Ctrl {
                     fileManager.fileDelete(board_seq);
                 } else {
                     fileManager.fileDelete(board_seq);
-                    fileManager.upload(file, request,board_seq);
+                    fileManager.upload(file, request, board_seq);
                 }
             } else if (filedelete.equalsIgnoreCase("false")) {
-                if (file.isEmpty()){
+                if (file.isEmpty()) {
 
                     request.getParameter("file_edit"); //이거 왜한거지
 
-                }else{
+                } else {
 
                     fileManager.fileDelete(board_seq);
-                    fileManager.upload(file, request,board_seq);
+                    fileManager.upload(file, request, board_seq);
                 }
 
             }
-         }else if(file == null){
+        } else if (file == null) {
 
 
         }
@@ -404,7 +404,7 @@ public class Service_Board_Ctrl {
             request.setAttribute("board_reply", board_reply);
 
             System.out.println("board_reply" + board_reply);
-        } 
+        }
 
 
         return "redirect:/board/{board_seq}";
@@ -412,4 +412,59 @@ public class Service_Board_Ctrl {
     }
 
 
+    /**
+     * 답변글 수정
+     *
+     * @param seq
+     * @param request
+     * @param response
+     * @param session
+     * @param file
+     * @return
+     */
+    @PostMapping("{board_seq}/replyModify")
+    public String replyModify(@PathVariable("board_seq") String seq,
+                              HttpServletRequest request,
+                              HttpServletResponse response,
+                              HttpSession session,
+                              MultipartFile file) {
+        int board_seq = Integer.parseInt(seq);
+
+        Service_Board_DTO board_reply = service_Board.selectReplyBoard(board_seq);
+        Service_Account_DTO user = (Service_Account_DTO) session.getAttribute("user");
+
+        String writer = user.getService_id();
+        String title = request.getParameter("title");
+        String content = request.getParameter("content");
+
+        board_reply.setContent(content);
+        board_reply.setTitle(title);
+
+        service_Board.modifyBoard(board_reply);
+
+        return "redirect:/board/{board_seq}";
+    }
+
+
+    @PostMapping("{board_seq}/replyDelete")
+    public String replyDelete(@PathVariable("board_seq") String seq,
+                              HttpServletRequest request,
+                              HttpServletResponse response,
+                              HttpSession session,
+                              MultipartFile file) {
+
+        System.out.println("삭제하려는 답변 번호 : " + seq);
+        int board_seq = Integer.parseInt(seq);
+        Service_Board_DTO board_reply = service_Board.selectReplyBoard(board_seq);
+        int reply_seq = board_reply.getBoard_seq();
+        int result = service_Board.deleteOneBoard(reply_seq);
+
+        if (result > 0) {
+            System.out.println("삭제");
+            return "redirect:/board/{board_seq}";
+        } else {
+            return "/WEB-INF/view/comm/error.jsp";
+        }
+
+    }
 }

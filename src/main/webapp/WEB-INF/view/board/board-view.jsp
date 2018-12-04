@@ -105,7 +105,7 @@
                 <%if (command == 3) {%>
                 <input type="hidden" class="filedelete" name="filedelete" value="false"/>
                 <%}%>
-                <label class="custom-file-label fileN"
+                <label class="custom-file-label fileN text-truncate"
                        for="inputGroupFile04"
                        aria-describedby="inputGroupFileAddon04">
                     <%if (command == 2) {%>
@@ -118,7 +118,7 @@
             </div>
             <div class="text-right submitB" style="margin-left:7px;float:right">
                 <%if (command != 2) {%>
-                <input class="btn btn-primary submitbtn" type="submit" value="확인">
+                <input class="btn btn-primary submitbtn" type="submit" value="확인"/>
                 <%} else if (command == 2) {%>
                 <%if (fileDto != null) {%>
                 <input type="button" onclick="fileDownload()" class="btn" value="다운로드">
@@ -144,17 +144,22 @@
     <hr>
     <%--<%if (service_type.equalsIgnoreCase("M")){%>--%>
     <%if (command==2 && !board_detail.getType().equalsIgnoreCase("N")){%>
-    <form action="/board/<%=board_detail.getBoard_seq()%>/reply" method="post" class="form-group">
+    <form action="/board/<%=board_detail.getBoard_seq()%>/<%if(board_reply==null){%>reply<%}else if(board_reply!=null){%>replyModify<%}%>" method="post" class="form-group">
 
-        <div class="input-group input-group-lg">
+        <div class="input-group">
             <div class="input-group-prepend">
-                <span class="input-group-text" id="inputGroup-sizing-lg">답변</span>
+                <span class="input-group-text">답변</span>
             </div>
-            <input type="text" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-lg" name="content"
-                   <%if (board_reply!=null){%>value="<%=board_reply.getContent()%>" <%}else{%>value=""<%}%> <%=!service_type.equalsIgnoreCase("M")?"readonly":""%>>
+            <textarea  type="text" class="form-control" aria-label="With textarea" name="content" style="resize:none"
+                       <%=!service_type.equalsIgnoreCase("M")?"readonly":""%>><%if (board_reply!=null){%><%=board_reply.getContent()%><%}else{%><%}%> </textarea>
             <input type="hidden" name="title" value="none">
             <%--<%if (board_reply==null)%>--%>
-            <input type="submit" class="input-group-append btn btn-primary" value="답변달기">
+            <%if(service_type.equalsIgnoreCase("M")){%>
+            <input type="submit" class="input-group-append btn btn-primary" value="답변달기" >
+            <%if (board_reply!=null){%>
+            <input type="button" onclick="replyDelete()" class="input-group-append btn btn-primary" value="삭제" >
+            <%}%>
+            <%}%>
             <%--<%}%>--%>
             <%--<input type="submit" class="input-group-append btn btn-primary" value="답변수정">--%>
         </div>
@@ -252,6 +257,13 @@
 
         return sizeChk();
 
+    }
+
+    function replyDelete(){
+        var form = document.forms[1];
+        form.action = "/board/<%=board_detail.getBoard_seq()%>/replyDelete"
+        form.method = "post";
+        form.submit();
     }
 
 </script>

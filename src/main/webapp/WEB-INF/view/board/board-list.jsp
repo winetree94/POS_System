@@ -43,7 +43,7 @@
     <div class="list-group">
         <span class="bg-info text-white list-group-item list-group-item-action flex-column align-items-start" style="position:relative">
             <span class="justify-content-between">
-                <span class="mb-1 font-weight-bold " >제목</span>
+                <span class="mb-1 font-weight-bold">제목</span>
             </span>
             <span style="position:absolute;bottom:13px;right:15px">
                 <span class="mb-1">아이디</span>
@@ -65,7 +65,7 @@
         <c:forEach items="${board_list}" var="dto" varStatus="vs">
         <a href="/board/${dto.board_seq}" class="list-group-item list-group-item-action flex-column align-items-start" style="position:relative">
             <span class="justify-content-between">
-                <span class="mb-1 font-weight-bold" <c:if test="${dto.getType() eq 'N'}"> style="color:red;" </c:if>>${dto.getTitle()}</span>
+                <span class="mb-1 font-weight-bold text-truncate"<c:if test="${dto.getType() eq 'N'}"> style="color:red;" </c:if>>${dto.getTitle()}</span>
             </span>
             <span style="position:absolute;bottom:13px;right:15px">
                 <span class="mb-1">${dto.getService_id()}</span>
