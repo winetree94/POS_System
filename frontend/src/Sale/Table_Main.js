@@ -140,7 +140,7 @@ class Table_Main extends React.Component {
 			)
 		);
 		
-		if (this.state.ref == undefined && this.state.ref != 0 && this.state.table.table_name!=undefined) {
+		if (this.state.ref == undefined && this.state.ref == 0 && this.state.table.table_name==undefined) {
 			return <div></div>
 		} else {
 			const {tableOrder}= this.state;
