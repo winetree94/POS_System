@@ -140,7 +140,7 @@ class Table_Main extends React.Component {
 			)
 		);
 		
-		if (this.state.ref == undefined && this.state.ref == 0 && this.state.table.table_name==undefined) {
+		if (this.state.ref == undefined || this.state.ref == 0 || this.state.table.table_name==undefined) {
 			return <div></div>
 		} else {
 			const {tableOrder}= this.state;
@@ -159,7 +159,7 @@ class Table_Main extends React.Component {
 						
 							
 							<div className={"container content"}>
-										<h1 className={"content-header-1"}>{this.state.table.table_name}</h1>
+										<h1 className={"content-header-1"}>{this.state.table.table_name!=undefined?this.state.table.table_name:"&nbsp;"}</h1>
 								<div className={"row"}>
 									<div className={"col"}>
 										<h4 className={"content-header-4"}>주문 내역</h4>
