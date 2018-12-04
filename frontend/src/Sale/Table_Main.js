@@ -127,6 +127,7 @@ class Table_Main extends React.Component {
 	};
 	
 	render() {
+		console.log(this.state);
 		
 		const lists = this.state.tableOrder.map(item => (
 				<Table_OrderList
@@ -142,6 +143,7 @@ class Table_Main extends React.Component {
 		if (this.state.ref == undefined && this.state.ref != 0) {
 			return <div></div>
 		} else {
+			const {tableOrder}= this.state;
 			return (
 				<Spring
 					from={{
@@ -157,14 +159,13 @@ class Table_Main extends React.Component {
 						
 							
 							<div className={"container content"}>
-								<h1 className={"content-header-1"}>{this.state.table.table_name}</h1>
-								
+										<h1 className={"content-header-1"}>{this.state.table.table_name}</h1>
 								<div className={"row"}>
 									<div className={"col"}>
 										<h4 className={"content-header-4"}>주문 내역</h4>
 										<div className={"content-box"}>
 											
-											<div style={{height: "430px"}}>
+											<div style={{minHeight: "376px"}}>
 												<table className={"table"}>
 													
 													<thead>
@@ -184,6 +185,10 @@ class Table_Main extends React.Component {
 											</div>
 											<div>
 												<table className="table">
+													<tr>
+														<td>주문 시작 시간</td>
+														<td className={"text-right"}>{tableOrder[0] != null?tableOrder[0].order_date.substring(11, 13)+"시 "+tableOrder[0].order_date.substring(14, 16)+"분":""}</td>
+													</tr>
 													<tr>
 														<td>주문 합계 금액 :</td>
 														<td className={"text-right"}>{Comma(this.state.sumOrder)} 원</td>
