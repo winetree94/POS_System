@@ -142,7 +142,6 @@ class Table_Main extends React.Component {
 		if (this.state.ref == undefined && this.state.ref != 0) {
 			return <div></div>
 		} else {
-			const title = '테이블 정보';
 			return (
 				<Spring
 					from={{
@@ -158,26 +157,7 @@ class Table_Main extends React.Component {
 						
 							
 							<div className={"container content"}>
-								<h1 className={"content-header-1"}>
-									<Trail
-										items={['테', '이', '블 ', '정', '보']}
-										from={{
-											opacity: 0,
-											transform: 'translate3d(0,40px,0)'
-										}}
-										to={{
-											opacity: 1,
-											// transform: "rotate(20deg) scale(1)"
-											transform: 'translate3d(0,0px,0)'
-										}}
-									>
-										{item => props => (
-											<span style={props}>
-                          {item}
-                      </span>
-										)}
-									</Trail>
-								</h1>
+								<h1 className={"content-header-1"}>{this.state.table.table_name}</h1>
 								
 								<div className={"row"}>
 									<div className={"col"}>

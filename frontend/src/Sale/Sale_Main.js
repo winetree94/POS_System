@@ -52,23 +52,7 @@ export default class Sale_Main extends React.Component {
 						<div style={props}>
 							
 							<div className={"container content"}>
-								<h1 className={"content-header-1"}>
-									<Trail
-										items={['현', '재', ' 매', '장', '의 ', '정', '보']}
-										from={{
-											opacity: 0,
-											transform: 'translate3d(0,40px,0)'
-										}}
-										to={{
-											opacity: 1,
-											transform: 'translate3d(0,0px,0)'
-										}}
-									>
-										{item => props => (
-											<span style={props}>{item}</span>
-										)}
-									</Trail>
-								</h1>
+								<h1 className={"content-header-1"}>현재 매장 정보</h1>
 								
 								<div className={"row"}>
 									<div className={"col"}>

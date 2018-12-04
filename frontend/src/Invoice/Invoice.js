@@ -83,23 +83,7 @@ export default class Invoice extends React.Component {
 							
 							<div className={"container content"}>
 								
-								<h1 className={"content-header-1"} onClick={this.clickEventHandler}>
-									<Trail
-										items={['판', '매', '내', '역']}
-										from={{
-											opacity: 0,
-											transform: 'translate3d(0,40px,0)'
-										}}
-										to={{
-											opacity: 1,
-											transform: 'translate3d(0,0px,0)'
-										}}
-									>
-										{item => props => (
-											<span style={props}>{item}</span>
-										)}
-									</Trail>
-								</h1>
+								<h1 className={"content-header-1"}>판매 내역</h1>
 								
 								<div className={"row"}>
 									<div className={"col"}>

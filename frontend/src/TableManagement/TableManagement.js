@@ -73,23 +73,7 @@ class TableManagement extends React.Component {
 						<div style={props}>
 							<div className={"container content"}>
 								
-								<h1 className={"content-header-1"}>
-									<Trail
-										items={['테', '이', '블', ' 관', '리']}
-										from={{
-											opacity: 0,
-											transform: 'translate3d(0,40px,0)'
-										}}
-										to={{
-											opacity: 1,
-											transform: 'translate3d(0,0px,0)'
-										}}
-									>
-										{item => props => (
-											<span style={props}>{item}</span>
-										)}
-									</Trail>
-								</h1>
+								<h1 className={"content-header-1"}>테이블 관리</h1>
 								
 								<div className={"row"}>
 									

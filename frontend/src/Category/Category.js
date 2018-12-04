@@ -65,7 +65,7 @@ class Category extends React.Component {
 		const {isLoad} = this.state;
 		
 		if (!isLoad) {
-			return <Loading msg="메뉴 목록을 로딩중입니다."></Loading>
+			return <Loading></Loading>
 			
 			
 		} else {
@@ -84,24 +84,7 @@ class Category extends React.Component {
 							
 							<div className={"container content"}>
 								
-								<h1 className={"content-header-1"}>
-									
-									<Trail
-										items={['메', '뉴', ' 관', '리']}
-										from={{
-											opacity: 0,
-											transform: 'translate3d(0,40px,0)'
-										}}
-										to={{
-											opacity: 1,
-											transform: 'translate3d(0,0px,0)'
-										}}
-									>
-										{item => props => (
-											<span style={props}>{item}</span>
-										)}
-									</Trail>
-								</h1>
+								<h1 className={"content-header-1"}>메뉴 관리</h1>
 								
 								<div className={"row"}>
 									<div className={"col"} style={{maxWidth: "300px"}}>

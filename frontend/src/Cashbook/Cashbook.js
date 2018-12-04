@@ -59,7 +59,7 @@ export default class Cashbook extends React.Component {
 		const {isLoad} = this.state;
 		
 		if (!isLoad) {
-			return <Loading msg="현금출납부를 로딩중입니다."></Loading>
+			return <Loading></Loading>
 			
 		} else {
 			
@@ -78,25 +78,7 @@ export default class Cashbook extends React.Component {
 						<div style={props}>
 							
 							<div className={"container content"}>
-								<h1 className={"content-header-1"}>
-									
-									<Trail
-										items={['현', '금', '출', '납', '부']}
-										from={{
-											opacity: 0,
-											transform: 'translate3d(0,40px,0)'
-										}}
-										to={{
-											opacity: 1,
-											transform: 'translate3d(0,0px,0)'
-										}}
-									>
-										{item => props => (
-											<span style={props}>{item}</span>
-										)}
-									</Trail>
-								
-								</h1>
+								<h1 className={"content-header-1"}>현금출납부</h1>
 								
 								
 								<div className="row">
