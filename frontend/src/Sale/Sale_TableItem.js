@@ -38,7 +38,7 @@ class Sale_TableItem extends React.Component {
 		console.log(this.state);
 		
 		if (!this.state.isLoad) {
-			return <Loading/>
+			return <div/>
 		} else {
 			
 			const {store_seq, table_seq, table_name, reservation, min_people, max_people, delflag} = this.props.tableItem;
