@@ -96,8 +96,7 @@ public class Service_Board_Ctrl {
         dto.setContent(content);
 
 
-        int seq = service_Board.selectRecentBoard();
-
+        int seq = service_Board.selectRecentBoard()+1;
 
         if (user.getService_type().equalsIgnoreCase("M")) {
             service_Board.insertNoticeBoard(dto);
