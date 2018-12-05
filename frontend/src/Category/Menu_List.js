@@ -101,13 +101,17 @@ class MenuList extends Component {
 		
 		console.log("받아온 메뉴seq값");
 		console.log(data);
-		const {menu_seq} = this.state;
 		this.setState({
-			menu_seq: data
+			menu_seq: data.menu_seq,
+            menu_name: data.menu_name,
+            menu_price: data.menu_price,
+            categ_name: data.categ_name,
+			menu_info : data.menu_info,
+
 			
 		}, () => {
-			console.log("마지막 메뉴seq값");
-			console.log(this.state.menu_seq);
+			console.log("클릭후 state");
+			console.log(this.state);
 			this.props.dataUpdater();
 		});
 		
@@ -135,11 +139,10 @@ class MenuList extends Component {
 		console.log("악시오스 스테이트");
 		console.log(this.state);
 		this.setState({
-			menu_name: '',
-			categ_name: '',
-			menu_info: '',
-			menu_price: '',
-			modal: false
+
+			modal: false,
+			modal2: false,
+			modal3: false,
 		})
 		}
 
@@ -155,6 +158,16 @@ class MenuList extends Component {
 		})).then(response => {
 			this.props.dataUpdater();
 		});
+
+        this.setState({
+            menu_name: '',
+            categ_name: '',
+            menu_info: '',
+            menu_price: '',
+            modal: false,
+            modal2: false,
+            modal3: false,
+        })
 		
 		
 	};
@@ -212,7 +225,7 @@ class MenuList extends Component {
 										
 										<div className="form-group">
 											<label htmlFor="categ_name">카테고리 이름</label>
-											<input id="categ_name1" name="categ_name" placeholder="카테고리명을 적어주세요." className="form-control"
+											<input id="categ_name1" name="categ_name"  placeholder="카테고리명을 적어주세요." className="form-control"
 											       onChange={this.dataHandler}/>
 										</div>
 										
@@ -251,25 +264,25 @@ class MenuList extends Component {
 									<div>
 										<div className="form-group">
 											<label htmlFor="menu_name">메뉴이름</label>
-											<input type="text" name='menu_name' placeholder='메뉴이름을 적어주세요.' className='form-control'
+											<input type="text" name='menu_name' value={this.state.menu_name} placeholder='메뉴이름을 적어주세요.' className='form-control'
 											       onChange={this.dataHandler}/>
 										</div>
 										
 										<div className="form-group">
 											<label htmlFor="categ_name">카테고리 이름</label>
-											<input id="categ_name1" name="categ_name" placeholder="카테고리명을 적어주세요." className="form-control"
+											<input id="categ_name1" name="categ_name" value={this.state.categ_name} placeholder="카테고리명을 적어주세요." className="form-control"
 											       onChange={this.dataHandler}/>
 										</div>
 										
 										<div className="form-group">
 											<label htmlFor="menu_info">메뉴 상세정보</label>
-											<input id="menu_info1" name="menu_info" placeholder="설명을 적어주세요." className="form-control"
+											<input id="menu_info1" value={this.state.menu_info} name="menu_info" placeholder="설명을 적어주세요." className="form-control"
 											       onChange={this.dataHandler}/>
 										</div>
 										
 										<div className="form-group">
 											<label htmlFor="menu_price">메뉴 가격</label>
-											<input id="menu_price" name="menu_price" placeholder="가격을 정해주세요." className="form-control"
+											<input id="menu_price" value={this.state.menu_price} name="menu_price" placeholder="가격을 정해주세요." className="form-control"
 											       onChange={this.dataHandler}/>
 										</div>
 									
