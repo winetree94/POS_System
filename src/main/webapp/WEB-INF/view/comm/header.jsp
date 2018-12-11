@@ -81,9 +81,9 @@
 </div>
 </c:if>--%>
 
-<nav class="navbar navbar-expand-lg navbar-light bg-light justify-content-between fixed-top">
+<nav class="navbar navbar-expand-lg navbar-light bg-light justify-content-between">
 	<div class="container">
-	<a class="navbar-brand" href="/">POS</a>
+	<a class="navbar-brand" href="/">Cloud Web Pos</a>
 
 	<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown"
 	        aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">

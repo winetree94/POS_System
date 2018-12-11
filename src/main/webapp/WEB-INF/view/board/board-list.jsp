@@ -27,7 +27,7 @@
 
 
 </script>
-<div class="jumbotron jumbotron-fluid" style="margin-top:56px;">
+<div class="jumbotron jumbotron-fluid">
     <div class="container">
     <h4 class="display-4 text-center">게시판</h4>
         <hr class="my-4">
