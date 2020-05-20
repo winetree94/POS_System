@@ -161,10 +161,16 @@
 
 		<plugins>
 			<!--   jar build plugin   -->
-			<!--<plugin>-->
-			<!--<groupId>org.springframework.boot</groupId>-->
-			<!--<artifactId>spring-boot-maven-plugin</artifactId>-->
-			<!--</plugin>-->
+			<plugin>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-maven-plugin</artifactId>
+				<configuration>
+					<layers>
+						<enabled>true</enabled>
+					</layers>
+					<finalName>app</finalName>
+				</configuration>
+			</plugin>
 
 			<plugin>
 				<groupId>com.github.eirslett</groupId>
