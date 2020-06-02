@@ -24,7 +24,7 @@ cd project-dir
 
 ```
 
-## 3. React 앱의 Dev-Server 실행
+## 3. React 앱의 Dev-Server 실행 (리액트 개발 서버, 위에 커맨드로만 켜도 실행은 됨)
 
 ```bash
 
